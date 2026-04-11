@@ -33,8 +33,15 @@ export default function ConceptPage() {
              </div>
              <div className="p-6 bg-white rounded-2xl border border-dark/5 shadow-sm">
                 <LandPlot className="text-accent mb-4" size={24} />
-                <h4 className="font-bold mb-2">Planned Splendor</h4>
-                <p className="text-xs text-dark/40">Wide roads and underground utility grids.</p>
+                <h4 className="font-bold mb-2">25+ Acres of Green</h4>
+                <p className="text-xs text-dark/40">Immersive landscaped greens designed for holistic wellness.</p>
+             </div>
+             <div className="p-6 bg-white rounded-2xl border border-dark/5 shadow-sm sm:col-span-2 flex items-center justify-between">
+                <div>
+                  <h4 className="font-bold mb-2">A City Within a City</h4>
+                  <p className="text-xs text-dark/40">Featuring high street retail, food courts, schools, and healthcare inside the township.</p>
+                </div>
+                <Sparkles className="text-accent" size={32} />
              </div>
            </div>
         </div>

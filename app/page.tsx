@@ -78,10 +78,10 @@ export default function Home() {
               </div>
               <div className="text-center md:text-left space-y-1 border-x border-white/10 px-4 md:px-12">
                  <div className="text-2xl md:text-5xl font-heading font-bold text-accent">1700+</div>
-                 <div className="text-[8px] md:text-[10px] text-white/40 uppercase tracking-widest font-bold">Sq.ft Plots</div>
+                 <div className="text-[8px] md:text-[10px] text-white/40 uppercase tracking-widest font-bold">Sq.ft NA Plots</div>
               </div>
               <div className="text-center md:text-left space-y-1">
-                 <div className="text-2xl md:text-5xl font-heading font-bold text-accent">₹1.5 Cr*</div>
+                 <div className="text-2xl md:text-5xl font-heading font-bold text-accent text-nowrap">₹1.49 Cr*</div>
                  <div className="text-[8px] md:text-[10px] text-white/40 uppercase tracking-widest font-bold">Starting Price</div>
               </div>
            </div>
@@ -140,8 +140,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
              {[
                { icon: <MapPin />, title: "Manjari Excellence", desc: "Prime location connecting Hadapsar, Magarpatta, and Kharadi Hubs." },
-               { icon: <LandPlot />, title: "150 Acre Sanctuary", desc: "Pune's only integrated township of this scale in the East." },
-               { icon: <ArrowRight />, title: "Upcoming Infrastructure", desc: "Next to the proposed Ring Road and Metro Line expansion." }
+               { icon: <ShieldCheck />, title: "City Within a City", desc: "Featuring a ~1 Lakh sq.ft. grand clubhouse and 25-26 acres of landscaped greens." },
+               { icon: <ArrowRight />, title: "Upcoming Infrastructure", desc: "Positioned directly on the massive Pune Outer Ring Road intersection." }
              ].map((item, i) => (
                <div key={i} className="p-12 rounded-[2.5rem] glass-obsidian border border-white/5 text-left space-y-6 group hover:border-accent/40 transition-all">
                   <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-dark transition-all">

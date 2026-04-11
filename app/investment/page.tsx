@@ -62,6 +62,39 @@ export default function InvestmentPage() {
               </div>
            </div>
         </div>
+
+        {/* The Expert Take Section */}
+        <div className="max-w-6xl mx-auto space-y-12 py-16">
+           <div className="text-center space-y-4">
+              <h3 className="text-3xl md:text-5xl font-heading font-bold text-dark">Expert Take <span className="text-primary italic font-light">Insight</span></h3>
+              <p className="text-dark/50 text-lg">Straight facts on who should invest in Kumar Magnacity, and why.</p>
+           </div>
+           
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-10 rounded-3xl border border-primary/20 bg-primary/5 space-y-6">
+                 <h4 className="text-xl font-bold text-dark flex items-center gap-3">
+                    <span className="text-primary text-2xl">✔️</span> Strategic Fit
+                 </h4>
+                 <ul className="space-y-4">
+                    <li className="text-dark/70 border-b border-dark/5 pb-2">Ideal for <strong>long-term investment</strong> (5–10 years horizon) for maximum multiplier effect.</li>
+                    <li className="text-dark/70 border-b border-dark/5 pb-2">Strongest option for end-users seeking the independent <strong>villa lifestyle</strong> near IT hubs.</li>
+                    <li className="text-dark/70 border-b border-dark/5 pb-2">Perfect for HNI buyers transitioning out of high-density apartments.</li>
+                 </ul>
+              </div>
+
+              <div className="p-10 rounded-3xl border border-dark/10 bg-white shadow-xl space-y-6">
+                 <h4 className="text-xl font-bold text-dark flex items-center gap-3">
+                    <span className="text-red-500 text-2xl">❗</span> Practical Considerations
+                 </h4>
+                 <ul className="space-y-4">
+                    <li className="text-dark/70 border-b border-dark/5 pb-2">Not ideal for short-term flipping unless bought during early-phase access.</li>
+                    <li className="text-dark/70 border-b border-dark/5 pb-2">Buyers should actively compare plotted projects (e.g., Godrej, VTP plots) to understand the massive 150-acre scale advantage.</li>
+                    <li className="text-dark/70 border-b border-dark/5 pb-2">Evaluate central vs peripheral plot locations for future resale premium.</li>
+                 </ul>
+              </div>
+           </div>
+        </div>
+
         
         <div id="contact" className="max-w-4xl mx-auto">
           <EnquiryForm 
