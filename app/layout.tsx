@@ -16,9 +16,9 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "The Pride of Pune's Rising East | Kumar Magnacity",
-  description: "Secure your legacy with premium NA bungalow plots in Pune's most successful 150-acre township. RERA registered, 100% legal title, and world-class amenities by Kumar Properties.",
-  keywords: "kumar magnacity, na plots pune, bungalow plots manjari, hadapsar annexe real estate, kumar properties, land investment pune",
+  title: "Kumar Magnacity NA Bungalow Plots at Manjari near Hadapsar | Pune East Dominance",
+  description: "Secure your legacy with premium NA bungalow plots at Kumar Magnacity, Manjari near Hadapsar. A world-class 150-acre township with RERA-registered plots and master-planned infrastructure by Kumar Properties.",
+  keywords: "kumar magnacity na bungalow plots, plots in manjari, plots near hadapsar, na plots pune east, kumar properties manjari, investment plots pune",
 };
 
 export default function RootLayout({

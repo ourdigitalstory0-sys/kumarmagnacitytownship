@@ -1,17 +1,19 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Brand Colors */
+  /* Brand Colors - Earthy Quiet Luxury */
   --color-primary: #0A4D3C;
   --color-primary-light: #12634E;
   --color-accent: #C5A059;
   --color-accent-hover: #E0C58E;
-  --color-dark: #0F0F0F;
-  --color-light: #F9F7F2;
+  --color-dark: #0A0A0A;
+  --color-dark-muted: #1A1A1A;
+  --color-light: #FBF9F6;
   
-  /* Utilities */
-  --color-emerald-glass: rgba(10, 77, 60, 0.85);
-  --color-gold-pulse: rgba(197, 160, 89, 0.4);
+  /* Luxury Utility Colors */
+  --color-emerald-glass: rgba(10, 77, 60, 0.4);
+  --color-gold-glow: rgba(197, 160, 89, 0.25);
+  --color-obsidian-glass: rgba(10, 10, 10, 0.8);
   
   /* Fonts */
   --font-heading: var(--font-playfair);
@@ -19,8 +21,8 @@
 }
 
 :root {
-  --background: #F9F7F2;
-  --foreground: #2D2D2D;
+  --background: #FBF9F6;
+  --foreground: #1A1A1A;
   --primary: #0A4D3C;
   --accent: #C5A059;
 }
@@ -30,34 +32,37 @@ body {
   color: var(--foreground);
   font-family: var(--font-body), system-ui, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading), serif;
   color: var(--color-dark);
+  letter-spacing: -0.02em;
 }
 
-/* Glassmorphism Classes */
-.glass-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.glass-dark {
-  background: rgba(15, 15, 15, 0.7);
-  backdrop-filter: blur(20px);
+/* World-Class Glassmorphism */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* Luxury Animations */
-@keyframes shine {
-  0% { left: -100%; }
-  20% { left: 100%; }
-  100% { left: 100%; }
+.glass-emerald {
+  background: rgba(10, 77, 60, 0.7);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(197, 160, 89, 0.2);
 }
 
+.glass-obsidian {
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Luxury Interaction States */
 .shine-effect {
   position: relative;
   overflow: hidden;
@@ -70,59 +75,47 @@ h1, h2, h3, h4, h5, h6 {
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.25), transparent);
   transform: skewX(-25deg);
-  animation: shine 4s infinite;
+  animation: luxury-shine 5s infinite;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(10px); }
+@keyframes luxury-shine {
+  0% { left: -100%; }
+  15% { left: 150%; }
+  100% { left: 150%; }
+}
+
+@keyframes float-luxury {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float-luxury 6s ease-in-out infinite;
+}
+
+.reveal-luxury {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: reveal-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes reveal-up {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse-subtle {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(0.98); }
+/* Custom Scrollbar for Luxury Desktop */
+::-webkit-scrollbar {
+  width: 8px;
 }
-
-@keyframes pulse-slow {
-  0% { transform: scale(0.95); opacity: 0.2; }
-  50% { transform: scale(1.05); opacity: 0.4; }
-  100% { transform: scale(0.95); opacity: 0.2; }
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
 }
-
-.animate-fade-in {
-  animation: fade-in 0.8s ease-out forwards;
+::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 10px;
 }
-
-.animate-pulse-subtle {
-  animation: pulse-subtle 2s infinite ease-in-out;
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 3s infinite ease-in-out;
-}
-
-
-/* 
-  Legacy Component Shield 
-  Permanently hides old marketing banners and countdown timers
-*/
-.revision-milestone,
-.revision-banner,
-#revision-milestone,
-.clock,
-.countdown,
-#clock,
-#countdown,
-.ticker,
-.marquee,
-#news-ticker {
-  display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  height: 0 !important;
-  opacity: 0 !important;
-  position: fixed;
-  top: -100%;
+::-webkit-scrollbar-thumb:hover {
+  background: #E0C58E;
 }
