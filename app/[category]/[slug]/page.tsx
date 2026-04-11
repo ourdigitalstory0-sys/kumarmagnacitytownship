@@ -220,7 +220,7 @@ export default async function SEONodePage({ params }: PageProps) {
   );
 }
 
-function CheckIcon({ size = 16, className = "" }) {
+function CheckIcon({ size = 16, className = "" }: { size?: number; className?: string }) {
   return (
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
