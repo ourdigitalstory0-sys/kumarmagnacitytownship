@@ -1,4 +1,103 @@
 {
+  "market-insights/kharadi-it-hub-na-bungalow-plots-investment": {
+    "title": "Kharadi NA Bungalow Plots Investment | EON IT Park Growth 2026",
+    "description": "Premium NA bungalow plots near Kharadi EON IT Park Phase 2. High appreciation land investment with world-class amenities and RERA security.",
+    "hero_title": "Investment Potential Near Kharadi IT Hub",
+    "hero_subtitle": "With Kharadi core reaching saturation, the next wealth wave is in Manjari. Secure high-yield NA plots minutes from EON IT Park and WTC.",
+    "hero_badge": "Market Intelligence: Phase 2 Growth",
+    "faq_json": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How far is Kharadi from Kumar Magnacity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kumar Magnacity is located within a 10-15 minute drive from the Kharadi EON IT Park and World Trade Center (WTC)."
+          }
+        }
+      ]
+    }
+  },
+  "market-insights/magarpatta-city-investor-upgrade-guide": {
+    "title": "Magarpatta City Investor Upgrade Guide | NA Bungalow Plots",
+    "description": "Why Magarpatta residents are upgrading to horizontal luxury at Kumar Magnacity. Secure your own land while staying close to the Magarpatta IT corridor.",
+    "hero_title": "The Magarpatta Upgrade: From Flats to Plots",
+    "hero_subtitle": "Discover why savvy Magarpatta investors are securing NA bungalow land for generational wealth and lifestyle independence.",
+    "hero_badge": "Investor Hotspot 2026",
+    "faq_json": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why is Manjari better than Magarpatta for new plot investments?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Magarpatta is a mature market with limited plot availability. Manjari offers early-entry pricing with superior future infrastructure like the Ring Road intersection."
+          }
+        }
+      ]
+    }
+  },
+  "market-insights/hadapsar-annexe-roi-analysis-2026": {
+    "title": "Hadapsar Annexe ROI Analysis 2026 | NA Plot Value Trends",
+    "description": "Detailed market analysis of property value trends in Hadapsar Annexe and Manjari. 12.5% CAGR backed by Pune Outer Ring Road intersection.",
+    "hero_title": "Hadapsar Annexe: ROI & Value Matrix",
+    "hero_subtitle": "Deep dive into the 2026 land appreciation data for Pune East. Secure your piece of the fastest-growing real estate corridor.",
+    "hero_badge": "ROI Forecast: 15% CAGR",
+    "faq_json": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the appreciation potential in Hadapsar Annexe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The region has seen a 12.5% CAGR over the last 5 years, with accelerated growth expected following the completion of the Ring Road Manjri exit."
+          }
+        }
+      ]
+    }
+  },
+  "investment-pune-east/na-bungalow-plots-near-eon-it-park-phase-2": {
+    "title": "NA Bungalow Plots near EON IT Park Phase 2 | Secure Land 2026",
+    "description": "Premium NA plots in the high-growth corridor of Kharadi-Manjari. Direct connectivity to EON Phase 2 and World Trade Center.",
+    "hero_title": "Plots Near EON IT Park Phase 2",
+    "hero_subtitle": "Strategic land banking at its best. Own a bungalow plot within the immediate influence zone of Pune's largest IT expansion.",
+    "hero_badge": "IT Hub Proximity",
+    "faq_json": {
+       "@context": "https://schema.org",
+       "@type": "FAQPage",
+       "mainEntity": []
+    }
+  },
+  "nri-land-investment/pune-east-re-growth-analysis": {
+    "title": "Pune East Real Estate Growth Analysis for NRI Investors",
+    "description": "Comprehensive guide for NRIs seeking land in Pune East. Market transparency, RERA security, and 12.5% CAGR appreciation metrics.",
+    "hero_title": "NRI Growth Analysis: Pune East",
+    "hero_subtitle": "Why Kharadi and Magarpatta residents are looking at Manjari for high-performance land portfolios.",
+    "hero_badge": "NRI Strategic Desk",
+    "faq_json": {
+       "@context": "https://schema.org",
+       "@type": "FAQPage",
+       "mainEntity": []
+    }
+  },
+  "magarpatta-city/na-bungalow-plots-for-magarpatta-investors": {
+    "title": "NA Bungalow Plots for Magarpatta City Investors | Upgrade to Luxury",
+    "description": "The ultimate guide for Magarpatta City residents upgrading to private bunglow living. Gated NA plots with individual 7/12 in the Manjari-Hadapsar belt.",
+    "hero_title": "Upgrade from Magarpatta to Magnacity",
+    "hero_subtitle": "Horizontal luxury awaits. Escape high-density urban clusters while keeping your commute to Magarpatta under 15 minutes.",
+    "hero_badge": "Lifestyle Upgrade 2026",
+    "faq_json": {
+       "@context": "https://schema.org",
+       "@type": "FAQPage",
+       "mainEntity": []
+    }
+  },
   "hadapsar-annexe/kumar-magnacity-na-bungalow-plots-near-hadapsar-na-plots-for-nri-investment-pune": {
     "title": "NA Plots for NRI Investment in Pune | Secure Land Remittance 2026",
     "description": "Secure NA plot investment in Pune for NRIs. Kumar Magnacity offers 100% legal, RERA registered land with digital documentation, dedicated relationship managers, and 12.5% CAGR.",

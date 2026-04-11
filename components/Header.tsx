@@ -78,26 +78,27 @@ export default function Header() {
 
         <div className={cn(
           "mx-auto transition-all duration-700 px-4",
-          isScrolled ? "max-w-4xl mt-4" : "max-w-7xl mt-4 md:mt-6"
+          isScrolled ? "max-w-5xl mt-4" : "max-w-7xl mt-4 md:mt-6"
         )}>
           <div className={cn(
-            "flex justify-between items-center rounded-full transition-all duration-700 border glass-obsidian px-4 md:px-8 py-2 md:py-3 shadow-2xl relative",
+            "flex justify-between items-center rounded-3xl md:rounded-full transition-all duration-700 border glass-obsidian px-4 md:px-8 py-2 md:py-3 shadow-2xl relative",
             isScrolled ? "border-accent/30" : "border-white/10"
           )}>
             
-            {/* Logo Area */}
-            <Link href={isMarathi ? "/mr" : "/"} className="flex items-center gap-3 md:gap-5 group">
-              <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-accent to-accent-hover text-dark flex items-center justify-center font-black text-xl md:text-2xl rounded-2xl md:rounded-[1.25rem] shadow-xl hover:rotate-6 transition-all duration-500 border border-white/30 shine-effect">
-                K
+            {/* Logo Area - Refined Sovereign Identity */}
+            <Link href={isMarathi ? "/mr" : "/"} className="flex items-center gap-4 md:gap-6 group">
+              <div className="w-10 h-10 md:w-14 md:h-14 rounded-2xl md:rounded-[1.25rem] kumar-emblem transition-all duration-700 group-hover:rotate-[10deg] shadow-2xl overflow-hidden relative">
+                <span className="font-heading font-black text-xl md:text-2xl text-dark z-10">K</span>
+                <div className="absolute inset-x-0 bottom-0 h-[2px] bg-white/30" />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-heading font-bold text-lg md:text-2xl text-white tracking-tight">
-                  Kumar <span className="text-accent">MagnaCity</span>
-                </span>
-                <div className="flex items-center gap-2 mt-1">
-                   <ShieldCheck size={10} className="text-accent" />
-                   <span className="text-[7px] md:text-[9px] text-white/40 font-bold uppercase tracking-widest">
-                     Sovereign Landed Estate
+                <div className="flex items-center gap-1.5 overflow-hidden">
+                   <span className="font-heading font-bold text-lg md:text-2xl text-white tracking-widest uppercase mb-0.5">Kumar</span>
+                </div>
+                <div className="flex items-center gap-2">
+                   <div className="h-[1px] w-4 bg-accent/50" />
+                   <span className="text-[7px] md:text-[9px] text-accent font-bold uppercase tracking-[0.4em] whitespace-nowrap">
+                     MagnaCity
                    </span>
                 </div>
               </div>
