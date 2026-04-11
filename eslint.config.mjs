@@ -1,21 +1,23 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import nextConfig from "eslint-config-next/dist/index.js";
-import nextVitals from "eslint-config-next/dist/core-web-vitals.js";
-import nextTs from "eslint-config-next/dist/typescript.js";
+import nextConfig from "eslint-config-next";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 
-const eslintConfig = defineConfig([
+/** @type {import('eslint').Linter.Config[]} */
+const eslintConfig = [
   ...nextConfig,
   ...nextVitals,
   ...nextTs,
-  globalIgnores([
-    ".next/*",
-    "node_modules/*",
-    "out/*",
-    "build/*",
-    "public/*",
-    "next-env.d.ts",
-    ".vercel/*",
-  ]),
-]);
+  {
+    ignores: [
+      ".next/*",
+      "node_modules/*",
+      "out/*",
+      "build/*",
+      "public/*",
+      "next-env.d.ts",
+      ".vercel/*",
+    ],
+  },
+];
 
 export default eslintConfig;
