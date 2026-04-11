@@ -3,6 +3,7 @@
 import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 import InventoryBadge from "@/components/InventoryBadge";
+import Link from "next/link";
 import { Info, ShieldCheck, Map, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
