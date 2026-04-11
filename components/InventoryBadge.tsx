@@ -4,12 +4,12 @@ import { AlertTriangle, CheckCircle2, Flame } from "lucide-react";
 import inventory from "@/inventory.json";
 import { cn } from "@/lib/utils";
 
-export default function InventoryBadge() {
+export default function InventoryBadge({ text }: { text?: string }) {
   const availableCount = inventory.plots.filter(p => p.status === "available" || p.status === "fast-selling").length;
   const isFastSelling = inventory.plots.filter(p => p.status === "fast-selling").length > 0;
 
 
-  if (availableCount === 0) return null;
+  if (availableCount === 0 && !text) return null;
 
   return (
     <div className="flex flex-wrap gap-3">
@@ -20,7 +20,7 @@ export default function InventoryBadge() {
           : "bg-accent/10 border-accent/20 text-accent shadow-[0_0_20px_rgba(201,162,39,0.1)]"
       )}>
         <AlertTriangle size={12} />
-        {availableCount < 10 ? `Extremely Limited: ${availableCount} Plots Left` : `${availableCount} Plots Available`}
+        {text || (availableCount < 10 ? `Extremely Limited: ${availableCount} Plots Left` : `${availableCount} Plots Available`)}
       </div>
 
       {isFastSelling && (
