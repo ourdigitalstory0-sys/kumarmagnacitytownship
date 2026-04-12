@@ -1,6 +1,6 @@
 import PillarTemplate from "@/components/PillarTemplate";
 import { marketAnalysis } from "@/data/market-analysis";
-import { TrendingUp, MapPin, Building2, Landmark, ArrowRight, ShieldCheck } from "lucide-react";
+import { TrendingUp, MapPin, ArrowRight, ShieldCheck } from "lucide-react";
 import EnquiryForm from "@/components/EnquiryForm";
 
 export const metadata = {
@@ -95,7 +95,7 @@ export default function MarketInsightsPage() {
           <div className="max-w-4xl">
              <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6 leading-tight"> The NA Scarcity <br /><span className="text-accent italic font-light">Pune East Land Matrix</span></h2>
              <p className="text-white/40 leading-relaxed text-lg font-light">
-               While vertical high-rises oversaturate Kharadi and Hadapsar, RERA-approved NA bungalow plots within PMC limits represent the rarest asset class in Pune's current development cycle.
+               While vertical high-rises oversaturate Kharadi and Hadapsar, RERA-approved NA bungalow plots within PMC limits represent the rarest asset class in Pune&apos;s current development cycle.
              </p>
           </div>
 
@@ -127,7 +127,7 @@ export default function MarketInsightsPage() {
           <div className="pt-20">
              <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
                 <h3 className="text-3xl font-heading font-bold text-white">Target Acquisition Personas</h3>
-                <p className="text-white/40">Custom-tailored investment strategies for Pune's most elite demographic funnels.</p>
+                <p className="text-white/40">Custom-tailored investment strategies for Pune&apos;s most elite demographic funnels.</p>
              </div>
              
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
