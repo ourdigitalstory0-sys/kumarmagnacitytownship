@@ -118,7 +118,7 @@ export default function MarathiAvailabilityPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/10 translate-y-1/2 group-hover:translate-y-0 transition-transform duration-1000" />
               <div className="relative space-y-2">
                  <span className="text-accent uppercase font-bold tracking-[0.3em] text-[10px]">किंमत सुरु होते</span>
-                 <div className="text-5xl md:text-8xl font-heading font-bold text-white tracking-tighter">₹२.२५ कोटी*</div>
+                 <div className="text-5xl md:text-8xl font-heading font-bold text-white tracking-tighter">₹१.४९ कोटी* + कर</div>
               </div>
               <button 
                 onClick={() => openModal({ title: "किंमत सुरक्षित करा", source: "Availability MR" })}

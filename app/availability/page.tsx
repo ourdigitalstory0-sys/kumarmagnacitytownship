@@ -119,7 +119,7 @@ export default function AvailabilityPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/10 translate-y-1/2 group-hover:translate-y-0 transition-transform duration-1000" />
               <div className="relative space-y-2">
                  <span className="text-accent uppercase font-bold tracking-[0.3em] text-[10px]">Investment Starts At</span>
-                 <div className="text-5xl md:text-8xl font-heading font-bold text-white tracking-tighter">₹2.25Cr*</div>
+                 <div className="text-5xl md:text-8xl font-heading font-bold text-white tracking-tighter">₹1.49Cr* + taxes</div>
                  <div className="flex items-center justify-center gap-3 pt-6">
                     <div className="w-12 h-[1px] bg-white/10" />
                     <span className="text-[9px] uppercase tracking-widest text-white/40">Exclusive of Govt Charges</span>

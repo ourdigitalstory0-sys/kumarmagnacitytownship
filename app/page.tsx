@@ -83,7 +83,7 @@ export default function Home() {
                  <div className="text-[8px] md:text-[10px] text-white/40 uppercase tracking-widest font-bold">Sq.ft NA Plots</div>
               </div>
               <div className="text-center md:text-left space-y-1">
-                 <div className="text-2xl md:text-5xl font-heading font-bold text-accent text-nowrap">₹1.49 Cr*</div>
+                 <div className="text-2xl md:text-5xl font-heading font-bold text-accent text-nowrap">₹1.49 Cr* + taxes</div>
                  <div className="text-[8px] md:text-[10px] text-white/40 uppercase tracking-widest font-bold">Starting Price</div>
               </div>
            </div>
