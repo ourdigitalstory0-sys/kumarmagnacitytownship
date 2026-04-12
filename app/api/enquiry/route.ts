@@ -66,37 +66,38 @@ export async function POST(request: NextRequest) {
       </div>
     `;
 
-    // Retrieve credentials from environment
+    // 1. Retrieve & Sanitize Credentials
     const SMTP_EMAIL = process.env.SMTP_EMAIL;
-    // CRITICAL SANITIZATION: Force 16-character string by stripping all whitespace.
-    const SMTP_PASSWORD = process.env.SMTP_PASSWORD?.replace(/\s+/g, "");
+    const RAW_PASS = process.env.SMTP_PASSWORD;
+    const SMTP_PASSWORD = RAW_PASS?.replace(/\s+/g, "");
 
+    const RECIPIENT = "propsmartrealty@gmail.com";
+
+    // 2. CRITICAL IDENTITY DIAGNOSTIC
     if (!SMTP_EMAIL || !SMTP_PASSWORD) {
-       console.error("DIAGNOSTIC: SMTP credentials missing in Vercel settings.");
+       console.error(`DIAGNOSTIC: CREDENTIALS MISSING. Detected EMAIL: ${SMTP_EMAIL ? 'YES' : 'NO'} | PASSWORD: ${RAW_PASS ? 'YES' : 'NO'}`);
        return NextResponse.json({ success: true, diagnostic: 'smtp_unconfigured' });
     }
 
-    // Advanced Diagnostic Log (Secure)
-    console.info(`DIAGNOSTIC: SMTP Attempt for ${SMTP_EMAIL} with password length: ${SMTP_PASSWORD.length}`);
+    // Masked log for user verification in Vercel
+    const maskedEmail = SMTP_EMAIL.substring(0, 3) + "****" + SMTP_EMAIL.substring(SMTP_EMAIL.indexOf("@"));
+    console.info(`DIAGNOSTIC: SMTP Attempt | AUTH_USER: ${maskedEmail} | PWD_LEN_RAW: ${RAW_PASS?.length} | PWD_LEN_CLEAN: ${SMTP_PASSWORD.length} | DEST: ${RECIPIENT}`);
 
     try {
-      // Switch from 'service: gmail' to explicit connection for higher reliability
       const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
-        secure: true, // use TLS
+        secure: true,
         auth: {
           user: SMTP_EMAIL,
           pass: SMTP_PASSWORD,
         },
-        // Hardened connection settings
         connectionTimeout: 10000,
-        greetingTimeout: 5000,
       });
 
       const info = await transporter.sendMail({
-        from: `"Kumar Magnacity Leads" <${SMTP_EMAIL}>`,
-        to: "propsmartrealty@gmail.com",
+        from: `"Kumar Magnacity Portal" <${SMTP_EMAIL}>`,
+        to: RECIPIENT,
         replyTo: data.email || SMTP_EMAIL,
         subject: `🚨 EXECUTIVE LEAD: ${data.name} (${data.phone})`,
         html: htmlContent,
@@ -104,7 +105,6 @@ export async function POST(request: NextRequest) {
 
       console.log("Email sent successfully: ", info.messageId);
     } catch (smtpErr) {
-      // CAPTURE BUT DO NOT BLOCK: Lead is already in [LEAD_BACKUP] log.
       console.error("SMTP DISPATCH FAILED (Lead secured in backup):", smtpErr);
       return NextResponse.json({ 
         success: true, 
