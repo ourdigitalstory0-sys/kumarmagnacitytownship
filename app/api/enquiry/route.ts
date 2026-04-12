@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { backupLead } from "@/lib/lead-backup";
 
-// Sovereign 'GAS' Relay - Native Google Bridge
-const GAS_RELAY_URL = "https://script.google.com/macros/s/AKfycbzMQwaWDE_tGfMn9wuvIOG77KFAEQ6JwDOqaxBm0uYZtfOcdmIMo-GrPFuWXnlbXx_b/exec";
-const RELAY_SECRET = "magna_sovereign_2026";
+// PILLAR 11: Sovereign Headless Relay (Total Pivot Strategy)
+// This eliminates dependency on personal Google account security.
+const RELAY_ENDPOINT = "https://api.web3forms.com/submit";
+const ACCESS_KEY = "69c994d5-5d9c-4866-9b7e-96260907e59b"; // Public Lead Dispatch Key
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,81 +23,39 @@ export async function POST(request: NextRequest) {
         source_url: data.source_url || request.headers.get("referer") || "Unknown"
       });
     } catch (backupErr) {
-      console.error("Backup failed, continue to relay:", backupErr);
+      console.error("Backup failed, continue to headless relay:", backupErr);
     }
 
-    const htmlBody = `
-      <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 0; margin: 0; background-color: #f4f4f4;">
-        <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-          <div style="background-color: #0A4D3C; padding: 20px; text-align: center; color: #ffffff;">
-            <h1 style="margin: 0; font-size: 20px; letter-spacing: 2px; text-transform: uppercase;">Executive Lead Brief</h1>
-          </div>
-          <div style="padding: 30px;">
-            <p style="font-size: 16px; color: #444; margin-bottom: 25px;">A new high-intent enquiry has been captured via the <strong>Kumar Magnacity Portal</strong>.</p>
-            
-            <div style="background-color: #fafafa; border-radius: 6px; padding: 20px; margin-bottom: 25px; border-left: 4px solid #C5A059;">
-              <table style="width: 100%; border-collapse: collapse;">
-                <tr>
-                  <td style="padding: 10px 0; color: #888; font-size: 12px; text-transform: uppercase; width: 100px;">Client Name</td>
-                  <td style="padding: 10px 0; color: #222; font-weight: bold; font-size: 16px;">${data.name}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px 0; color: #888; font-size: 12px; text-transform: uppercase;">Phone</td>
-                  <td style="padding: 10px 0;"><a href="tel:${data.phone}" style="color: #C5A059; text-decoration: none; font-weight: bold; font-size: 16px;">+91 ${data.phone}</a></td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px 0; color: #888; font-size: 12px; text-transform: uppercase;">Email</td>
-                  <td style="padding: 10px 0; color: #444;">${data.email || 'Not provided'}</td>
-                </tr>
-              </table>
-            </div>
-
-            <div style="text-align: center; margin-top: 30px;">
-              <a href="https://wa.me/91${data.phone}?text=Hi%20${encodeURIComponent(data.name)},%20I%20am%20calling%20from%20Kumar%20Magnacity%20regarding%20your%20interest%20in%20our%20NA%20plots." 
-                 style="display: inline-block; background-color: #25d366; color: #ffffff; padding: 15px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px;">
-                 WhatsApp Client Now
-              </a>
-            </div>
-          </div>
-          <div style="background-color: #333; padding: 15px; text-align: center; color: #999; font-size: 11px;">
-            Source: ${data.source_url} | Plot: ${data.plot_id || 'General'} <br>
-            Security: Sovereign GAS Relay Active
-          </div>
-        </div>
-      </div>
-    `;
-
-    // 2. DISPATCH VIA GAS RELAY (Handshake-Free)
+    // 2. DISPATCH VIA HEADLESS RELAY (Zero-Handshake)
     try {
-      const relayResponse = await fetch(GAS_RELAY_URL, {
+      const relayResponse = await fetch(RELAY_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        redirect: 'follow', // Explicitly follow Google redirects
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          secret: RELAY_SECRET,
+          access_key: ACCESS_KEY,
           subject: `🚨 EXECUTIVE LEAD: ${data.name} (${data.phone})`,
-          htmlBody: htmlBody
+          from_name: "Kumar Magnacity Elite Portal",
+          to: "propsmartrealty@gmail.com",
+          name: data.name,
+          phone: data.phone,
+          email: data.email || "No Email Provided",
+          source_url: data.source_url || "Direct Submission",
+          plot_interest: data.plot_id || "NA Bungalow Plots",
+          message: `Enquiry source: ${data.source_meta || 'Website Form'}`
         })
       });
 
-      const responseText = await relayResponse.text();
+      const result = await relayResponse.json();
       
-      try {
-        const result = JSON.parse(responseText);
-        if (result.status === "success") {
-          console.log("Lead successfully relayed via GAS");
-        } else {
-          throw new Error(result.error || "Unknown GAS Error");
-        }
-      } catch (jsonErr) {
-        // Capture HTML response for better diagnostics if it's not JSON
-        console.error("RELAY RETURNED NON-JSON RESPONSE. Likely a Google login redirect. Verify 'Who has access: Anyone' settings.");
-        console.error("Response Preview:", responseText.substring(0, 100));
-        throw new Error("Relay response parse error - check permissions");
+      if (result.success) {
+        console.log("Lead successfully dispatched via Headless Relay");
+      } else {
+        throw new Error(result.message || "Relay Error");
       }
 
     } catch (relayErr) {
-      console.error("RELAY DISPATCH FAILED (Lead secured in backup):", relayErr);
+      console.error("HEADLESS RELAY FAILED (Lead secured in backup):", relayErr);
+      // We still return success:true because the lead is safe in Tier 1 Backup.
       return NextResponse.json({ 
         success: true, 
         warning: 'relay_failed_but_lead_secured',
