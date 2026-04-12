@@ -81,8 +81,8 @@ export default function Header() {
           isScrolled ? "max-w-5xl mt-4" : "max-w-7xl mt-4 md:mt-6"
         )}>
           <div className={cn(
-            "flex justify-between items-center rounded-3xl md:rounded-full transition-all duration-700 border glass-obsidian px-4 md:px-8 py-2 md:py-3 shadow-2xl relative",
-            isScrolled ? "border-accent/30" : "border-white/10"
+            "flex justify-between items-center rounded-3xl md:rounded-full transition-all duration-700 border glass-obsidian px-6 md:px-12 py-3 md:py-4 shadow-2xl relative",
+            isScrolled ? "border-accent/30 bg-dark/60 backdrop-blur-3xl" : "border-white/10"
           )}>
             
             {/* Logo Area - Refined Sovereign Identity */}
@@ -105,9 +105,11 @@ export default function Header() {
             </Link>
 
             {/* Navigation */}
-            <nav className="hidden lg:flex items-center gap-8 xl:gap-11">
-              <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20">
-                 <span className="text-[8px] text-accent font-bold tracking-tighter uppercase whitespace-nowrap">RERA REGISTERED: P52100052096</span>
+            <nav className="hidden lg:flex items-center gap-8 xl:gap-12">
+              <div className="hidden xl:flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shadow-inner">
+                 <span className="text-[8px] text-white/50 font-bold tracking-[0.2em] uppercase whitespace-nowrap">
+                    RERA: <span className="text-accent">P52100052096</span>
+                 </span>
               </div>
 
               {NAV_LINKS.map((link) => (
@@ -129,23 +131,23 @@ export default function Header() {
               
               <Link 
                 href="#contact" 
-                className="bg-primary text-white text-[10px] font-bold uppercase tracking-widest px-8 py-3.5 rounded-full hover:bg-primary-light transition-all hover:scale-105 active:scale-95 shadow-xl shine-effect"
+                className="bg-gradient-to-r from-primary to-primary-light text-white text-[10px] font-bold uppercase tracking-widest px-8 py-3.5 rounded-full hover:shadow-[0_0_20px_rgba(10,77,60,0.5)] transition-all hover:scale-105 active:scale-95 shadow-xl shine-effect border border-primary/50"
               >
                 ENQUIRE NOW
               </Link>
 
               {/* Language Switcher */}
-              <div className="flex items-center gap-3 border-l border-white/10 ml-2 pl-6">
+              <div className="flex items-center gap-4 border-l border-white/10 ml-2 pl-8">
                 <Link 
                   href={pathname.replace("/mr", "") || "/"} 
-                  className={cn("text-[10px] font-bold transition-colors", !isMarathi ? "text-accent" : "text-white/30 hover:text-white")}
+                  className={cn("text-[10px] font-bold transition-all tracking-widest hover:scale-110", !isMarathi ? "text-accent" : "text-white/30 hover:text-white")}
                 >
                   EN
                 </Link>
-                <span className="opacity-10 text-[10px] text-white">|</span>
+                <div className="w-[1px] h-3 bg-white/10" />
                 <Link 
                   href={isMarathi ? pathname : `/mr${pathname === "/" ? "" : pathname}`} 
-                  className={cn("text-[10px] font-bold transition-colors", isMarathi ? "text-accent" : "text-white/30 hover:text-white")}
+                  className={cn("text-[11px] font-bold transition-all tracking-wider hover:scale-110", isMarathi ? "text-accent" : "text-white/30 hover:text-white")}
                 >
                   मराठी
                 </Link>
