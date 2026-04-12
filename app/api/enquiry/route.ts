@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // 1. FAIL-SAFE BACKUP (PRIORITY 1)
+    // 1. FAIL-SAFE BACKUP (PRIORITY 1) - Guaranteed Data Preservation
     try {
       await backupLead({
         ...data,
@@ -68,34 +68,44 @@ export async function POST(request: NextRequest) {
 
     // Retrieve credentials from environment
     const SMTP_EMAIL = process.env.SMTP_EMAIL;
-    // CRITICAL FIX: The UI adds spaces to Google App Passwords for readability. 
-    // We must strip them (e.g., 'uyrp hxyy...' -> 'uyrphxyy...') for the SMTP server.
+    // CRITICAL SANITIZATION: Force 16-character string by stripping all whitespace.
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD?.replace(/\s+/g, "");
 
     if (!SMTP_EMAIL || !SMTP_PASSWORD) {
-       console.error("DIAGNOSTIC: SMTP credentials missing in Vercel settings. Lead has been securely saved to backup log.");
-       return NextResponse.json({ success: true, diagnostic: 'smtp_unconfigured_backup_active' });
+       console.error("DIAGNOSTIC: SMTP credentials missing in Vercel settings.");
+       return NextResponse.json({ success: true, diagnostic: 'smtp_unconfigured' });
     }
 
+    // Advanced Diagnostic Log (Secure)
+    console.info(`DIAGNOSTIC: SMTP Attempt for ${SMTP_EMAIL} with password length: ${SMTP_PASSWORD.length}`);
+
     try {
+      // Switch from 'service: gmail' to explicit connection for higher reliability
       const transporter = nodemailer.createTransport({
-        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true, // use TLS
         auth: {
           user: SMTP_EMAIL,
           pass: SMTP_PASSWORD,
         },
+        // Hardened connection settings
+        connectionTimeout: 10000,
+        greetingTimeout: 5000,
       });
 
       const info = await transporter.sendMail({
-        from: `"Kumar Magnacity Portal" <${SMTP_EMAIL}>`,
+        from: `"Kumar Magnacity Leads" <${SMTP_EMAIL}>`,
         to: "propsmartrealty@gmail.com",
+        replyTo: data.email || SMTP_EMAIL,
         subject: `🚨 EXECUTIVE LEAD: ${data.name} (${data.phone})`,
         html: htmlContent,
       });
 
       console.log("Email sent successfully: ", info.messageId);
     } catch (smtpErr) {
-      console.error("SMTP DISPATCH FAILED (Lead is still saved in backup):", smtpErr);
+      // CAPTURE BUT DO NOT BLOCK: Lead is already in [LEAD_BACKUP] log.
+      console.error("SMTP DISPATCH FAILED (Lead secured in backup):", smtpErr);
       return NextResponse.json({ 
         success: true, 
         warning: 'smtp_failed_but_lead_secured',
