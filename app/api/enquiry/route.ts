@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { backupLead } from "@/lib/lead-backup";
 
-// New Strategy: Sovereign 'GAS' Relay
+// Sovereign 'GAS' Relay - Native Google Bridge
 const GAS_RELAY_URL = "https://script.google.com/macros/s/AKfycbzMQwaWDE_tGfMn9wuvIOG77KFAEQ6JwDOqaxBm0uYZtfOcdmIMo-GrPFuWXnlbXx_b/exec";
 const RELAY_SECRET = "magna_sovereign_2026";
 
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // 1. FAIL-SAFE BACKUP (PRIORITY 1) - Data is secured instantly
+    // 1. FAIL-SAFE BACKUP (PRIORITY 1) - Guaranteed Persistence
     try {
       await backupLead({
         ...data,
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
         source_url: data.source_url || request.headers.get("referer") || "Unknown"
       });
     } catch (backupErr) {
-      console.error("Backup failed, but continuing to relay attempt:", backupErr);
+      console.error("Backup failed, continue to relay:", backupErr);
     }
 
     const htmlBody = `
@@ -70,7 +70,8 @@ export async function POST(request: NextRequest) {
     try {
       const relayResponse = await fetch(GAS_RELAY_URL, {
         method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" }, // Apps Script preferred
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        redirect: 'follow', // Explicitly follow Google redirects
         body: JSON.stringify({
           secret: RELAY_SECRET,
           subject: `🚨 EXECUTIVE LEAD: ${data.name} (${data.phone})`,
@@ -78,12 +79,20 @@ export async function POST(request: NextRequest) {
         })
       });
 
-      const result = await relayResponse.json();
+      const responseText = await relayResponse.text();
       
-      if (result.status === "success") {
-        console.log("Lead successfully relayed via GAS");
-      } else {
-        throw new Error(result.error || "Unknown GAS Error");
+      try {
+        const result = JSON.parse(responseText);
+        if (result.status === "success") {
+          console.log("Lead successfully relayed via GAS");
+        } else {
+          throw new Error(result.error || "Unknown GAS Error");
+        }
+      } catch (jsonErr) {
+        // Capture HTML response for better diagnostics if it's not JSON
+        console.error("RELAY RETURNED NON-JSON RESPONSE. Likely a Google login redirect. Verify 'Who has access: Anyone' settings.");
+        console.error("Response Preview:", responseText.substring(0, 100));
+        throw new Error("Relay response parse error - check permissions");
       }
 
     } catch (relayErr) {
