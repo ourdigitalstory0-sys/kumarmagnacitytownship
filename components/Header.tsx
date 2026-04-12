@@ -16,23 +16,10 @@ const NAV_LINKS = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({ days: 4, hours: 23, mins: 57, secs: 28 });
   const pathname = usePathname();
   const isMarathi = pathname.startsWith("/mr");
 
-  // Real-time Countdown logic
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.secs > 0) return { ...prev, secs: prev.secs - 1 };
-        if (prev.mins > 0) return { ...prev, mins: 59, secs: 59, mins: prev.mins - 1 };
-        if (prev.hours > 0) return { ...prev, hours: prev.hours - 1, mins: 59, secs: 59 };
-        if (prev.days > 0) return { ...prev, days: prev.days - 1, hours: 23, mins: 59, secs: 59 };
-        return prev;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  // Removed countdown logic as replaced by Trust Bar
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,35 +32,24 @@ export default function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 w-full z-[1000] transition-all duration-700">
-        {/* Price Revision Banner */}
+        {/* Trust Metrics Bar */}
         <div className={cn(
-          "bg-gradient-to-r from-accent via-[#E0C58E] to-accent py-2 text-dark font-bold text-[10px] md:text-[11px] uppercase tracking-[0.2em] flex flex-col md:flex-row items-center justify-center gap-2 md:gap-8 transition-all duration-700 relative overflow-hidden",
-          isScrolled ? "h-0 opacity-0 -translate-y-full" : "h-auto opacity-100"
+          "bg-dark border-b border-white/5 py-3 hidden md:flex items-center justify-center gap-12 transition-all duration-700 relative overflow-hidden",
+          isScrolled ? "h-0 opacity-0 -translate-y-full py-0 border-none" : "h-auto opacity-100"
         )}>
-           <div className="flex items-center gap-2 animate-pulse">
-             <span className="text-red-700">⚠️</span> 
-             Price Revision Incoming! Next appreciation milestone in:
-           </div>
-           <div className="flex items-center gap-3 font-mono bg-dark/10 px-4 py-1 rounded-full text-sm">
-              <div className="flex flex-col items-center">
-                <span>{String(timeLeft.days).padStart(2, '0')}D</span>
-              </div>
-              <span>:</span>
-              <div className="flex flex-col items-center">
-                <span>{String(timeLeft.hours).padStart(2, '0')}H</span>
-              </div>
-              <span>:</span>
-              <div className="flex flex-col items-center">
-                <span>{String(timeLeft.mins).padStart(2, '0')}M</span>
-              </div>
-              <span>:</span>
-              <div className="flex flex-col items-center">
-                <span className="text-red-700">{String(timeLeft.secs).padStart(2, '0')}S</span>
-              </div>
-           </div>
-           <Link href="#contact" className="hidden md:block border border-dark/20 px-3 py-0.5 rounded-full hover:bg-dark hover:text-white transition-all text-[9px]">
-             LOCK CURRENT PRICE
-           </Link>
+          {[
+             { label: "RERA Registered", icon: "💎" },
+             { label: "59+ Years Legacy", icon: "🏛️" },
+             { label: "Clear Title NA", icon: "📜" },
+             { label: "150 Acre Township", icon: "📍" }
+          ].map((item, idx) => (
+             <div key={idx} className="flex items-center gap-2 group">
+                <span className="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
+                <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/80 group-hover:text-accent transition-colors">
+                  {item.label}
+                </span>
+             </div>
+          ))}
         </div>
 
         <div className={cn(
