@@ -6,16 +6,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://kumarmagnacitytownship.com";
   const lastModified = new Date();
 
-  // Core Pages
+  // Core Pages (Updated to SEO-Inverted Routes)
   const corePages = [
     "",
-    "/concept",
-    "/location",
-    "/availability",
-    "/amenities",
-    "/investment",
-    "/master-plan",
-    "/market-insights",
+    "/kumar-magnacity-na-bungalow-plots-concept",
+    "/kumar-magnacity-manjari-location-map",
+    "/kumar-magnacity-na-bungalow-plots-availability",
+    "/kumar-magnacity-na-bungalow-plots-amenities",
+    "/kumar-magnacity-investment-plan-pune-east",
+    "/kumar-magnacity-na-bungalow-plots-master-plan",
+    "/kumar-magnacity-market-data-pune-east",
+    "/kumar-magnacity-na-bungalow-plots-faq",
   ];
 
   const sitemapEntries: MetadataRoute.Sitemap = [];

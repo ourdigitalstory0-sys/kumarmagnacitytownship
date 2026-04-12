@@ -49,12 +49,7 @@ export default function Home() {
               आता चौकशी करा
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
-            <Link 
-              href="/availability" 
-              className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-10 py-5 rounded-full font-bold uppercase tracking-widest text-[13px] hover:bg-white/20 transition-all"
-            >
-              इन्व्हेंटरी पहा
-            </Link>
+
           </div>
         </div>
 

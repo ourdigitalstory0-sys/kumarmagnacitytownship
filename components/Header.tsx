@@ -9,9 +9,10 @@ import { useModal } from "@/lib/modal-context";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
-  { name: "THE CONCEPT", href: "/concept", icon: Home },
-  { name: "OUR PLOTS", href: "/availability", icon: LayoutGrid },
-  { name: "INVESTMENT", href: "/investment", icon: Info },
+  { name: "THE CONCEPT", href: "/kumar-magnacity-na-bungalow-plots-concept", icon: Home },
+  { name: "OUR PLOTS", href: "/kumar-magnacity-na-bungalow-plots-availability", icon: LayoutGrid },
+  { name: "INVESTMENT", href: "/kumar-magnacity-investment-plan-pune-east", icon: Info },
+  { name: "FAQ VAULT", href: "/kumar-magnacity-na-bungalow-plots-faq", icon: MessageSquare },
 ];
 
 export default function Header() {
@@ -47,14 +48,14 @@ export default function Header() {
         )}
       >
         <div className="container mx-auto max-w-7xl px-6 flex items-center justify-between">
-          {/* Logo Branding */}
+          {/* Logo Branding - KUMAR Magnacity Only */}
           <Link href={isMarathi ? "/mr" : "/"} className="flex flex-col group">
-            <span className="text-2xl md:text-3xl font-heading font-black tracking-[0.2em] text-white group-hover:text-accent transition-colors">
-              KUMAR MAGNACITY
-            </span>
-            <span className="text-[8px] md:text-[9px] font-bold text-accent tracking-[0.5em] uppercase mt-1">
-               Premium NA Bungalow Plots
-            </span>
+              <span className="text-2xl md:text-3xl font-heading font-black tracking-[0.2em] text-white group-hover:text-accent transition-colors">
+                KUMAR MAGNACITY
+              </span>
+              <span className="text-[8px] md:text-[9px] font-bold text-accent tracking-[0.5em] uppercase mt-1">
+                 Premium NA Bungalow Plots
+              </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -113,17 +114,17 @@ export default function Header() {
           >
             {/* Header in Menu */}
             <div className="flex items-center justify-between px-8 py-8 border-b border-white/5">
-               <div className="flex flex-col">
+                <div className="flex flex-col">
                   <span className="text-xl font-heading font-black tracking-widest text-white uppercase">KUMAR Magnacity</span>
                   <span className="text-[8px] font-bold text-accent tracking-[0.4em] uppercase">Premium NA Plots</span>
-               </div>
+                </div>
                <button onClick={() => setMobileMenuOpen(false)} className="text-white p-2">
                  <X size={32} />
                </button>
             </div>
 
             {/* Links Content */}
-            <div className="flex flex-col justify-between h-[calc(100vh-120px)] p-8">
+            <div className="flex flex-col justify-between h-[calc(100vh-120px)] p-8 overflow-y-auto">
                <nav className="space-y-4 pt-10">
                   {NAV_LINKS.map((link, i) => (
                     <motion.div
@@ -139,7 +140,7 @@ export default function Header() {
                       >
                          <div className="flex items-center gap-6">
                             <link.icon className="text-accent/40 group-hover:text-accent transition-colors" size={24} />
-                            <span className="text-3xl font-heading font-bold text-white group-hover:text-accent transition-colors">
+                            <span className="text-3xl font-heading font-bold text-white group-hover:text-accent transition-colors uppercase">
                                {link.name}
                             </span>
                          </div>
@@ -149,7 +150,7 @@ export default function Header() {
                   ))}
                </nav>
 
-               <div className="space-y-8 pb-10">
+               <div className="space-y-8 pb-10 mt-10">
                   <div className="flex items-center gap-10 justify-center">
                     <Link href="/" className={cn("text-xl font-bold", !isMarathi ? "text-accent border-b-2 border-accent pb-1" : "text-white/20")}>ENGLISH</Link>
                     <Link href="/mr" className={cn("text-xl font-bold", isMarathi ? "text-accent border-b-2 border-accent pb-1" : "text-white/20")}>मराठी</Link>

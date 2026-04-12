@@ -21,8 +21,8 @@ export default function Footer() {
                 K
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-heading font-bold text-2xl tracking-tight text-white">Kumar</span>
-                <span className="text-[10px] text-accent font-bold uppercase tracking-[0.4em] -mt-0.5">MagnaCity</span>
+                <span className="font-heading font-bold text-2xl tracking-tight text-white uppercase">KUMAR Magnacity</span>
+                <span className="text-[10px] text-accent font-bold uppercase tracking-[0.4em] -mt-0.5">Premium NA Plots</span>
               </div>
             </Link>
             <p className="text-white/40 text-base leading-relaxed font-light">
@@ -38,11 +38,11 @@ export default function Footer() {
           <div>
             <h4 className="text-accent uppercase tracking-[0.3em] text-[11px] font-bold mb-10">THE ESTATE</h4>
             <ul className="space-y-5">
-              <li><Link href="/concept" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Philosophy & Vision</Link></li>
-              <li><Link href="/location" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Location Intelligence</Link></li>
-              <li><Link href="/availability" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Inventory Suite</Link></li>
-              <li><Link href="/investment" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Investment ROI Matrix</Link></li>
-              <li><Link href="/amenities" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Botanical Sanctuary</Link></li>
+              <li><Link href="/kumar-magnacity-na-bungalow-plots-concept" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Philosophy & Vision</Link></li>
+              <li><Link href="/kumar-magnacity-manjari-location-map" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Location Intelligence</Link></li>
+              <li><Link href="/kumar-magnacity-na-bungalow-plots-availability" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Inventory Suite</Link></li>
+              <li><Link href="/kumar-magnacity-investment-plan-pune-east" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Investment ROI Matrix</Link></li>
+              <li><Link href="/kumar-magnacity-na-bungalow-plots-amenities" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Botanical Sanctuary</Link></li>
             </ul>
           </div>
 
@@ -50,10 +50,10 @@ export default function Footer() {
           <div>
             <h4 className="text-accent uppercase tracking-[0.3em] text-[11px] font-bold mb-10">RESOURCES</h4>
             <ul className="space-y-5">
-              <li><Link href="/market-insights" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Pulse of Pune East</Link></li>
-              <li><Link href="/master-plan" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Master Plan PDF</Link></li>
-              <li><Link href="/privacy-policy" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Privacy Mandate</Link></li>
-              <li><Link href="/thank-you" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Access Status</Link></li>
+              <li><Link href="/kumar-magnacity-market-data-pune-east" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Pulse of Pune East</Link></li>
+              <li><Link href="/kumar-magnacity-na-bungalow-plots-master-plan" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Master Plan PDF</Link></li>
+              <li><Link href="/kumar-magnacity-na-bungalow-plots-faq" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Investor FAQ Vault</Link></li>
+              <li><Link href="/kumar-magnacity-na-bungalow-plots-thank-you" className="text-white/50 hover:text-white transition-all hover:pl-2 text-sm font-light">Access Status</Link></li>
             </ul>
           </div>
 
