@@ -78,7 +78,7 @@ export default function Header() {
 
         <div className={cn(
           "mx-auto transition-all duration-700 px-4",
-          isScrolled ? "max-w-5xl mt-4" : "max-w-7xl mt-4 md:mt-6"
+          isScrolled ? "max-w-6xl mt-4" : "max-w-7xl mt-4 md:mt-6"
         )}>
           <div className={cn(
             "flex justify-between items-center rounded-3xl md:rounded-full transition-all duration-700 border glass-obsidian px-6 md:px-12 py-3 md:py-4 shadow-2xl relative",
@@ -105,9 +105,9 @@ export default function Header() {
             </Link>
 
             {/* Navigation */}
-            <nav className="hidden lg:flex items-center gap-8 xl:gap-12">
-              <div className="hidden xl:flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shadow-inner">
-                 <span className="text-[8px] text-white/50 font-bold tracking-[0.2em] uppercase whitespace-nowrap">
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-10 shrink-0">
+              <div className="hidden xl:flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shadow-inner shrink-0">
+                 <span className="text-[9px] text-white/50 font-bold tracking-[0.2em] uppercase whitespace-nowrap">
                     RERA: <span className="text-accent">P52100052096</span>
                  </span>
               </div>
@@ -117,7 +117,7 @@ export default function Header() {
                   key={link.name}
                   href={isMarathi ? `/mr${link.href}` : link.href}
                   className={cn(
-                    "text-[10px] xl:text-[11px] font-bold uppercase tracking-[0.15em] transition-all relative group py-2",
+                    "text-[11px] xl:text-xs font-bold uppercase tracking-[0.15em] transition-all relative group py-2 whitespace-nowrap",
                     pathname === link.href ? "text-accent" : "text-white/70 hover:text-white"
                   )}
                 >
@@ -131,23 +131,23 @@ export default function Header() {
               
               <Link 
                 href="#contact" 
-                className="bg-gradient-to-r from-primary to-primary-light text-white text-[10px] font-bold uppercase tracking-widest px-8 py-3.5 rounded-full hover:shadow-[0_0_20px_rgba(10,77,60,0.5)] transition-all hover:scale-105 active:scale-95 shadow-xl shine-effect border border-primary/50"
+                className="bg-gradient-to-r from-primary to-primary-light text-white text-[11px] font-bold uppercase tracking-widest px-8 py-3.5 rounded-full hover:shadow-[0_0_20px_rgba(10,77,60,0.5)] transition-all hover:scale-105 active:scale-95 shadow-xl shine-effect border border-primary/50 whitespace-nowrap shrink-0"
               >
                 ENQUIRE NOW
               </Link>
 
               {/* Language Switcher */}
-              <div className="flex items-center gap-4 border-l border-white/10 ml-2 pl-8">
+              <div className="flex items-center gap-4 border-l border-white/10 ml-2 pl-6 shrink-0">
                 <Link 
                   href={pathname.replace("/mr", "") || "/"} 
-                  className={cn("text-[10px] font-bold transition-all tracking-widest hover:scale-110", !isMarathi ? "text-accent" : "text-white/30 hover:text-white")}
+                  className={cn("text-[11px] font-bold transition-all tracking-widest hover:scale-110 whitespace-nowrap", !isMarathi ? "text-accent" : "text-white/30 hover:text-white")}
                 >
                   EN
                 </Link>
                 <div className="w-[1px] h-3 bg-white/10" />
                 <Link 
                   href={isMarathi ? pathname : `/mr${pathname === "/" ? "" : pathname}`} 
-                  className={cn("text-[11px] font-bold transition-all tracking-wider hover:scale-110", isMarathi ? "text-accent" : "text-white/30 hover:text-white")}
+                  className={cn("text-xs font-bold transition-all tracking-wider hover:scale-110 whitespace-nowrap", isMarathi ? "text-accent" : "text-white/30 hover:text-white")}
                 >
                   मराठी
                 </Link>
