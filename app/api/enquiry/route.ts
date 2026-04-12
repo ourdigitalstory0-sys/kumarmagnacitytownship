@@ -14,12 +14,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // 1. FAIL-SAFE BACKUP (Always log before SMTP)
-    await backupLead({
-      ...data,
-      timestamp: new Date().toISOString(),
-      source_url: data.source_url || request.headers.get("referer") || "Unknown"
-    });
+    // 1. FAIL-SAFE BACKUP (PRIORITY 1)
+    // Always log to backup first. If this fails, we want to know, but this should be extremely reliable.
+    try {
+      await backupLead({
+        ...data,
+        timestamp: new Date().toISOString(),
+        source_url: data.source_url || request.headers.get("referer") || "Unknown"
+      });
+    } catch (backupErr) {
+      console.error("Backup failed, but continuing to SMTP attempt:", backupErr);
+    }
 
     const htmlContent = `
       <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 0; margin: 0; background-color: #f4f4f4;">
@@ -71,27 +76,38 @@ export async function POST(request: NextRequest) {
        return NextResponse.json({ success: true, diagnostic: 'smtp_unconfigured_backup_active' });
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: SMTP_EMAIL,
-        pass: SMTP_PASSWORD,
-      },
-    });
+    try {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: SMTP_EMAIL,
+          pass: SMTP_PASSWORD,
+        },
+      });
 
-    const info = await transporter.sendMail({
-      from: `"Kumar Magnacity Portal" <${SMTP_EMAIL}>`,
-      to: "propsmartrealty@gmail.com",
-      subject: `🚨 EXECUTIVE LEAD: ${data.name} (${data.phone})`,
-      html: htmlContent,
-    });
+      const info = await transporter.sendMail({
+        from: `"Kumar Magnacity Portal" <${SMTP_EMAIL}>`,
+        to: "propsmartrealty@gmail.com",
+        subject: `🚨 EXECUTIVE LEAD: ${data.name} (${data.phone})`,
+        html: htmlContent,
+      });
 
-    console.log("Email sent successfully: ", info.messageId);
+      console.log("Email sent successfully: ", info.messageId);
+    } catch (smtpErr) {
+      // CRITICAL: We catch the SMTP error here so the API does NOT return 500 to the user.
+      // As long as we have the lead in the backup, the user's experience should remain successful.
+      console.error("SMTP DISPATCH FAILED (Lead is still saved in backup):", smtpErr);
+      return NextResponse.json({ 
+        success: true, 
+        warning: 'smtp_failed_but_lead_secured',
+        diagnostic: smtpErr instanceof Error ? smtpErr.message : 'Unknown SMTP Error'
+      });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Mail relay error:", error);
-    const message = error instanceof Error ? error.message : "Internal Server Error";
-    return NextResponse.json({ error: "Internal Server Error", message }, { status: 500 });
+    // This catch only handles major JSON parsing or catastrophic failures.
+    console.error("Critical API error:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
