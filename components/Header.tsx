@@ -44,62 +44,75 @@ export default function Header() {
       <header
         className={cn(
           "fixed top-0 left-0 w-full z-[10000] transition-all duration-700",
-          isScrolled ? "py-4 bg-dark/80 backdrop-blur-2xl border-b border-white/5" : "py-8 bg-transparent"
+          isScrolled ? "py-3 bg-dark/90 backdrop-blur-3xl border-b border-white/10" : "py-8 bg-transparent"
         )}
       >
-        <div className="container mx-auto max-w-7xl px-6 flex items-center justify-between">
-          {/* Logo Branding - KUMAR Magnacity Only */}
-          <Link href={isMarathi ? "/mr" : "/"} className="flex flex-col group">
-              <span className="text-2xl md:text-3xl font-heading font-black tracking-[0.2em] text-white group-hover:text-accent transition-colors">
+        <div className="container mx-auto max-w-[1400px] px-6 lg:px-12 flex items-center justify-between gap-4">
+          
+          {/* LOGO AREA - Strong Anchor */}
+          <Link href={isMarathi ? "/mr" : "/"} className="flex flex-col group shrink-0">
+              <span className="text-xl md:text-2xl lg:text-3xl font-heading font-black tracking-[0.15em] text-white group-hover:text-accent transition-colors duration-500">
                 KUMAR MAGNACITY
               </span>
-              <span className="text-[8px] md:text-[9px] font-bold text-accent tracking-[0.5em] uppercase mt-1">
+              <span className="text-[7px] md:text-[8px] font-bold text-accent tracking-[0.4em] uppercase mt-1">
                  Premium NA Bungalow Plots
               </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-10">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.name}
-                href={isMarathi ? `/mr${link.href}` : link.href}
-                className={cn(
-                  "text-[11px] font-bold uppercase tracking-[0.2em] transition-all hover:text-accent relative group",
-                  pathname === (isMarathi ? `/mr${link.href}` : link.href) ? "text-accent" : "text-white/60"
-                )}
-              >
-                {link.name}
-                <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-accent transition-all group-hover:w-full" />
-              </Link>
-            ))}
+          {/* DESKTOP NAVIGATION & ACTIONS - Fluid Spacing */}
+          <div className="hidden md:flex items-center justify-end flex-1 gap-6 lg:gap-12">
             
-            <button
-              onClick={() => openModal({
-                title: isMarathi ? "एलिट ॲक्सेस मिळवा" : "Sovereign Elite Access",
-                subtitle: isMarathi ? "अचूक किंमत आणि इन्व्हेंटरी डेटा अनलॉक करा." : "Unlock exact pricing and inventory master-plan data instantly.",
-                source: "Header Desktop"
-              })}
-              className="bg-gradient-to-r from-primary to-primary-light text-white text-[11px] font-bold uppercase tracking-widest px-8 py-3.5 rounded-full hover:shadow-[0_0_20px_rgba(10,77,60,0.5)] transition-all hover:scale-105 active:scale-95 shadow-xl shine-effect border border-primary/50 whitespace-nowrap shrink-0 ml-4"
-            >
-              {isMarathi ? "आता चौकशी करा" : "ENQUIRE NOW"}
-            </button>
+            {/* Primary Links */}
+            <nav className="flex items-center gap-1 xl:gap-8">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.name}
+                  href={isMarathi ? `/mr${link.href}` : link.href}
+                  className={cn(
+                    "px-4 py-2 text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.25em] transition-all hover:text-accent relative group whitespace-nowrap",
+                    pathname === (isMarathi ? `/mr${link.href}` : link.href) ? "text-accent" : "text-white/60"
+                  )}
+                >
+                  {link.name}
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-accent transition-all duration-500 group-hover:w-1/2" />
+                </Link>
+              ))}
+            </nav>
+            
+            {/* Action Group */}
+            <div className="flex items-center gap-6 lg:gap-10 border-l border-white/10 pl-6 lg:pl-10">
+                <button
+                  onClick={() => openModal({
+                    title: isMarathi ? "एलिट ॲक्सेस मिळवा" : "Sovereign Elite Access",
+                    subtitle: isMarathi ? "अचूक किंमत आणि इन्व्हेंटरी डेटा अनलॉक करा." : "Unlock exact pricing and inventory master-plan data instantly.",
+                    source: "Header Desktop"
+                  })}
+                  className="bg-gradient-to-r from-primary/80 to-primary text-white text-[10px] font-bold uppercase tracking-widest px-7 py-3 rounded-full hover:shadow-[0_10px_30px_rgba(10,77,60,0.6)] transition-all hover:scale-105 active:scale-95 border border-primary/20 whitespace-nowrap"
+                >
+                  {isMarathi ? "आता चौकशी करा" : "ENQUIRE NOW"}
+                </button>
 
-            {/* Language Switcher */}
-            <div className="flex items-center gap-4 border-l border-white/10 ml-2 pl-6 shrink-0">
-               <Link href="/" className={cn("text-[10px] font-bold", !isMarathi ? "text-accent" : "text-white/30 hover:text-white")}>EN</Link>
-               <span className="text-white/10">|</span>
-               <Link href="/mr" className={cn("text-[10px] font-bold", isMarathi ? "text-accent" : "text-white/30 hover:text-white")}>MR</Link>
+                {/* Language Switcher */}
+                <div className="flex items-center gap-3 shrink-0">
+                   <Link href="/" className={cn("text-[9px] font-black tracking-tighter transition-all px-2 py-1 rounded", !isMarathi ? "bg-accent text-dark" : "text-white/30 hover:text-white")}>EN</Link>
+                   <Link href="/mr" className={cn("text-[9px] font-black tracking-tighter transition-all px-2 py-1 rounded", isMarathi ? "bg-accent text-dark" : "text-white/30 hover:text-white")}>MR</Link>
+                </div>
             </div>
-          </nav>
+          </div>
 
           {/* Mobile Toggle */}
-          <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden text-white p-2"
-          >
-            <Menu size={28} />
-          </button>
+          <div className="md:hidden flex items-center gap-6">
+             <div className="flex items-center gap-2">
+                <Link href="/" className={cn("text-[10px] font-bold", !isMarathi ? "text-accent underline underline-offset-4" : "text-white/30")}>EN</Link>
+                <Link href="/mr" className={cn("text-[10px] font-bold", isMarathi ? "text-accent underline underline-offset-4" : "text-white/30")}>MR</Link>
+             </div>
+             <button
+               onClick={() => setMobileMenuOpen(true)}
+               className="text-white p-2 border border-white/10 rounded-xl bg-white/5"
+             >
+               <Menu size={24} />
+             </button>
+          </div>
         </div>
       </header>
 
@@ -110,22 +123,22 @@ export default function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[10002] bg-dark/95 backdrop-blur-3xl md:hidden"
+            className="fixed inset-0 z-[10002] bg-dark/98 backdrop-blur-3xl md:hidden"
           >
             {/* Header in Menu */}
-            <div className="flex items-center justify-between px-8 py-8 border-b border-white/5">
+            <div className="flex items-center justify-between px-8 py-8 border-b border-white/10">
                 <div className="flex flex-col">
                   <span className="text-xl font-heading font-black tracking-widest text-white uppercase">KUMAR Magnacity</span>
                   <span className="text-[8px] font-bold text-accent tracking-[0.4em] uppercase">Premium NA Plots</span>
                 </div>
-               <button onClick={() => setMobileMenuOpen(false)} className="text-white p-2">
-                 <X size={32} />
+               <button onClick={() => setMobileMenuOpen(false)} className="text-white p-2 bg-white/5 rounded-full">
+                 <X size={28} />
                </button>
             </div>
 
             {/* Links Content */}
             <div className="flex flex-col justify-between h-[calc(100vh-120px)] p-8 overflow-y-auto">
-               <nav className="space-y-4 pt-10">
+               <nav className="space-y-4 pt-4">
                   {NAV_LINKS.map((link, i) => (
                     <motion.div
                       key={link.name}
@@ -134,38 +147,34 @@ export default function Header() {
                       transition={{ delay: i * 0.1 }}
                     >
                       <Link
-                        href={isMarathi ? `/mr${link.href}` : link.href}
+                        href={link.href}
                         onClick={() => setMobileMenuOpen(false)}
                         className="flex items-center justify-between py-6 border-b border-white/5 group"
                       >
                          <div className="flex items-center gap-6">
-                            <link.icon className="text-accent/40 group-hover:text-accent transition-colors" size={24} />
-                            <span className="text-3xl font-heading font-bold text-white group-hover:text-accent transition-colors uppercase">
+                            <link.icon className="text-accent/30 group-hover:text-accent transition-colors" size={22} />
+                            <span className="text-2xl font-heading font-medium text-white group-hover:text-accent transition-colors uppercase tracking-tight">
                                {link.name}
                             </span>
                          </div>
-                         <ArrowRight className="text-white/20" size={20} />
+                         <ArrowRight className="text-white/10" size={18} />
                       </Link>
                     </motion.div>
                   ))}
                </nav>
 
-               <div className="space-y-8 pb-10 mt-10">
-                  <div className="flex items-center gap-10 justify-center">
-                    <Link href="/" className={cn("text-xl font-bold", !isMarathi ? "text-accent border-b-2 border-accent pb-1" : "text-white/20")}>ENGLISH</Link>
-                    <Link href="/mr" className={cn("text-xl font-bold", isMarathi ? "text-accent border-b-2 border-accent pb-1" : "text-white/20")}>मराठी</Link>
-                  </div>
-                  
+               <div className="space-y-6 pb-10">
                   <button 
                     onClick={() => {
                       setMobileMenuOpen(false);
                       openModal({ title: "Priority Briefing", source: "Mobile Immersive Menu" });
                     }}
-                    className="w-full bg-primary text-white font-bold py-6 rounded-3xl text-center tracking-[0.2em] uppercase text-sm shadow-2xl flex items-center justify-center gap-3"
+                    className="w-full bg-primary text-white font-bold py-6 rounded-3xl text-center tracking-[0.25em] uppercase text-xs shadow-2xl flex items-center justify-center gap-3 shine-effect border border-white/10"
                   >
-                    <MessageSquare size={18} className="text-accent" />
+                    <MessageSquare size={16} className="text-accent" />
                     Enquire Now
                   </button>
+                  <p className="text-[10px] text-white/20 text-center uppercase tracking-widest">Sovereign Asset Management Vault</p>
                </div>
             </div>
           </motion.div>

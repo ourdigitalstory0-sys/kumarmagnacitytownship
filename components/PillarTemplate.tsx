@@ -18,55 +18,54 @@ export default function PillarTemplate({
   subtitle,
   badge,
   children,
-  isMarathi = false
 }: PillarTemplateProps) {
   return (
     <main className="min-h-screen bg-light">
       <Header />
       
-      {/* Immersive Pillar Hero */}
-      <section className="relative pt-64 pb-32 overflow-hidden bg-dark">
+      {/* Immersive Pillar Hero - Stabilized Layout */}
+      <section className="relative pt-48 pb-24 md:pt-64 md:pb-32 overflow-hidden bg-dark">
         {/* Cinematic Background Layer */}
         <div className="absolute inset-0 z-0">
           <div 
             className="absolute inset-0 bg-[url('/assets/hero-bg.jpg')] bg-cover bg-center opacity-30 scale-110 blur-[2px]" 
             style={{ transformOrigin: 'center' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-primary/40 to-dark" />
+          <div className="absolute inset-0 bg-gradient-to-b from-dark/80 via-primary/30 to-dark" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(197,160,89,0.05),transparent)]" />
         </div>
 
-        <div className="container mx-auto max-w-7xl px-4 relative z-10">
-          <div className="max-w-4xl space-y-8 reveal-luxury">
+        <div className="container mx-auto max-w-7xl px-6 md:px-12 relative z-10">
+          <div className="max-w-4xl space-y-10 reveal-luxury">
             {badge && (
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/20 border border-accent/40 text-accent font-bold text-[10px] md:text-[11px] uppercase tracking-[0.25em] backdrop-blur-md">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 border border-accent/40 text-accent font-bold text-[10px] md:text-[11px] uppercase tracking-[0.25em] backdrop-blur-md">
                 {badge}
               </div>
             )}
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-8xl font-heading font-bold text-white leading-[1.1] tracking-tight">
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-6xl lg:text-8xl font-heading font-bold text-white leading-[1.05] tracking-tight">
                 {title.split(' ').map((word, i) => (
-                  <span key={i} className={cn(i === 2 ? "text-accent italic font-light" : "text-white")}>
+                  <span key={i} className={cn(i === 2 || i === 4 ? "text-accent italic font-light" : "text-white")}>
                     {word}{' '}
                   </span>
                 ))}
               </h1>
-              <div className="w-24 h-1 bg-accent/50 rounded-full" />
+              <div className="w-24 h-1.5 bg-accent/40 rounded-full" />
             </div>
-            <p className="text-xl md:text-2xl text-white/60 font-light leading-relaxed max-w-2xl border-l border-accent/30 pl-8">
+            <p className="text-lg md:text-xl lg:text-2xl text-white/50 font-light leading-relaxed max-w-2xl border-l border-primary/40 pl-8">
               {subtitle}
             </p>
           </div>
         </div>
 
-        {/* Decorative Element */}
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-light to-transparent" />
+        {/* Decorative Element - Smooth Bottom Fade */}
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-dark to-transparent opacity-50" />
       </section>
 
-      {/* Modern Content Architecture */}
-      <section className="py-24 relative z-20 -mt-10">
-        <div className="container mx-auto max-w-7xl px-4">
-           <div className="bg-white rounded-[3rem] p-8 md:p-16 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-white/20 reveal-luxury" style={{ animationDelay: '0.3s' }}>
+      {/* Modern Content Architecture - Stability Focus */}
+      <section className="py-20 bg-light relative z-20 -mt-12 overflow-hidden">
+        <div className="container mx-auto max-w-7xl px-6 md:px-12">
+           <div className="bg-white rounded-[3rem] md:rounded-[4rem] p-8 md:p-20 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.08)] border border-dark/5 reveal-luxury" style={{ animationDelay: '0.3s' }}>
               {children}
            </div>
         </div>

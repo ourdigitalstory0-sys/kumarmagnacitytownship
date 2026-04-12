@@ -62,10 +62,7 @@ export default function FAQSection({ faqJson }: FAQSectionProps) {
                 </div>
               </button>
               
-              <div className={cn(
-                "overflow-hidden transition-all duration-300 ease-in-out",
-                openIndex === index ? "max-height-[500px] opacity-100" : "max-h-0 opacity-0"
-              )}>
+
                 <div className="p-6 md:p-8 pt-0 border-t border-dark/5">
                   <p className="text-dark/60 leading-relaxed text-base">
                     {item.acceptedAnswer.text}
