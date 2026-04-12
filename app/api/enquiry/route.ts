@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { backupLead } from "@/lib/lead-backup";
 
 // Remove edge runtime because nodemailer relies on Node APIs
 // export const runtime = "edge";
@@ -12,6 +13,13 @@ export async function POST(request: NextRequest) {
     if (!data.name || !data.phone) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
+
+    // 1. FAIL-SAFE BACKUP (Always log before SMTP)
+    await backupLead({
+      ...data,
+      timestamp: new Date().toISOString(),
+      source_url: data.source_url || request.headers.get("referer") || "Unknown"
+    });
 
     const htmlContent = `
       <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 0; margin: 0; background-color: #f4f4f4;">
@@ -47,8 +55,8 @@ export async function POST(request: NextRequest) {
             </div>
           </div>
           <div style="background-color: #333; padding: 15px; text-align: center; color: #999; font-size: 11px;">
-            Source: ${data.source_url} | IP: ${request.headers.get("cf-connecting-ip") || request.headers.get("x-forwarded-for") || "Unknown"} <br>
-            Security: SMTP Edge Relay
+            Source: ${data.source_url} | Plot: ${data.plot_id || 'General'} <br>
+            Security: Sovereign Backup Relay Active
           </div>
         </div>
       </div>
@@ -59,8 +67,8 @@ export async function POST(request: NextRequest) {
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
 
     if (!SMTP_EMAIL || !SMTP_PASSWORD) {
-       console.warn("SMTP credentials missing. Mocking success for UI flow to continue.");
-       return NextResponse.json({ success: true, warning: 'SMTP unconfigured' });
+       console.error("DIAGNOSTIC: SMTP credentials missing in Vercel settings. Lead has been securely saved to backup log.");
+       return NextResponse.json({ success: true, diagnostic: 'smtp_unconfigured_backup_active' });
     }
 
     const transporter = nodemailer.createTransport({
