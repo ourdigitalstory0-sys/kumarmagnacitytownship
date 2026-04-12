@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
 import { backupLead } from "@/lib/lead-backup";
 
-// Remove edge runtime because nodemailer relies on Node APIs
-// export const runtime = "edge";
+// New Strategy: Sovereign 'GAS' Relay
+const GAS_RELAY_URL = "https://script.google.com/macros/s/AKfycbzMQwaWDE_tGfMn9wuvIOG77KFAEQ6JwDOqaxBm0uYZtfOcdmIMo-GrPFuWXnlbXx_b/exec";
+const RELAY_SECRET = "magna_sovereign_2026";
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // 1. FAIL-SAFE BACKUP (PRIORITY 1) - Guaranteed Data Preservation
+    // 1. FAIL-SAFE BACKUP (PRIORITY 1) - Data is secured instantly
     try {
       await backupLead({
         ...data,
@@ -22,10 +22,10 @@ export async function POST(request: NextRequest) {
         source_url: data.source_url || request.headers.get("referer") || "Unknown"
       });
     } catch (backupErr) {
-      console.error("Backup failed, but continuing to SMTP attempt:", backupErr);
+      console.error("Backup failed, but continuing to relay attempt:", backupErr);
     }
 
-    const htmlContent = `
+    const htmlBody = `
       <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 0; margin: 0; background-color: #f4f4f4;">
         <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
           <div style="background-color: #0A4D3C; padding: 20px; text-align: center; color: #ffffff;">
@@ -60,56 +60,38 @@ export async function POST(request: NextRequest) {
           </div>
           <div style="background-color: #333; padding: 15px; text-align: center; color: #999; font-size: 11px;">
             Source: ${data.source_url} | Plot: ${data.plot_id || 'General'} <br>
-            Security: Sovereign Backup Relay Active
+            Security: Sovereign GAS Relay Active
           </div>
         </div>
       </div>
     `;
 
-    // 1. Retrieve & Sanitize Credentials
-    const SMTP_EMAIL = process.env.SMTP_EMAIL;
-    const RAW_PASS = process.env.SMTP_PASSWORD;
-    const SMTP_PASSWORD = RAW_PASS?.replace(/\s+/g, "");
-
-    const RECIPIENT = "propsmartrealty@gmail.com";
-
-    // 2. CRITICAL IDENTITY DIAGNOSTIC
-    if (!SMTP_EMAIL || !SMTP_PASSWORD) {
-       console.error(`DIAGNOSTIC: CREDENTIALS MISSING. Detected EMAIL: ${SMTP_EMAIL ? 'YES' : 'NO'} | PASSWORD: ${RAW_PASS ? 'YES' : 'NO'}`);
-       return NextResponse.json({ success: true, diagnostic: 'smtp_unconfigured' });
-    }
-
-    // Masked log for user verification in Vercel
-    const maskedEmail = SMTP_EMAIL.substring(0, 3) + "****" + SMTP_EMAIL.substring(SMTP_EMAIL.indexOf("@"));
-    console.info(`DIAGNOSTIC: SMTP Attempt | AUTH_USER: ${maskedEmail} | PWD_LEN_RAW: ${RAW_PASS?.length} | PWD_LEN_CLEAN: ${SMTP_PASSWORD.length} | DEST: ${RECIPIENT}`);
-
+    // 2. DISPATCH VIA GAS RELAY (Handshake-Free)
     try {
-      const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-          user: SMTP_EMAIL,
-          pass: SMTP_PASSWORD,
-        },
-        connectionTimeout: 10000,
+      const relayResponse = await fetch(GAS_RELAY_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, // Apps Script preferred
+        body: JSON.stringify({
+          secret: RELAY_SECRET,
+          subject: `🚨 EXECUTIVE LEAD: ${data.name} (${data.phone})`,
+          htmlBody: htmlBody
+        })
       });
 
-      const info = await transporter.sendMail({
-        from: `"Kumar Magnacity Portal" <${SMTP_EMAIL}>`,
-        to: RECIPIENT,
-        replyTo: data.email || SMTP_EMAIL,
-        subject: `🚨 EXECUTIVE LEAD: ${data.name} (${data.phone})`,
-        html: htmlContent,
-      });
+      const result = await relayResponse.json();
+      
+      if (result.status === "success") {
+        console.log("Lead successfully relayed via GAS");
+      } else {
+        throw new Error(result.error || "Unknown GAS Error");
+      }
 
-      console.log("Email sent successfully: ", info.messageId);
-    } catch (smtpErr) {
-      console.error("SMTP DISPATCH FAILED (Lead secured in backup):", smtpErr);
+    } catch (relayErr) {
+      console.error("RELAY DISPATCH FAILED (Lead secured in backup):", relayErr);
       return NextResponse.json({ 
         success: true, 
-        warning: 'smtp_failed_but_lead_secured',
-        diagnostic: smtpErr instanceof Error ? smtpErr.message : 'Unknown SMTP Error'
+        warning: 'relay_failed_but_lead_secured',
+        diagnostic: relayErr instanceof Error ? relayErr.message : 'Unknown Relay Error'
       });
     }
 
