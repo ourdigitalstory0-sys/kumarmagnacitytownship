@@ -90,6 +90,62 @@ export default function MarketInsightsPage() {
           </div>
         </section>
 
+        {/* Land Scarcity Matrix & Investor Profiling */}
+        <section className="space-y-16 py-12">
+          <div className="max-w-4xl">
+             <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6 leading-tight"> The NA Scarcity <br /><span className="text-accent italic font-light">Pune East Land Matrix</span></h2>
+             <p className="text-white/40 leading-relaxed text-lg font-light">
+               While vertical high-rises oversaturate Kharadi and Hadapsar, RERA-approved NA bungalow plots within PMC limits represent the rarest asset class in Pune's current development cycle.
+             </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+             <div className="p-12 rounded-[3rem] bg-gradient-to-br from-red-900/20 to-dark border border-red-500/20">
+                <span className="text-red-400 font-bold tracking-[0.2em] uppercase text-[10px]">The Apartment Squeeze</span>
+                <h3 className="text-3xl font-heading font-bold text-white mt-4 mb-6">Vertical Density</h3>
+                <ul className="space-y-4 text-white/50">
+                   <li className="flex items-center gap-3"><span className="text-red-500">X</span> Oversupply in Kharadi / Magarpatta</li>
+                   <li className="flex items-center gap-3"><span className="text-red-500">X</span> Stagnant 3-4% rental yields</li>
+                   <li className="flex items-center gap-3"><span className="text-red-500">X</span> Zero land ownership percentage</li>
+                </ul>
+             </div>
+             
+             <div className="p-12 rounded-[3rem] bg-gradient-to-br from-primary/30 to-dark border border-primary/30 relative overflow-hidden">
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-accent/20 blur-[100px] rounded-full" />
+                <div className="relative z-10">
+                   <span className="text-accent font-bold tracking-[0.2em] uppercase text-[10px]">The Sovereign Asset</span>
+                   <h3 className="text-3xl font-heading font-bold text-white mt-4 mb-6">Horizontal Luxury</h3>
+                   <ul className="space-y-4 text-white/90">
+                      <li className="flex items-center gap-3"><span className="text-accent">✓</span> 150-Acre Master Township at Manjari</li>
+                      <li className="flex items-center gap-3"><span className="text-accent">✓</span> Accelerated 14-18% projected CAGR</li>
+                      <li className="flex items-center gap-3"><span className="text-accent">✓</span> 100% individual 7/12 extract ownership</li>
+                   </ul>
+                </div>
+             </div>
+          </div>
+          
+          <div className="pt-20">
+             <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <h3 className="text-3xl font-heading font-bold text-white">Target Acquisition Personas</h3>
+                <p className="text-white/40">Custom-tailored investment strategies for Pune's most elite demographic funnels.</p>
+             </div>
+             
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {marketAnalysis.personas.map((persona, i) => (
+                   <div key={i} className="glass-obsidian border border-white/10 p-8 rounded-[2rem] hover:border-accent/40 transition-all group flex flex-col">
+                      <div className="text-accent text-[10px] uppercase tracking-widest font-bold mb-4 h-8 flex-shrink-0">{persona.type}</div>
+                      <h4 className="text-lg font-bold text-white mb-4 group-hover:text-accent transition-colors flex-shrink-0">{persona.goal}</h4>
+                      <p className="text-white/50 text-sm font-light mb-6 flex-grow">{persona.strategy}</p>
+                      <div className="pt-4 border-t border-white/5 flex-shrink-0">
+                         <span className="text-[9px] uppercase tracking-widest text-white/30 block mb-1">Target Plot</span>
+                         <span className="text-white/80 font-medium text-sm">{persona.target_plots}</span>
+                      </div>
+                   </div>
+                ))}
+             </div>
+          </div>
+        </section>
+
         {/* Strategic Wealth Section */}
         <section className="py-24 px-12 rounded-[4rem] bg-gradient-to-br from-primary/20 to-dark border border-white/5 relative overflow-hidden">
            <div className="absolute top-0 left-0 w-full h-full bg-[url('/assets/hero-bg.jpg')] opacity-5 bg-cover bg-center" />

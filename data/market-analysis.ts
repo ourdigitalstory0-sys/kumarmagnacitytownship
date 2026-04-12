@@ -50,6 +50,38 @@ export const marketAnalysis: EastPuneMarketData = {
         "First-mover advantage in a planned township",
         "Legal peace of mind with RERA-registered plots"
       ]
+    },
+    {
+      id: "swargate-business-corr",
+      topic: "The Swargate Businessman's Oasis",
+      location: "Swargate Hub",
+      summary: "For elite businessmen transitioning from Pune's congested core (Swargate/Camp), the Solapur-Pune Highway offers seamless connectivity to Manjari. Secure a legacy asset without sacrificing city accessibility.",
+      investment_potential: "Wealth Preservation",
+      roi_forecast: "Secure generational wealth with proven land appreciation.",
+      infrastructure_boosts: [
+        "Seamless Solapur Highway connectivity to Core Pune",
+        "Upcoming multi-modal transit hubs"
+      ],
+      investor_benefits: [
+        "Exclusive gated environment for HNI families",
+        "Escape the core city pollution with 25+ acres of greens"
+      ]
+    },
+    {
+      id: "panchshil-eon-upgrade",
+      topic: "The EON & Panchshil Upgrade Path",
+      location: "EON IT Park",
+      summary: "Kharadi bungalow aspirants and current residents of premium vertical towers (like Panchshil) are actively seeking horizontal luxury. Kumar Magnacity delivers the bespoke villa lifestyle missing in Kharadi's high-density skyline.",
+      investment_potential: "Ultra Premium",
+      roi_forecast: "High premium upon completion for custom-built, branded villas.",
+      infrastructure_boosts: [
+        "Direct bridge connectivity from Manjari to Kharadi",
+        "Proximity to 500,000+ IT professionals"
+      ],
+      investor_benefits: [
+        "Transition from vertical apartments to horizontal freedom",
+        "Custom architecture in a 150-acre master-planned township"
+      ]
     }
   ],
   personas: [
@@ -64,6 +96,18 @@ export const marketAnalysis: EastPuneMarketData = {
       goal: "Secure Wealth Creation in Native City",
       strategy: "Invest in 100% legal RERA-registered land with Kumar's 59-year legacy.",
       target_plots: "Premium Corner Plots for maximum visibility"
+    },
+    {
+      type: "Core City Businessman (Swargate/Camp)",
+      goal: "Generational Wealth & Peaceful Living",
+      strategy: "Transition family legacy into a secure, expansive 150-acre township via the Solapur Corridor.",
+      target_plots: "Twin-plot combinations for massive bespoke estates"
+    },
+    {
+      type: "Kharadi Vertical Resident",
+      goal: "The Ultimate Horizontal Upgrade",
+      strategy: "Trade the high-rise apartment life for absolute independence in a gated villa layout just 15 minutes away.",
+      target_plots: "Premium boulevard plots near the 1 Lakh sq.ft clubhouse"
     }
   ]
 };

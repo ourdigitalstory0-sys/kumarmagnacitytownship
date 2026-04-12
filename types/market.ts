@@ -1,7 +1,7 @@
 export interface MarketInsight {
   id: string;
   topic: string;
-  location: "Kharadi" | "Hadapsar" | "Magarpatta" | "Manjari" | "Pune East";
+  location: "Kharadi" | "Hadapsar" | "Magarpatta" | "Manjari" | "Pune East" | "Swargate Hub" | "Solapur Highway" | "EON IT Park";
   summary: string;
   investment_potential: string;
   roi_forecast: string;
