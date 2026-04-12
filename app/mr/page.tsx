@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import SovereignBar from "@/components/SovereignBar";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, LandPlot, TrendingUp } from "lucide-react";
+import { useModal } from "@/lib/modal-context";
 
 export const runtime = "edge";
 
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const { openModal } = useModal();
   return (
     <main className="min-h-screen" lang="mr">
       <Header />
@@ -43,13 +45,13 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
-            <Link 
-              href="#contact" 
+            <button 
+              onClick={() => openModal({ title: "प्लॉट सुरक्षित करा", subtitle: "प्राधान्याने इन्व्हेंटरी आणि किमतीची माहिती मिळवा.", source: "Hero MR" })}
               className="group bg-primary text-white px-10 py-5 rounded-full font-bold uppercase tracking-widest text-[13px] shadow-2xl hover:bg-primary-light transition-all flex items-center gap-3 shine-effect"
             >
-              Secure My Plot
+              प्लॉट सुरक्षित करा
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </button>
             <Link 
               href="/availability" 
               className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-10 py-5 rounded-full font-bold uppercase tracking-widest text-[13px] hover:bg-white/20 transition-all"

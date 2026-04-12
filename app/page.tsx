@@ -4,10 +4,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SovereignBar from "@/components/SovereignBar";
 import EnquiryForm from "@/components/EnquiryForm";
+import { useModal } from "@/lib/modal-context";
 import Link from "next/link";
 import { ArrowRight, LandPlot, MapPin, TrendingUp, Download, Play, ShieldCheck, Gem } from "lucide-react";
 
 export default function Home() {
+  const { openModal } = useModal();
   return (
     <main className="min-h-screen bg-light">
       <Header />
@@ -51,20 +53,20 @@ export default function Home() {
                 EXPLORE PLOTS
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link 
-                href="#contact" 
+              <button 
+                onClick={() => openModal({ title: "Request High-Res Brochure", subtitle: "Receive the complete 150-acre master-plan and floor plans instantly.", source: "Hero Brochure" })}
                 className="bg-accent text-dark px-12 py-6 rounded-full font-bold uppercase tracking-widest text-[13px] hover:bg-accent-hover transition-all flex items-center gap-3 shadow-[0_20px_50px_rgba(197,160,89,0.3)]"
               >
                 3D BROCHURE
                 <Download size={18} />
-              </Link>
-              <Link 
-                href="#contact" 
+              </button>
+              <button 
+                onClick={() => openModal({ title: "Sovereign Portal Enquiry", source: "Hero Enquire" })}
                 className="hidden md:flex bg-white/5 backdrop-blur-xl text-white border border-white/10 px-12 py-6 rounded-full font-bold uppercase tracking-widest text-[13px] hover:bg-white/10 transition-all items-center gap-3"
               >
                 ENQUIRE NOW
                 <Play size={16} fill="white" />
-              </Link>
+              </button>
             </div>
           </div>
         </div>

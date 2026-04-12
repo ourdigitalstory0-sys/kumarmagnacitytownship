@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import { useModal } from "@/lib/modal-context";
 
 const NAV_LINKS = [
   { name: "THE CONCEPT", href: "/concept" },
@@ -17,6 +18,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { openModal } = useModal();
   const isMarathi = pathname.startsWith("/mr");
 
   // Removed countdown logic as replaced by Trust Bar
@@ -105,12 +107,16 @@ export default function Header() {
                 </Link>
               ))}
               
-              <Link 
-                href="#contact" 
+              <button
+                onClick={() => openModal({
+                  title: isMarathi ? "एलिट ॲक्सेस मिळवा" : "Sovereign Elite Access",
+                  subtitle: isMarathi ? "अचूक किंमत आणि इन्व्हेंटरी डेटा अनलॉक करा." : "Unlock exact pricing and inventory master-plan data instantly.",
+                  source: "Header Desktop"
+                })}
                 className="bg-gradient-to-r from-primary to-primary-light text-white text-[11px] font-bold uppercase tracking-widest px-8 py-3.5 rounded-full hover:shadow-[0_0_20px_rgba(10,77,60,0.5)] transition-all hover:scale-105 active:scale-95 shadow-xl shine-effect border border-primary/50 whitespace-nowrap shrink-0"
               >
-                ENQUIRE NOW
-              </Link>
+                {isMarathi ? "आता चौकशी करा" : "ENQUIRE NOW"}
+              </button>
 
               {/* Language Switcher */}
               <div className="flex items-center gap-4 border-l border-white/10 ml-2 pl-6 shrink-0">
@@ -159,13 +165,15 @@ export default function Header() {
                 {link.name}
               </Link>
             ))}
-            <Link 
-              href="#contact" 
-              className="bg-accent text-dark font-bold py-5 rounded-2xl mt-4 text-center tracking-widest"
-              onClick={() => setMobileMenuOpen(false)}
+            <button 
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openModal({ title: "Priority Mobile Enquiry", source: "Header Mobile" });
+              }}
+              className="bg-accent text-dark font-bold py-5 rounded-2xl mt-4 text-center tracking-widest uppercase text-sm"
             >
               ENQUIRE NOW
-            </Link>
+            </button>
             
             <div className="flex items-center justify-center gap-6 mt-8 pt-8 border-t border-white/10">
                <Link href="/" className={cn("text-xl font-bold", !isMarathi ? "text-accent" : "text-white/40")}>EN</Link>

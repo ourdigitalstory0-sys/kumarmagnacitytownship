@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useModal } from "@/lib/modal-context";
 import { Phone, Mail, MapPin, Globe, ShieldCheck } from "lucide-react";
 
 export default function Footer() {
+  const { openModal } = useModal();
   return (
     <footer className="glass-obsidian text-white pt-32 pb-12 relative overflow-hidden">
       {/* Cinematic Branding Layer */}
@@ -57,12 +61,15 @@ export default function Footer() {
           <div className="space-y-8">
             <h4 className="text-accent uppercase tracking-[0.3em] text-[11px] font-bold mb-10">EXPERIENCE CENTER</h4>
             <div className="space-y-6">
-              <a href="#" className="flex gap-4 group">
-                <MapPin size={20} className="text-accent shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="text-sm text-white/50 leading-relaxed font-light group-hover:text-white transition-colors">
-                  Kumar MagnaCity, Manjari near Hadapsar, <br />Pune - 412307, MH
-                </span>
-              </a>
+                <button 
+                  onClick={() => openModal({ title: "Site Visit Scheduled", subtitle: "Book a private experience center tour and site walkthrough.", source: "Footer Address" })}
+                  className="flex gap-4 group text-left"
+                >
+                  <MapPin size={20} className="text-accent shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm text-white/50 leading-relaxed font-light group-hover:text-white transition-colors">
+                    Kumar MagnaCity, Manjari near Hadapsar, <br />Pune - 412307, MH
+                  </span>
+                </button>
               <a href="tel:+917744009295" className="flex gap-4 group items-center">
                 <Phone size={18} className="text-accent shrink-0 group-hover:scale-110 transition-transform" />
                 <span className="text-sm text-white/50 font-light group-hover:text-white transition-colors tracking-widest">+91 77440 09295</span>

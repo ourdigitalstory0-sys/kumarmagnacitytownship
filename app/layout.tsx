@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Outfit } from "next/font/google";
 import "./globals.css";
+import { ModalProvider } from "@/lib/modal-context";
+import EnquiryModal from "@/components/EnquiryModal";
 
 export const runtime = "edge";
 
@@ -30,7 +32,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${playfair.variable} ${outfit.variable} antialiased`}>
         {/* Deployment V2.3.1 - Restoration Fix */}
-        {children}
+        <ModalProvider>
+          {children}
+          <EnquiryModal />
+        </ModalProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useModal } from "@/lib/modal-context";
 import { useRouter } from "next/navigation";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -23,6 +24,7 @@ export default function EnquiryForm({
   isModal = false,
 }: EnquiryFormProps) {
   const router = useRouter();
+  const { modalData } = useModal();
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -38,6 +40,8 @@ export default function EnquiryForm({
       email: formData.get("email") || "no-email@kumarmagnacity.com",
       source_url: sourceUrl,
       form_id: formId,
+      plot_id: modalData?.plotId || "General",
+      source_meta: modalData?.source || "Direct",
       timestamp: new Date().toISOString(),
     };
 

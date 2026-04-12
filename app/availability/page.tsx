@@ -4,10 +4,12 @@ import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 import InventoryBadge from "@/components/InventoryBadge";
 import Link from "next/link";
+import { useModal } from "@/lib/modal-context";
 import { Info, ShieldCheck, Map, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function AvailabilityPage() {
+  const { openModal } = useModal();
   const plots = [
     { id: "P-101", status: "Available", size: "3200 Sq.ft" },
     { id: "P-102", status: "Available", size: "3200 Sq.ft" },
@@ -47,11 +49,21 @@ export default function AvailabilityPage() {
               {plots.map((plot) => (
                 <div 
                   key={plot.id} 
+                  onClick={() => {
+                    if (plot.status === "Available") {
+                      openModal({
+                        title: `Enquiry for ${plot.id}`,
+                        subtitle: `Request the 7/12 extract and specific layout plan for unit ${plot.id} (${plot.size}).`,
+                        plotId: plot.id,
+                        source: "Plot Grid"
+                      });
+                    }
+                  }}
                   className={cn(
-                    "relative aspect-square rounded-[2rem] p-6 flex flex-col items-center justify-center gap-3 transition-all duration-500 group border cursor-default",
-                    plot.status === "Available" ? "bg-primary/20 border-primary/20 hover:bg-primary/30 hover:scale-105 hover:shadow-2xl" : 
-                    plot.status === "Reserved" ? "bg-accent/10 border-accent/20 opacity-60" :
-                    "bg-dark/5 border-dark/5 opacity-40 grayscale"
+                    "relative aspect-square rounded-[2rem] p-6 flex flex-col items-center justify-center gap-3 transition-all duration-500 group border",
+                    plot.status === "Available" ? "bg-primary/20 border-primary/20 hover:bg-primary/30 hover:scale-105 hover:shadow-2xl cursor-pointer" : 
+                    plot.status === "Reserved" ? "bg-accent/10 border-accent/20 opacity-60 cursor-not-allowed" :
+                    "bg-dark/5 border-dark/5 opacity-40 grayscale cursor-not-allowed"
                   )}
                 >
                    <span className="text-lg md:text-2xl font-bold tracking-tighter text-dark">{plot.id}</span>
@@ -114,9 +126,12 @@ export default function AvailabilityPage() {
                     <div className="w-12 h-[1px] bg-white/10" />
                  </div>
               </div>
-              <Link href="#contact" className="relative bg-accent text-dark px-10 py-5 rounded-full font-bold uppercase tracking-widest text-[11px] shadow-2xl hover:scale-110 active:scale-95 transition-all shine-effect">
+              <button 
+                onClick={() => openModal({ title: "Secure Priority Pricing", source: "Availability Pricing" })}
+                className="relative bg-accent text-dark px-10 py-5 rounded-full font-bold uppercase tracking-widest text-[11px] shadow-2xl hover:scale-110 active:scale-95 transition-all shine-effect"
+              >
                 SECURE THIS PRICE
-              </Link>
+              </button>
            </div>
         </div>
 
