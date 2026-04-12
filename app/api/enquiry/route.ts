@@ -15,7 +15,6 @@ export async function POST(request: NextRequest) {
     }
 
     // 1. FAIL-SAFE BACKUP (PRIORITY 1)
-    // Always log to backup first. If this fails, we want to know, but this should be extremely reliable.
     try {
       await backupLead({
         ...data,
@@ -69,7 +68,9 @@ export async function POST(request: NextRequest) {
 
     // Retrieve credentials from environment
     const SMTP_EMAIL = process.env.SMTP_EMAIL;
-    const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
+    // CRITICAL FIX: The UI adds spaces to Google App Passwords for readability. 
+    // We must strip them (e.g., 'uyrp hxyy...' -> 'uyrphxyy...') for the SMTP server.
+    const SMTP_PASSWORD = process.env.SMTP_PASSWORD?.replace(/\s+/g, "");
 
     if (!SMTP_EMAIL || !SMTP_PASSWORD) {
        console.error("DIAGNOSTIC: SMTP credentials missing in Vercel settings. Lead has been securely saved to backup log.");
@@ -94,8 +95,6 @@ export async function POST(request: NextRequest) {
 
       console.log("Email sent successfully: ", info.messageId);
     } catch (smtpErr) {
-      // CRITICAL: We catch the SMTP error here so the API does NOT return 500 to the user.
-      // As long as we have the lead in the backup, the user's experience should remain successful.
       console.error("SMTP DISPATCH FAILED (Lead is still saved in backup):", smtpErr);
       return NextResponse.json({ 
         success: true, 
@@ -106,7 +105,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    // This catch only handles major JSON parsing or catastrophic failures.
     console.error("Critical API error:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
