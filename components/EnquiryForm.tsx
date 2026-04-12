@@ -81,7 +81,7 @@ export default function EnquiryForm({
   return (
     <div className={cn(
       "w-full transition-all duration-700",
-      isModal ? "p-0" : "bg-white/[0.03] backdrop-blur-3xl border border-white/10 p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] relative overflow-hidden"
+      isModal ? "p-0" : "bg-dark backdrop-blur-3xl border border-white/10 p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden"
     )}>
       {!isModal && (
         <>
@@ -103,7 +103,7 @@ export default function EnquiryForm({
             name="name"
             required
             placeholder="Your Full Name"
-            className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent/40 transition-all placeholder:text-white/15 text-sm"
+            className="w-full bg-[#1A1A1A] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/60 transition-all placeholder:text-white/40 text-sm shadow-inner"
           />
         </div>
         <div className="group relative">
@@ -112,7 +112,7 @@ export default function EnquiryForm({
             name="phone"
             required
             placeholder="Mobile Number"
-            className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent/40 transition-all placeholder:text-white/15 text-sm"
+            className="w-full bg-[#1A1A1A] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/60 transition-all placeholder:text-white/40 text-sm shadow-inner"
           />
         </div>
         

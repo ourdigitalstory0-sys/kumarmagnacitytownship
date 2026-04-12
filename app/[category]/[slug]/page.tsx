@@ -152,64 +152,96 @@ export default async function SEONodePage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Trust & Intelligence Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        <div className="container mx-auto max-w-7xl px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="space-y-8">
-               <h2 className="text-4xl md:text-5xl font-heading font-bold text-dark leading-tight">
-                 Why Pune Smart Investors <br /> Choose <span className="text-accent underline decoration-accent/30 underline-offset-8 italic">Kumar Magnacity</span>
-               </h2>
-               <p className="text-lg text-dark/60 leading-relaxed font-light">
-                 Unlike disorganized local layouts, Kumar Magnacity offers the security of a Tier-1 developer combined with the freedom of owning your own NA bungalow land. It&apos;s a legacy you build, on a foundation of trust.
-               </p>
-               <div className="space-y-4">
-                  {[
-                    "Individual 7/12 Extract for every plot",
-                    "PMRDA Sanctioned & RERA Registered",
-                    "Integrated Underground Utility Grids",
-                    "Grand Clubhouse & 12+ Premium Amenities"
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                       <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-                          <CheckIcon size={12} />
-                       </div>
-                       <span className="text-dark/80 font-medium">{item}</span>
-                    </div>
-                  ))}
-               </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-6">
-               <div className="space-y-6">
-                  <div className="p-8 rounded-[2.5rem] bg-light border border-dark/5 space-y-4 hover:shadow-2xl transition-all hover:-translate-y-2">
-                     <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg text-primary">
-                        <Download size={24} />
+      {/* Blog/Market Analysis Content */}
+      {data.blog_content && (
+        <section className="py-24 bg-white">
+          <div className="container mx-auto max-w-4xl px-4">
+             <div className="space-y-16">
+               {data.blog_content.map((item, i) => (
+                 <div key={i} className="space-y-6">
+                    <h2 className="text-3xl md:text-4xl font-heading font-bold text-dark">{item.heading}</h2>
+                    <p className="text-lg text-dark/70 leading-relaxed font-light">{item.paragraph}</p>
+                 </div>
+               ))}
+               
+               {/* Fixed Trust Pillar in Blog */}
+               <div className="pt-12 border-t border-dark/5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                     <div className="space-y-4">
+                        <h3 className="text-xl font-bold text-dark uppercase tracking-widest">Legal Status</h3>
+                        <p className="text-dark/50 text-sm italic">Every plot at Kumar Magnacity comes with a clear title, RERA registration, and an individual 7/12 extract ensuring absolute security for your generational asset.</p>
                      </div>
-                     <h4 className="font-heading font-bold text-xl">Legal Kit</h4>
-                     <p className="text-xs text-dark/50 leading-relaxed italic">Download the 7/12 Extract samples and RERA compliance docs.</p>
+                     <div className="space-y-4">
+                        <h3 className="text-xl font-bold text-dark uppercase tracking-widest">Connectivity</h3>
+                        <p className="text-dark/50 text-sm italic">Strategically located near the Pune-Solapur Highway and current/upcoming Ring Road junctions, offering swift access to Magarpatta, Kharadi, and Swargate.</p>
+                     </div>
+                  </div>
+               </div>
+             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Trust & Intelligence Section (Fallback if no blog content) */}
+      {!data.blog_content && (
+        <section className="py-24 bg-white relative overflow-hidden">
+          <div className="container mx-auto max-w-7xl px-4 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+              <div className="space-y-8">
+                <h2 className="text-4xl md:text-5xl font-heading font-bold text-dark leading-tight">
+                  Why Pune Smart Investors <br /> Choose <span className="text-accent underline decoration-accent/30 underline-offset-8 italic">Kumar Magnacity</span>
+                </h2>
+                <p className="text-lg text-dark/60 leading-relaxed font-light">
+                  Unlike disorganized local layouts, Kumar Magnacity offers the security of a Tier-1 developer combined with the freedom of owning your own NA bungalow land. It&apos;s a legacy you build, on a foundation of trust.
+                </p>
+                <div className="space-y-4">
+                    {[
+                      "Individual 7/12 Extract for every plot",
+                      "PMRDA Sanctioned & RERA Registered",
+                      "Integrated Underground Utility Grids",
+                      "Grand Clubhouse & 12+ Premium Amenities"
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center text-accent">
+                            <CheckIcon size={12} />
+                        </div>
+                        <span className="text-dark/80 font-medium">{item}</span>
+                      </div>
+                    ))}
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <div className="p-8 rounded-[2.5rem] bg-light border border-dark/5 space-y-4 hover:shadow-2xl transition-all hover:-translate-y-2">
+                    <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg text-primary">
+                      <Download size={24} />
+                    </div>
+                    <h4 className="font-heading font-bold text-xl">Legal Kit</h4>
+                    <p className="text-xs text-dark/50 leading-relaxed italic">Download the 7/12 Extract samples and RERA compliance docs.</p>
                   </div>
                   <div className="p-8 rounded-[2.5rem] bg-dark text-white space-y-4 hover:shadow-2xl transition-all hover:-translate-y-2">
-                     <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-accent">
-                        <TrendingUp size={24} />
-                     </div>
-                     <h4 className="font-heading font-bold text-xl">ROI Guide</h4>
-                     <p className="text-xs text-white/40 leading-relaxed italic">Detailed analysis of Manjari-Hadapsar land appreciation 2026.</p>
+                    <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-accent">
+                      <TrendingUp size={24} />
+                    </div>
+                    <h4 className="font-heading font-bold text-xl">ROI Guide</h4>
+                    <p className="text-xs text-white/40 leading-relaxed italic">Detailed analysis of Manjari-Hadapsar land appreciation 2026.</p>
                   </div>
-               </div>
-               <div className="space-y-6 pt-12">
+                </div>
+                <div className="space-y-6 pt-12">
                   <div className="p-8 rounded-[2.5rem] bg-accent text-dark space-y-4 hover:shadow-2xl transition-all hover:-translate-y-2 font-bold">
-                     <div className="w-12 h-12 bg-dark rounded-2xl flex items-center justify-center text-accent shadow-xl">
-                        <ArrowRight size={24} />
-                     </div>
-                     <h4 className="font-heading text-xl">Site Visit</h4>
-                     <p className="text-xs text-dark/70 leading-relaxed italic">Experience the master-planned grandeur in person today.</p>
+                    <div className="w-12 h-12 bg-dark rounded-2xl flex items-center justify-center text-accent shadow-xl">
+                      <ArrowRight size={24} />
+                    </div>
+                    <h4 className="font-heading text-xl">Site Visit</h4>
+                    <p className="text-xs text-dark/70 leading-relaxed italic">Experience the master-planned grandeur in person today.</p>
                   </div>
-               </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* FAQ Section with Context */}
       <FAQSection faqJson={data.faq_json} />
