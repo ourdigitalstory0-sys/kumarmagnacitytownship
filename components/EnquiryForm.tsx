@@ -54,10 +54,22 @@ export default function EnquiryForm({
 
       if (response.ok) {
         setStatus("success");
-        // Smooth transition to thank you page
+        
+        // Construct WhatsApp Redirection
+        const isMarathi = window.location.pathname.includes("/mr");
+        const waBase = "https://wa.me/917744009295";
+        const intent = modalData?.plotId ? (isMarathi ? `प्लॉट ${modalData.plotId}` : `Plot ${modalData.plotId}`) : (isMarathi ? "कुमार मॅग्नॅसिटी" : "Kumar Magnacity");
+        
+        const message = isMarathi 
+          ? `नमस्कार! मी पोर्टलवर ${intent} साठी माझी चौकशी सबमिट केली आहे. कृपया माहितीपुस्तिका आणि किंमत तपशील शेअर करा.`
+          : `Hi! I just submitted my enquiry for ${intent} on the portal. Please share the brochure and location details.`;
+        
+        const waLink = `${waBase}?text=${encodeURIComponent(message)}`;
+
+        // Delay slightly for success animation, then redirect
         setTimeout(() => {
-          router.push("/thank-you");
-        }, 1200);
+          window.location.href = waLink;
+        }, 1500);
       } else {
         throw new Error("Failed to submit. Please try again.");
       }
