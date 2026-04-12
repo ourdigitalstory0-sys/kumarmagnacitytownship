@@ -50,10 +50,10 @@ export default function Header() {
           {/* Logo Branding */}
           <Link href={isMarathi ? "/mr" : "/"} className="flex flex-col group">
             <span className="text-2xl md:text-3xl font-heading font-black tracking-[0.2em] text-white group-hover:text-accent transition-colors">
-              P R O P S M A R T
+              KUMAR MAGNACITY
             </span>
             <span className="text-[8px] md:text-[9px] font-bold text-accent tracking-[0.5em] uppercase mt-1">
-               Elite Realty Services
+               Premium NA Bungalow Plots
             </span>
           </Link>
 
@@ -114,8 +114,8 @@ export default function Header() {
             {/* Header in Menu */}
             <div className="flex items-center justify-between px-8 py-8 border-b border-white/5">
                <div className="flex flex-col">
-                  <span className="text-xl font-heading font-black tracking-widest text-white">PROPSMART</span>
-                  <span className="text-[8px] font-bold text-accent tracking-[0.4em] uppercase">Elite Realty</span>
+                  <span className="text-xl font-heading font-black tracking-widest text-white uppercase">KUMAR Magnacity</span>
+                  <span className="text-[8px] font-bold text-accent tracking-[0.4em] uppercase">Premium NA Plots</span>
                </div>
                <button onClick={() => setMobileMenuOpen(false)} className="text-white p-2">
                  <X size={32} />
