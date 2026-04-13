@@ -6,10 +6,10 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   async redirects() {
     const seoMappings = [

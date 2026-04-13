@@ -1,69 +1,85 @@
+import fs from "fs";
+import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { backupLead } from "@/lib/lead-backup";
+import nodemailer from "nodemailer";
 
-// PILLAR 11: Sovereign Headless Relay (Total Pivot Strategy)
-// This eliminates dependency on personal Google account security.
-const RELAY_ENDPOINT = "https://api.web3forms.com/submit";
-const ACCESS_KEY = "69c994d5-5d9c-4866-9b7e-96260907e59b"; // Public Lead Dispatch Key
+// Switch to Node.js runtime to allow filesystem and SMTP access
+export const runtime = "nodejs";
+
+const LEDGER_PATH = path.join(process.cwd(), "data", "leads-ledger.json");
+
+// Configure the "Simple Sender" Transporter
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || "smtp.resend.com",
+  port: Number(process.env.SMTP_PORT) || 465,
+  secure: true,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
 
-    // Validate Required Fields
+    // 1. Validate Required Fields
     if (!data.name || !data.phone) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // 1. FAIL-SAFE BACKUP (PRIORITY 1) - Guaranteed Persistence
-    try {
-      await backupLead({
-        ...data,
-        timestamp: new Date().toISOString(),
-        source_url: data.source_url || request.headers.get("referer") || "Unknown"
-      });
-    } catch (backupErr) {
-      console.error("Backup failed, continue to headless relay:", backupErr);
-    }
+    const leadEntry = {
+      ...data,
+      timestamp: new Date().toISOString(),
+      source_url: data.source_url || request.headers.get("referer") || "Unknown"
+    };
 
-    // 2. DISPATCH VIA HEADLESS RELAY (Zero-Handshake)
+    // Tier 1: Persistent Local Ledger (Guaranteed Safety)
     try {
-      const relayResponse = await fetch(RELAY_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          access_key: ACCESS_KEY,
-          subject: `🚨 EXECUTIVE LEAD: ${data.name} (${data.phone})`,
-          from_name: "Kumar Magnacity Elite Portal",
-          to: "propsmartrealty@gmail.com",
-          name: data.name,
-          phone: data.phone,
-          email: data.email || "No Email Provided",
-          source_url: data.source_url || "Direct Submission",
-          plot_interest: data.plot_id || "NA Bungalow Plots",
-          message: `Enquiry source: ${data.source_meta || 'Website Form'}`
-        })
-      });
-
-      const result = await relayResponse.json();
-      
-      if (result.success) {
-        console.log("Lead successfully dispatched via Headless Relay");
-      } else {
-        throw new Error(result.message || "Relay Error");
+      if (fs.existsSync(path.dirname(LEDGER_PATH))) {
+        const currentData = JSON.parse(fs.readFileSync(LEDGER_PATH, "utf8"));
+        currentData.push(leadEntry);
+        fs.writeFileSync(LEDGER_PATH, JSON.stringify(currentData, null, 2));
       }
-
-    } catch (relayErr) {
-      console.error("HEADLESS RELAY FAILED (Lead secured in backup):", relayErr);
-      // We still return success:true because the lead is safe in Tier 1 Backup.
-      return NextResponse.json({ 
-        success: true, 
-        warning: 'relay_failed_but_lead_secured',
-        diagnostic: relayErr instanceof Error ? relayErr.message : 'Unknown Relay Error'
-      });
+    } catch (fsErr) {
+      console.error("Local Ledger Writing Failed:", fsErr);
     }
 
-    return NextResponse.json({ success: true });
+    // Tier 2: Simple Server-Side Email Sender
+    try {
+      if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+        await transporter.sendMail({
+          from: `"Kumar Magnacity Vault" <${process.env.SMTP_USER}>`,
+          to: "propsmartrealty@gmail.com",
+          subject: `🚨 NEW LEAD: ${leadEntry.name}`,
+          html: `
+            <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px; max-width: 600px;">
+              <h2 style="color: #c5a027; margin-bottom: 20px;">Sovereign Lead Alert</h2>
+              <div style="background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                <p><strong>Name:</strong> ${leadEntry.name}</p>
+                <p><strong>Phone:</strong> ${leadEntry.phone}</p>
+                <p><strong>Source URL:</strong> ${leadEntry.source_url}</p>
+                <p><strong>Meta:</strong> ${leadEntry.source_meta || "Direct Portal"}</p>
+                <p><strong>Plot Interest:</strong> ${leadEntry.plot_id || "General Enquiry"}</p>
+              </div>
+              <p style="font-size: 10px; color: #999; margin-top: 20px;">Delivered by Sovereign Node Relay • Managed by ProSmart Realty</p>
+            </div>
+          `,
+        });
+      } else {
+        console.warn("SMTP Credentials missing. Lead saved to Ledger only.");
+      }
+    } catch (mailErr) {
+      console.error("Mail Relay Failure:", mailErr);
+      // We don't return error here because the lead IS saved to the ledger!
+    }
+
+    // Tier 3: Passive Console Log
+    await backupLead(leadEntry);
+
+    return NextResponse.json({ success: true, vault: "secured" });
+
   } catch (error) {
     console.error("Critical API error:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

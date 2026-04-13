@@ -1,0 +1,21 @@
+{
+  "name": "Kumar Magnacity Elite Portal",
+  "short_name": "Kumar Magnacity",
+  "description": "Secure your legacy with premium NA bungalow plots at Kumar Magnacity, Manjari.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#C5A059",
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

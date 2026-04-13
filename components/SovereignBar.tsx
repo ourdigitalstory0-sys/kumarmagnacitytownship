@@ -40,12 +40,10 @@ export default function SovereignBar() {
             
             <button 
               onClick={() => openModal({ title: "Priority Briefing", source: "Dynamic Island Mobile" })}
-              className="flex-[1.5] flex flex-col items-center justify-center gap-1 bg-primary text-white py-3 rounded-[1.5rem] active:scale-95 transition-all shadow-xl relative overflow-hidden group"
+              className="flex-[1.5] flex flex-col items-center justify-center gap-1 bg-primary text-white py-3 rounded-[1.5rem] active:scale-95 transition-all shadow-xl relative overflow-hidden group pulse-accent"
             >
-               {/* Pulse effect */}
-               <div className="absolute inset-0 bg-white/10 animate-pulse" />
-               <LayoutGrid size={16} className="text-accent relative z-10" />
-               <span className="text-[9px] font-bold uppercase tracking-[0.2em] relative z-10">Inquire</span>
+               <LayoutGrid size={16} className="text-accent relative z-10 scale-110" />
+               <span className="text-[9px] font-bold uppercase tracking-[0.2em] relative z-10">Inquire Now</span>
             </button>
             
             <a 

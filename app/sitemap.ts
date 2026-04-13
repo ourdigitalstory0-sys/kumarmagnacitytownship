@@ -26,16 +26,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // English
     sitemapEntries.push({
       url: `${baseUrl}${route}/`,
-      lastModified,
-      changeFrequency: 'daily',
-      priority: route === "" ? 1.0 : 0.8,
+      lastModified: new Date('2026-04-12'), // Hardocoded to last major infrastructure update
+      changeFrequency: route === "" ? 'always' : 'daily',
+      priority: route === "" ? 1.0 : 0.9,
     });
     // Marathi
     sitemapEntries.push({
       url: `${baseUrl}/mr${route}/`,
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.7,
+      lastModified: new Date('2026-04-12'),
+      changeFrequency: route === "" ? 'always' : 'daily',
+      priority: 0.8,
     });
   });
 
