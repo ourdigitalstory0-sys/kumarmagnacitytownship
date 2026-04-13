@@ -35,18 +35,22 @@ export async function POST(request: NextRequest) {
       source_url: data.source_url || request.headers.get("referer") || "Unknown"
     };
 
-    // Tier 1: Persistent Local Ledger (Guaranteed Safety)
-    try {
-      if (fs.existsSync(path.dirname(LEDGER_PATH))) {
-        const currentData = JSON.parse(fs.readFileSync(LEDGER_PATH, "utf8"));
-        currentData.push(leadEntry);
-        fs.writeFileSync(LEDGER_PATH, JSON.stringify(currentData, null, 2));
+    // Tier 1: Persistent Local Ledger (ONLY on local Mac, skip on Vercel)
+    const isVercel = process.env.VERCEL === "1";
+    
+    if (!isVercel) {
+      try {
+        if (fs.existsSync(path.dirname(LEDGER_PATH))) {
+          const currentData = JSON.parse(fs.readFileSync(LEDGER_PATH, "utf8"));
+          currentData.push(leadEntry);
+          fs.writeFileSync(LEDGER_PATH, JSON.stringify(currentData, null, 2));
+        }
+      } catch (fsErr) {
+        console.error("Local Ledger Writing Failed (Expected on Vercel):", fsErr);
       }
-    } catch (fsErr) {
-      console.error("Local Ledger Writing Failed:", fsErr);
     }
 
-    // Tier 2: Simple Server-Side Email Sender
+    // Tier 2: Simple Server-Side Email Sender (Primary Path)
     try {
       if (process.env.SMTP_USER && process.env.SMTP_PASS) {
         await transporter.sendMail({
@@ -55,24 +59,23 @@ export async function POST(request: NextRequest) {
           subject: `🚨 NEW LEAD: ${leadEntry.name}`,
           html: `
             <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px; max-width: 600px;">
-              <h2 style="color: #c5a027; margin-bottom: 20px;">Sovereign Lead Alert</h2>
-              <div style="background: #f9f9f9; padding: 15px; border-radius: 8px;">
-                <p><strong>Name:</strong> ${leadEntry.name}</p>
-                <p><strong>Phone:</strong> ${leadEntry.phone}</p>
-                <p><strong>Source URL:</strong> ${leadEntry.source_url}</p>
-                <p><strong>Meta:</strong> ${leadEntry.source_meta || "Direct Portal"}</p>
-                <p><strong>Plot Interest:</strong> ${leadEntry.plot_id || "General Enquiry"}</p>
+              <h2 style="color: #6366f1; margin-bottom: 20px;">Sovereign Lead Alert</h2>
+              <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <p style="margin: 10px 0;"><strong>Name:</strong> ${leadEntry.name}</p>
+                <p style="margin: 10px 0;"><strong>Phone:</strong> ${leadEntry.phone}</p>
+                <p style="margin: 10px 0;"><strong>Source:</strong> ${leadEntry.source_url}</p>
+                <p style="margin: 10px 0;"><strong>Meta:</strong> ${leadEntry.source_meta || "Direct Portal"}</p>
+                <p style="margin: 10px 0;"><strong>Plot Interest:</strong> ${leadEntry.plot_id || "General Enquiry"}</p>
               </div>
-              <p style="font-size: 10px; color: #999; margin-top: 20px;">Delivered by Sovereign Node Relay • Managed by ProSmart Realty</p>
+              <p style="font-size: 11px; color: #64748b; margin-top: 25px; text-align: center;">Delivered via Sovereign Node Relay • ProSmart Realty Dashboard</p>
             </div>
           `,
         });
       } else {
-        console.warn("SMTP Credentials missing. Lead saved to Ledger only.");
+        console.warn("SMTP Credentials missing. Check Vercel Environment Variables.");
       }
     } catch (mailErr) {
       console.error("Mail Relay Failure:", mailErr);
-      // We don't return error here because the lead IS saved to the ledger!
     }
 
     // Tier 3: Passive Console Log
