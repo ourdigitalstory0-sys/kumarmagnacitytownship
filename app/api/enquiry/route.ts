@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
-import { backupLead } from "@/lib/lead-backup";
+import { appendToSheet } from "@/lib/google-sheets";
 import nodemailer from "nodemailer";
 
 // Switch to Node.js runtime to allow filesystem and SMTP access
@@ -31,13 +31,27 @@ export async function POST(request: NextRequest) {
 
     const leadEntry = {
       ...data,
-      timestamp: new Date().toISOString(),
-      source_url: data.source_url || request.headers.get("referer") || "Unknown"
+      timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+      source_url: data.source_url || request.headers.get("referer") || "Direct"
     };
 
-    // Tier 1: Persistent Local Ledger (ONLY on local Mac, skip on Vercel)
+    // Tier 1: Professional Google Sheets Ledger (PRIMARY)
+    try {
+      await appendToSheet([
+        leadEntry.timestamp,
+        leadEntry.name,
+        leadEntry.phone,
+        leadEntry.source_url,
+        leadEntry.plot_id || "General",
+        leadEntry.source_meta || "Direct Portal",
+        data.email || "No Email"
+      ]);
+    } catch (sheetErr) {
+      console.error("Google Sheets Sync Failed:", sheetErr);
+    }
+
+    // Tier 2: Local Ledger (Failsafe for developer Mac only)
     const isVercel = process.env.VERCEL === "1";
-    
     if (!isVercel) {
       try {
         if (fs.existsSync(path.dirname(LEDGER_PATH))) {
@@ -46,7 +60,7 @@ export async function POST(request: NextRequest) {
           fs.writeFileSync(LEDGER_PATH, JSON.stringify(currentData, null, 2));
         }
       } catch (fsErr) {
-        console.error("Local Ledger Writing Failed (Expected on Vercel):", fsErr);
+        console.error("Local Ledger Writing Failed:", fsErr);
       }
     }
 
