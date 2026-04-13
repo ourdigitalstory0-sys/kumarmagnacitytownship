@@ -38,20 +38,26 @@ export default function SovereignVault() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passkey, setPasskey] = useState("");
   const [authError, setAuthError] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
 
   const CORRECT_PASSKEY = "MAGNA9295";
 
-  const handleAuth = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (passkey.toUpperCase() === CORRECT_PASSKEY) {
-      setIsAuthenticated(true);
-      setAuthError(false);
-      // Save session
-      localStorage.setItem("vault_auth", "true");
-    } else {
-      setAuthError(true);
-      setPasskey("");
-    }
+  const handleAuth = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setIsVerifying(true);
+    setAuthError(false);
+
+    // UX delay to show verifying state
+    setTimeout(() => {
+      if (passkey.trim().toUpperCase() === CORRECT_PASSKEY) {
+        setIsAuthenticated(true);
+        localStorage.setItem("vault_auth", "true");
+      } else {
+        setAuthError(true);
+        setPasskey("");
+      }
+      setIsVerifying(false);
+    }, 400);
   };
 
   useEffect(() => {
@@ -116,9 +122,9 @@ export default function SovereignVault() {
                   type="password"
                   value={passkey}
                   onChange={(e) => setPasskey(e.target.value)}
-                  placeholder="Enter Clearance Key"
+                  placeholder="Enter Clearance Passkey"
                   className={cn(
-                    "w-full bg-[#1A1A1A] border border-white/10 rounded-2xl px-6 py-5 text-center text-white tracking-[1em] focus:outline-none focus:ring-2 transition-all placeholder:text-[10px] placeholder:tracking-widest",
+                    "w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-center text-white tracking-widest focus:outline-none focus:ring-2 transition-all placeholder:text-[10px] placeholder:tracking-widest",
                     authError ? "border-red-500/50 focus:ring-red-500/20" : "focus:ring-accent/40"
                   )}
                   autoFocus
@@ -136,10 +142,19 @@ export default function SovereignVault() {
               )}
 
               <button 
-                type="submit"
-                className="w-full bg-accent text-dark font-black uppercase tracking-[0.25em] py-5 rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-xl"
+                type="button"
+                onClick={() => handleAuth()}
+                disabled={isVerifying}
+                className="w-full bg-accent text-dark font-black uppercase tracking-[0.25em] py-5 rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-xl disabled:opacity-50 flex items-center justify-center gap-3"
               >
-                Unlock Vault
+                {isVerifying ? (
+                  <>
+                    <Loader2 className="animate-spin" size={20} />
+                    <span>Verifying...</span>
+                  </>
+                ) : (
+                  "Unlock Vault"
+                )}
               </button>
             </form>
 
