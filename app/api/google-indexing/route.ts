@@ -26,47 +26,83 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Load Credentials from Environment
-    const clientEmail = process.env.GOOGLE_CLIENT_EMAIL || "magnacity@eminent-bond-433313-m2.iam.gserviceaccount.com";
-    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+    // Multi-Account Credential Stack
+    const accounts = [
+      {
+        name: "Eminent Bond (Primary)",
+        email: process.env.GOOGLE_CLIENT_EMAIL || "magnacity@eminent-bond-433313-m2.iam.gserviceaccount.com",
+        key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+      },
+      {
+        name: "Gen Lang Client (Secondary)",
+        email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL || "magnacity-email@gen-lang-client-0496116049.iam.gserviceaccount.com",
+        key: process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+      }
+    ];
 
-    console.log("Indexing Bridge: Authenticating as", clientEmail);
-    console.log("Indexing Bridge: Private Key Present?", !!privateKey);
+    let lastError = null;
+    let successfulAccount = null;
+    let googleResponse = null;
 
-    if (!privateKey) {
-      return NextResponse.json({ 
-        success: false, 
-        error: "Google Private Key missing in Environment",
-        status: "PENDING_CREDENTIALS" 
-      }, { status: 500 });
+    for (const account of accounts) {
+      if (!account.key) {
+        console.warn(`Indexing Bridge: Skipping ${account.name} (Key Missing)`);
+        continue;
+      }
+
+      try {
+        console.log(`Indexing Bridge: Attempting with ${account.name}...`);
+        
+        const jwtClient = new google.auth.JWT({
+          email: account.email,
+          key: account.key,
+          scopes: ['https://www.googleapis.com/auth/indexing']
+        });
+
+        const indexing = google.indexing({
+          version: 'v3',
+          auth: jwtClient,
+        });
+
+        await jwtClient.authorize();
+
+        const response = await indexing.urlNotifications.publish({
+          requestBody: {
+            url: url,
+            type: type as "URL_UPDATED" | "URL_DELETED",
+          },
+        });
+
+        successfulAccount = account.name;
+        googleResponse = response.data;
+        break; // Exit loop on success
+
+      } catch (error: any) {
+        console.error(`Indexing Bridge: ${account.name} Failed | ${error.message}`);
+        lastError = error.message;
+
+        // If error is NOT a quota issue, we might want to fail fast?
+        // But for maximum deliverability, we try the next account anyway.
+        if (error.code === 429) {
+          console.warn(`${account.name} Quota Exceeded. Rotating...`);
+        }
+      }
     }
 
-    const jwtClient = new google.auth.JWT({
-      email: clientEmail,
-      key: privateKey,
-      scopes: ['https://www.googleapis.com/auth/indexing']
-    });
+    if (successfulAccount) {
+      return NextResponse.json({
+        success: true,
+        message: `Indexing request for ${url} sent to Google.`,
+        account_used: successfulAccount,
+        google_response: googleResponse
+      });
+    }
 
-    const indexing = google.indexing({
-      version: 'v3',
-      auth: jwtClient,
-    });
-
-    // Explicitly authorize to ensure we have a valid token
-    await jwtClient.authorize();
-
-    const response = await indexing.urlNotifications.publish({
-      requestBody: {
-        url: url,
-        type: type as "URL_UPDATED" | "URL_DELETED",
-      },
-    });
-
-    return NextResponse.json({
-      success: true,
-      message: `Indexing request for ${url} sent to Google.`,
-      google_response: response.data
-    });
+    return NextResponse.json({ 
+      success: false,
+      error: "All Google Indexing accounts failed or reached quota.",
+      last_error: lastError
+    }, { status: 500 });
 
   } catch (error: any) {
     console.error("Indexing API Error:", error.message);
