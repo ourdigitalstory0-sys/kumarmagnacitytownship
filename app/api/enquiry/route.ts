@@ -80,14 +80,14 @@ export async function POST(request: NextRequest) {
       emailStatus = "Skipped (No Resend Key)";
     }
 
-    // Tier 2: FormSubmit Relay (Secondary)
+    // Tier 2: Formspree Relay (Secondary)
     let relayStatus = "Not Attempted";
     let relayErrorDetail = null;
 
     if (emailStatus.includes("Failure") || emailStatus === "Skipped (No Resend Key)") {
+      const FORMSPREE_HASH = process.env.FORMSPREE_HASH || "2979905190565511060";
       try {
-        const FORMSUBMIT_HASH = process.env.FORMSUBMIT_HASH || "cc1acceb0835471f949a9f3e43c54173";
-        const fsResponse = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_HASH}`, {
+        const fsResponse = await fetch(`https://formspree.io/f/${FORMSPREE_HASH}`, {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",
@@ -100,19 +100,47 @@ export async function POST(request: NextRequest) {
         });
 
         if (fsResponse.ok) {
-          relayStatus = "Delivered (FormSubmit)";
+          relayStatus = "Delivered (Formspree)";
         } else {
           const fsData = await fsResponse.json();
-          relayStatus = `FormSubmit Rejected: ${fsResponse.status}`;
+          relayStatus = `Formspree Rejected: ${fsResponse.status}`;
           relayErrorDetail = fsData;
         }
       } catch (err: any) {
-        relayStatus = `FormSubmit Error: ${err.message}`;
+        relayStatus = `Formspree Error: ${err.message}`;
         relayErrorDetail = err;
       }
     }
 
-    // Tier 3: Nodemailer SMTP (Tertiary Fallback)
+    // Tier 3: FormSubmit Relay (Tertiary Fallback)
+    if (relayStatus.includes("Rejected") || relayStatus.includes("Error") || relayStatus === "Not Attempted") {
+      try {
+        const FORMSUBMIT_HASH = process.env.FORMSUBMIT_HASH || "cc1acceb0835471f949a9f3e43c54173";
+        const fSubmitResponse = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_HASH}`, {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+            "Accept": "application/json" 
+          },
+          body: JSON.stringify({ 
+            ...leadEntry, 
+            _subject: `🚨 NEW LEAD: ${leadEntry.name}`,
+          }),
+        });
+
+        if (fSubmitResponse.ok) {
+          relayStatus = "Delivered (FormSubmit)";
+          relayErrorDetail = null; // Clear previous errors
+        } else {
+          // If both fail, keep current status
+          console.warn("Both Relay Tiers failed.");
+        }
+      } catch (err: any) {
+         console.error("FormSubmit Fallback Error:", err.message);
+      }
+    }
+
+    // Tier 4: Nodemailer SMTP (Final Technical Fallback)
     let smtpStatus = "Not Attempted";
     let smtpErrorDetail = null;
 
