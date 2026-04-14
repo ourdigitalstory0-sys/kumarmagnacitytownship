@@ -99,7 +99,7 @@ export default function EnquiryForm({
       try {
         const emergencyForm = document.createElement("form");
         emergencyForm.method = "POST";
-        emergencyForm.action = "https://formsubmit.co/propsmartrealty@gmail.com";
+        emergencyForm.action = "https://formsubmit.co/vikas.yewle@gmail.com";
         emergencyForm.style.display = "none";
 
         const fields = {

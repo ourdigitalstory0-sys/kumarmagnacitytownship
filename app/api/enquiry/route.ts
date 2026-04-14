@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       try {
         const { data: resendData, error: resendError } = await resend.emails.send({
           from: "Kumar Magnacity <onboarding@resend.dev>", 
-          to: ["propsmartrealty@gmail.com"],
+          to: ["vikas.yewle@gmail.com"],
           replyTo: leadEntry.email || undefined,
           subject: `🚨 NEW LEAD: ${leadEntry.name} (${leadEntry.intent})`,
           html: `
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
     
     if (emailStatus.includes("Failure") || emailStatus === "Skipped (No Resend Key)") {
       try {
-        const TARGET_EMAIL = "propsmartrealty@gmail.com";
+        const TARGET_EMAIL = "vikas.yewle@gmail.com";
         
         // Parallel Delivery Attempt
         const [fsResponse, fSubmitResponse] = await Promise.allSettled([
@@ -139,7 +139,7 @@ export async function POST(request: NextRequest) {
 
           await transporter.sendMail({
              from: `"Kumar Magnacity Vault" <${process.env.SMTP_USER}>`,
-             to: "propsmartrealty@gmail.com",
+             to: "vikas.yewle@gmail.com",
              subject: `🚨 BACKUP LEAD: ${leadEntry.name}`,
              text: `New Lead: ${leadEntry.name}\nPhone: ${leadEntry.phone}\nEmail: ${leadEntry.email || 'N/A'}\nIntent: ${leadEntry.intent}\nVisit: ${leadEntry.timing}`,
              html: `<b>New Lead Captured via SMTP Backup</b><br/><br/>Name: ${leadEntry.name}<br/>Phone: ${leadEntry.phone}<br/>Email: ${leadEntry.email || 'N/A'}<br/>Intent: ${leadEntry.intent}<br/>Visit: ${leadEntry.timing}`,
