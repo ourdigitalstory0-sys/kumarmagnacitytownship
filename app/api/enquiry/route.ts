@@ -80,14 +80,14 @@ export async function POST(request: NextRequest) {
       emailStatus = "Skipped (No Resend Key)";
     }
 
-    // Tier 2: Formspree Fallback (Secondary)
-    let formspreeStatus = "Not Attempted";
-    let formspreeErrorDetail = null;
+    // Tier 2: FormSubmit Relay (Secondary)
+    let relayStatus = "Not Attempted";
+    let relayErrorDetail = null;
 
     if (emailStatus.includes("Failure") || emailStatus === "Skipped (No Resend Key)") {
       try {
-        const FORMSPREE_ENDPOINT = process.env.FORMSPREE_ENDPOINT || "https://formspree.io/f/mqakqkqy";
-        const fsResponse = await fetch(FORMSPREE_ENDPOINT, {
+        const FORMSUBMIT_HASH = process.env.FORMSUBMIT_HASH || "cc1acceb0835471f949a9f3e43c54173";
+        const fsResponse = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_HASH}`, {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",
@@ -95,21 +95,20 @@ export async function POST(request: NextRequest) {
           },
           body: JSON.stringify({ 
             ...leadEntry, 
-            _subject: `🚨 LEAD: ${leadEntry.name}`,
-            _cc: "propsmartrealty@gmail.com"
+            _subject: `🚨 NEW LEAD: ${leadEntry.name}`,
           }),
         });
 
         if (fsResponse.ok) {
-          formspreeStatus = "Delivered (Formspree)";
+          relayStatus = "Delivered (FormSubmit)";
         } else {
           const fsData = await fsResponse.json();
-          formspreeStatus = `Formspree Rejected: ${fsResponse.status}`;
-          formspreeErrorDetail = fsData;
+          relayStatus = `FormSubmit Rejected: ${fsResponse.status}`;
+          relayErrorDetail = fsData;
         }
       } catch (err: any) {
-        formspreeStatus = `Formspree Error: ${err.message}`;
-        formspreeErrorDetail = err;
+        relayStatus = `FormSubmit Error: ${err.message}`;
+        relayErrorDetail = err;
       }
     }
 
@@ -117,7 +116,7 @@ export async function POST(request: NextRequest) {
     let smtpStatus = "Not Attempted";
     let smtpErrorDetail = null;
 
-    if ((formspreeStatus.includes("Rejected") || formspreeStatus === "Not Attempted") && process.env.SMTP_HOST) {
+    if ((relayStatus.includes("Rejected") || relayStatus === "Not Attempted") && process.env.SMTP_HOST) {
        try {
           const transporter = nodemailer.createTransport({
              host: process.env.SMTP_HOST,
@@ -166,8 +165,8 @@ export async function POST(request: NextRequest) {
       telemetry: {
         email: emailStatus,
         email_error: resendErrorDetail,
-        fallback: formspreeStatus,
-        fallback_error: formspreeErrorDetail,
+        relay: relayStatus,
+        relay_error: relayErrorDetail,
         smtp: smtpStatus,
         smtp_error: smtpErrorDetail,
         ledger: localLedgerStatus
