@@ -19,6 +19,10 @@ export interface SEOPageData {
   hero_badge?: string;
   hero_title: string;
   hero_subtitle: string;
+  blog_content?: {
+    heading: string;
+    paragraph: string;
+  }[];
   faq_json: FAQSchema | null;
 }
 

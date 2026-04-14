@@ -222,7 +222,7 @@ export default function SovereignVault() {
                 <AnimatePresence mode="popLayout">
                   {filteredLeads.map((lead, i) => (
                     <motion.div
-                      key={`${lead.timestamp}-${i}`}
+                      key={lead.timestamp + i}
                       initial={{ opacity: 0, scale: 0.95, y: 10 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
