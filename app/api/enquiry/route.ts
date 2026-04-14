@@ -2,23 +2,11 @@ import fs from "fs";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { appendToSheet } from "@/lib/google-sheets";
-import nodemailer from "nodemailer";
-
-// Switch to Node.js runtime to allow filesystem and SMTP access
+// Switch to Node.js runtime to allow filesystem access
 export const runtime = "nodejs";
 
 const LEDGER_PATH = path.join(process.cwd(), "data", "leads-ledger.json");
-
-// Configure the "Simple Sender" Transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || "smtp.resend.com",
-  port: Number(process.env.SMTP_PORT) || 465,
-  secure: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+const FORMSPREE_ENDPOINT = process.env.FORMSPREE_ENDPOINT;
 
 export async function POST(request: NextRequest) {
   try {
@@ -70,35 +58,39 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Tier 3: Simple Server-Side Email Sender (Primary Path)
+    // Tier 3: Robust Formspree Email Relay (New Strategy)
     let emailStatus = "Not Sent";
     try {
-      if (process.env.SMTP_USER && process.env.SMTP_PASS) {
-        await transporter.sendMail({
-          from: `"Kumar Magnacity Vault" <${process.env.SMTP_USER}>`,
-          to: "propsmartrealty@gmail.com",
-          subject: `🚨 NEW LEAD: ${leadEntry.name}`,
-          html: `
-            <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px; max-width: 600px;">
-              <h2 style="color: #6366f1; margin-bottom: 20px;">Sovereign Lead Alert</h2>
-              <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <p style="margin: 10px 0;"><strong>Name:</strong> ${leadEntry.name}</p>
-                <p style="margin: 10px 0;"><strong>Phone:</strong> ${leadEntry.phone}</p>
-                <p style="margin: 10px 0;"><strong>Source:</strong> ${leadEntry.source_url}</p>
-                <p style="margin: 10px 0;"><strong>Meta:</strong> ${leadEntry.source_meta || "Direct Portal"}</p>
-                <p style="margin: 10px 0;"><strong>Plot Interest:</strong> ${leadEntry.plot_id || "General Enquiry"}</p>
-              </div>
-              <p style="font-size: 11px; color: #64748b; margin-top: 25px; text-align: center;">Delivered via Sovereign Node Relay • ProSmart Realty Dashboard</p>
-            </div>
-          `,
+      if (FORMSPREE_ENDPOINT) {
+        const formspreeResponse = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: leadEntry.name,
+            phone: leadEntry.phone,
+            email: data.email || "No Email",
+            source: leadEntry.source_url,
+            plot: leadEntry.plot_id || "General",
+            meta: leadEntry.source_meta || "Direct Portal",
+            _subject: `🚨 NEW LEAD: ${leadEntry.name} (Kumar Magnacity)`
+          }),
         });
-        emailStatus = "Delivered";
+
+        if (formspreeResponse.ok) {
+          emailStatus = "Delivered via Formspree";
+        } else {
+          const fsError = await formspreeResponse.json();
+          emailStatus = `Formspree Error: ${fsError.error || "Unknown"}`;
+        }
       } else {
-        console.warn("SMTP Credentials missing.");
-        emailStatus = "Credentials Missing";
+        console.warn("FORMSPREE_ENDPOINT missing.");
+        emailStatus = "Config Missing";
       }
     } catch (mailErr: any) {
-      console.error("Mail Relay Failure:", mailErr.message);
+      console.error("Formspree Relay Failure:", mailErr.message);
       emailStatus = `Relay Failure: ${mailErr.message}`;
     }
 
