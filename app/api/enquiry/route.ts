@@ -80,36 +80,44 @@ export async function POST(request: NextRequest) {
       emailStatus = "Skipped (No Resend Key)";
     }
 
-    // Tier 2: FormSubmit Relay (Secondary Fallback)
+    // Tier 2: Dual-Relay Delivery (Redundant Fallback)
     let relayStatus = "Not Attempted";
-    let relayErrorDetail = null;
-
+    
     if (emailStatus.includes("Failure") || emailStatus === "Skipped (No Resend Key)") {
       try {
-        // Using explicit email as requested by user
-        const FORMSUBMIT_TARGET = "propsmartrealty@gmail.com";
-        const fsResponse = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_TARGET}`, {
-          method: "POST",
-          headers: { 
-            "Content-Type": "application/json",
-            "Accept": "application/json" 
-          },
-          body: JSON.stringify({ 
-            ...leadEntry, 
-            _subject: `🚨 NEW LEAD: ${leadEntry.name}`,
-          }),
-        });
+        const TARGET_EMAIL = "propsmartrealty@gmail.com";
+        
+        // Parallel Delivery Attempt
+        const [fsResponse, fSubmitResponse] = await Promise.allSettled([
+           // Attempt 1: Formspree Direct
+           fetch(`https://formspree.io/f/${TARGET_EMAIL}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json", "Accept": "application/json" },
+              body: JSON.stringify({ ...leadEntry, _subject: `🚨 K-MAGNA LEAD (Formspree): ${leadEntry.name}` }),
+           }),
+           // Attempt 2: FormSubmit Direct
+           fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json", "Accept": "application/json" },
+              body: JSON.stringify({ 
+                ...leadEntry, 
+                _subject: `🚨 K-MAGNA LEAD (FormSubmit): ${leadEntry.name}`,
+                _captcha: "false",
+                _template: "table"
+              }),
+           })
+        ]);
 
-        if (fsResponse.ok) {
-          relayStatus = "Delivered (FormSubmit)";
+        const formsspreeSuccess = fsResponse.status === "fulfilled" && fsResponse.value.ok;
+        const formSubmitSuccess = fSubmitResponse.status === "fulfilled" && fSubmitResponse.value.ok;
+
+        if (formsspreeSuccess || formSubmitSuccess) {
+           relayStatus = `Delivered (${formsspreeSuccess ? 'Formspree' : ''}${formsspreeSuccess && formSubmitSuccess ? '+' : ''}${formSubmitSuccess ? 'FormSubmit' : ''})`;
         } else {
-          const fsData = await fsResponse.json();
-          relayStatus = `FormSubmit Rejected: ${fsResponse.status}`;
-          relayErrorDetail = fsData;
+           relayStatus = "Relay Failed (Check Verification)";
         }
       } catch (err: any) {
-        relayStatus = `FormSubmit Error: ${err.message}`;
-        relayErrorDetail = err;
+        relayStatus = `Relay Error: ${err.message}`;
       }
     }
 
