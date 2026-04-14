@@ -1,148 +1,89 @@
 @import "tailwindcss";
 
-@theme inline {
-  /* Brand Colors - Earthy Quiet Luxury */
-  --color-primary: #0A4D3C;
-  --color-primary-light: #12634E;
-  --color-accent: #C5A059;
-  --color-accent-hover: #E0C58E;
-  --color-dark: #0A0A0A;
-  --color-dark-muted: #1A1A1A;
-  --color-light: #FBF9F6;
-  
-  /* Luxury Utility Colors */
-  --color-emerald-glass: rgba(10, 77, 60, 0.4);
-  --color-gold-glow: rgba(197, 160, 89, 0.25);
-  --color-obsidian-glass: rgba(10, 10, 10, 0.8);
-  
-  /* Fonts */
+@theme {
   --font-heading: var(--font-playfair);
-  --font-body: var(--font-outfit);
+  --font-sans: var(--font-outfit);
+  
+  --color-primary: #0A4D3C;
+  --color-primary-hover: #083D2F;
+  --color-accent: #C9A227;
+  --color-accent-hover: #B08D20;
+  --color-dark: #050505;
+  --color-light: #F8F9FA;
+  --color-light-soft: #F1F3F5;
 }
 
-:root {
-  --background: #FBF9F6;
-  --foreground: #1A1A1A;
-  --primary: #0A4D3C;
-  --accent: #C5A059;
-}
-
-html, body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body), system-ui, sans-serif;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  width: 100vw;
-  position: relative;
-}
-
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading), serif;
-  color: var(--color-dark);
-  letter-spacing: -0.02em;
-}
-
-@layer utilities {
-  .glass-panel {
-    @apply bg-white/10 backdrop-blur-xl border border-white/20;
+@layer base {
+  html {
+    scroll-behavior: smooth;
   }
   
-  .glass-emerald {
-    @apply bg-primary/10 backdrop-blur-3xl border border-primary/20;
+  body {
+    @apply font-sans;
+    background-color: var(--color-light);
+    color: var(--color-dark);
   }
-  
+}
+
+@layer components {
   .glass-obsidian {
-    @apply bg-dark/40 backdrop-blur-2xl border border-white/5;
+    @apply bg-dark/60 backdrop-blur-3xl;
   }
-
+  
+  .glass-white {
+    @apply bg-white/60 backdrop-blur-3xl;
+  }
+  
   .shine-effect {
-    position: relative;
-    overflow: hidden;
+    @apply relative overflow-hidden;
   }
-
+  
   .shine-effect::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      to bottom right,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0) 40%,
-      rgba(255, 255, 255, 0.4) 50%,
-      rgba(255, 255, 255, 0) 60%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(45deg);
-    transition: all 0.7s;
-    pointer-events: none;
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full;
   }
-
+  
   .shine-effect:hover::after {
-    left: 100%;
-    top: 100%;
+    @apply translate-x-full transition-transform duration-1000;
   }
-
-  /* Refined Logo Emblem */
-  .kumar-emblem {
-    @apply relative flex items-center justify-center;
-    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
-    box-shadow: 0 10px 30px rgba(197, 160, 89, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.5);
-  }
-
-  .kumar-emblem::before {
-    content: "";
-    @apply absolute inset-[3px] border border-dark/10 rounded-[inherit];
+  
+  /* High-End Layout Reveals */
+  .reveal-luxury {
+    @apply animate-in fade-in slide-in-from-bottom-10 duration-1000 ease-out;
   }
 }
 
-@keyframes float-luxury {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.05); }
 }
 
-.animate-float {
-  animation: float-luxury 6s ease-in-out infinite;
-  will-change: transform;
+.animate-pulse-slow {
+  animation: pulse-slow 8s infinite ease-in-out;
 }
 
-.reveal-luxury {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: reveal-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: transform, opacity;
-}
-
-@keyframes reveal-up {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Status Pulsing for High Intent Elements */
-@keyframes high-intent-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
-  70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
-}
-
-.pulse-accent {
-  animation: high-intent-pulse 2.5s infinite;
-}
-
-/* Custom Scrollbar for Luxury Desktop */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  @apply bg-dark;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #C5A059;
-  border-radius: 10px;
+  @apply bg-accent/20 rounded-full hover:bg-accent/40 transition-colors;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #E0C58E;
+
+/* Luxury Typography Utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+.tracking-ultra {
+  letter-spacing: 0.5em;
+}
+
+.font-heading {
+  font-family: var(--font-playfair);
 }
