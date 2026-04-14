@@ -46,9 +46,12 @@ export default function EnquiryForm({
 
     const name = formData.get("name") as string;
     const phone = formData.get("phone") as string;
+    const email = formData.get("email") as string;
+    const timing = formData.get("timing") as string;
+    const intent = formData.get("intent") as string;
     const isMarathi = window.location.pathname.includes("/mr");
 
-    // 2. PHONE VALIDATION (Regex: 10 digits Indian Standard)
+    // 2. VALIDATION
     const phoneRegex = /^[6-9]\d{9}$/;
     if (!phoneRegex.test(phone.replace(/\s+/g, ""))) {
       setStatus("error");
@@ -61,7 +64,9 @@ export default function EnquiryForm({
     const data = {
       name,
       phone,
-      email: formData.get("email") || "no-email@kumarmagnacity.com",
+      email: email || "no-email@kumarmagnacity.com",
+      timing,
+      intent,
       source_url: sourceUrl,
       form_id: formId,
       plot_id: modalData?.plotId || "General",
@@ -70,7 +75,7 @@ export default function EnquiryForm({
     };
 
     try {
-      // SIMPLE SERVER-SIDE SENDER: Direct to your local API
+      // PRO-RELAY: Direct to your Formspree-enabled API
       const response = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -124,23 +129,63 @@ export default function EnquiryForm({
       )}
 
       <form id={formId} onSubmit={handleSubmit} className="relative space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="group relative">
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder={isMarathi ? "पूर्ण नाव" : "Full Name"}
+              className="w-full bg-[#1A1A1A] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/60 transition-all placeholder:text-white/40 text-sm shadow-inner"
+            />
+          </div>
+          <div className="group relative">
+            <input
+              type="tel"
+              name="phone"
+              required
+              placeholder={isMarathi ? "मोबाईल नंबर" : "Mobile Number"}
+              className="w-full bg-[#1A1A1A] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/60 transition-all placeholder:text-white/40 text-sm shadow-inner"
+            />
+          </div>
+        </div>
+
         <div className="group relative">
           <input
-            type="text"
-            name="name"
+            type="email"
+            name="email"
             required
-            placeholder={isMarathi ? "तुमचे पूर्ण नाव" : "Your Full Name"}
+            placeholder={isMarathi ? "ईमेल पत्ता" : "Email Address"}
             className="w-full bg-[#1A1A1A] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/60 transition-all placeholder:text-white/40 text-sm shadow-inner"
           />
         </div>
-        <div className="group relative">
-          <input
-            type="tel"
-            name="phone"
-            required
-            placeholder={isMarathi ? "मोबाईल नंबर" : "Mobile Number"}
-            className="w-full bg-[#1A1A1A] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/60 transition-all placeholder:text-white/40 text-sm shadow-inner"
-          />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="group relative">
+            <select
+              name="timing"
+              required
+              className="w-full bg-[#1A1A1A] border border-white/10 rounded-2xl px-5 py-4 text-white/50 focus:text-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/60 transition-all text-sm shadow-inner appearance-none"
+            >
+              <option value="" disabled selected>{isMarathi ? "भेट देण्याची वेळ" : "Expected Visit"}</option>
+              <option value="Next 48 Hours">{isMarathi ? "पुढील ४८ तासात" : "Next 48 Hours"}</option>
+              <option value="This Weekend">{isMarathi ? "या शनिवार-रविवारी" : "This Weekend"}</option>
+              <option value="Next Week">{isMarathi ? "पुढील आठवड्यात" : "Next Week"}</option>
+              <option value="Just Researching">{isMarathi ? "फक्त माहितीसाठी" : "Just Researching"}</option>
+            </select>
+          </div>
+          <div className="group relative">
+            <select
+              name="intent"
+              required
+              className="w-full bg-[#1A1A1A] border border-white/10 rounded-2xl px-5 py-4 text-white/50 focus:text-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/60 transition-all text-sm shadow-inner appearance-none"
+            >
+              <option value="" disabled selected>{isMarathi ? "उद्देश निवडा" : "Investment Goal"}</option>
+              <option value="Self Use Bungalow">{isMarathi ? "स्वतःचे घर" : "Self Use Bungalow"}</option>
+              <option value="ROI / Investment">{isMarathi ? "गुंतवणूक / परतावा" : "ROI / Investment"}</option>
+              <option value="Portfolio Extension">{isMarathi ? "पोर्टफोलिओ वाढ" : "Portfolio Extension"}</option>
+            </select>
+          </div>
         </div>
         
         {status === "error" && (

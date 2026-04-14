@@ -69,6 +69,8 @@ export async function initializeSheet() {
     "Full Name", 
     "Mobile Number", 
     "Email Address", 
+    "Expected Visit", 
+    "Investment Goal",
     "Source URL", 
     "Plot/Interest", 
     "Meta Info"

@@ -31,6 +31,8 @@ export async function POST(request: NextRequest) {
         leadEntry.name,
         leadEntry.phone,
         data.email || "No Email",
+        data.timing || "Not Specified",
+        data.intent || "Not Specified",
         leadEntry.source_url,
         leadEntry.plot_id || "General",
         leadEntry.source_meta || "Direct Portal"
@@ -73,6 +75,8 @@ export async function POST(request: NextRequest) {
           name: leadEntry.name,
           phone: leadEntry.phone,
           email: data.email || "No Email",
+          visit_timing: data.timing || "Not Specified",
+          investment_intent: data.intent || "Not Specified",
           source: leadEntry.source_url,
           plot: leadEntry.plot_id || "General",
           meta: leadEntry.source_meta || "Direct Portal",
