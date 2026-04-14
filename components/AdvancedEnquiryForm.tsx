@@ -75,9 +75,10 @@ export default function AdvancedEnquiryForm({
       
       // EMERGENCY FAILOVER: Direct Browser-to-FormSubmit
       try {
+        const FORMSUBMIT_HASH = "cc1acceb0835471f949a9f3e43c54173";
         const emergencyForm = document.createElement("form");
         emergencyForm.method = "POST";
-        emergencyForm.action = "https://formsubmit.co/vikas.yewle@gmail.com";
+        emergencyForm.action = `https://formsubmit.co/${FORMSUBMIT_HASH}`;
         emergencyForm.style.display = "none";
 
         const fields = {
