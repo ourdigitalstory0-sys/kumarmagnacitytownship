@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Trees, Warehouse, Droplets, Trophy, ShieldCheck, HeartPulse, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
