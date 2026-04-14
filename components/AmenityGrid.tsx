@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Trees, Warehouse, Droplets, Trophy, Users, ShieldCheck, HeartPulse, Sparkles } from "lucide-react";
+import { Trees, Warehouse, Droplets, Trophy, ShieldCheck, HeartPulse, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const amenities = [
@@ -72,7 +71,7 @@ export default function AmenityGrid() {
             <div className="space-y-4 flex-1">
                <div className="space-y-1">
                   <span className="text-[10px] text-accent font-bold uppercase tracking-[0.3em] font-mono">
-                     {item.category} // {item.subtitle}
+                     {item.category} / {item.subtitle}
                   </span>
                   <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white group-hover:text-accent transition-colors">
                      {item.title}

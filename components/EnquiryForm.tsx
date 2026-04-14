@@ -91,8 +91,8 @@ export default function EnquiryForm({
         throw new Error("Server rejected lead");
       }
 
-    } catch (error: any) {
-      console.error("Submission failed:", error);
+    } catch (error: Error | unknown) {
+      console.error("Submission failed:", error instanceof Error ? error.message : "Unknown error");
       setStatus("error");
       setErrorMessage(isMarathi 
         ? "सिस्टम एरर. कृपया पुन्हा प्रयत्न करा." 

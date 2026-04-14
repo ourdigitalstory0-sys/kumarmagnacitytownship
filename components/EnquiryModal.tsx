@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useModal } from "@/lib/modal-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShieldCheck, MapPin, MessageSquare } from "lucide-react";
+import { X, MapPin, MessageSquare } from "lucide-react";
 import AdvancedEnquiryForm from "./AdvancedEnquiryForm";
 
 export default function EnquiryModal() {
