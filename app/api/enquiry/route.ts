@@ -1,3 +1,4 @@
+import nodemailer from "nodemailer";
 import fs from "fs";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,9 +9,10 @@ import { EnquirySchema } from "@/types/enquiry";
 export const runtime = "nodejs";
 
 const LEDGER_PATH = path.join(process.cwd(), "data", "leads-ledger.json");
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
+  const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+  
   try {
     const body = await request.json();
     
@@ -34,55 +36,116 @@ export async function POST(request: NextRequest) {
       source_url: data.source_url || request.headers.get("referer") || "Direct Portal"
     };
 
-    // --- STRATEGY: DUAL REDUNDANCY (Google Sheets Scrapped) ---
+    // --- STRATEGY: TRIPLE-TIER REDUNDANCY (Resend -> Formspree -> SMTP) ---
     
     // Tier 1: Resend Email Integration (Primary)
-    let emailStatus = "Not Sent";
-    if (process.env.RESEND_API_KEY) {
+    let emailStatus = "Not Attempted";
+    let resendErrorDetail = null;
+
+    if (resend) {
       try {
         const { data: resendData, error: resendError } = await resend.emails.send({
-          from: "Kumar Magnacity Leads <onboarding@resend.dev>", // Replace with verified domain in production
+          from: "Kumar Magnacity <onboarding@resend.dev>", 
           to: ["propsmartrealty@gmail.com"],
+          replyTo: leadEntry.email || undefined,
           subject: `🚨 NEW LEAD: ${leadEntry.name} (${leadEntry.intent})`,
           html: `
             <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
               <h2 style="color: #C9A227;">New Sovereign Enquiry</h2>
-              <p><strong>Name:</strong> ${leadEntry.name}</p>
-              <p><strong>Phone:</strong> ${leadEntry.phone}</p>
-              <p><strong>Email:</strong> ${leadEntry.email || 'N/A'}</p>
-              <p><strong>Goal:</strong> ${leadEntry.intent}</p>
-              <p><strong>Visit:</strong> ${leadEntry.timing}</p>
-              <hr/>
-              <p style="font-size: 12px; color: #666;">Source: ${leadEntry.source_url}</p>
-              <p style="font-size: 12px; color: #666;">Timestamp: ${leadEntry.timestamp}</p>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr><td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;"><strong>Name:</strong></td><td>${leadEntry.name}</td></tr>
+                <tr><td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;"><strong>Phone:</strong></td><td>${leadEntry.phone}</td></tr>
+                <tr><td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;"><strong>Email:</strong></td><td>${leadEntry.email || 'N/A'}</td></tr>
+                <tr><td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;"><strong>Goal:</strong></td><td>${leadEntry.intent}</td></tr>
+                <tr><td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;"><strong>Visit:</strong></td><td>${leadEntry.timing}</td></tr>
+              </table>
+              <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;"/>
+              <p style="font-size: 11px; color: #999;">Source: ${leadEntry.source_url} | ID: ${leadEntry.form_id}</p>
+              <p style="font-size: 11px; color: #999;">Timestamp: ${leadEntry.timestamp}</p>
             </div>
           `,
         });
 
-        if (resendError) throw resendError;
-        emailStatus = "Delivered via Resend";
+        if (resendError) {
+          resendErrorDetail = resendError;
+          throw new Error(resendError.message);
+        }
+        emailStatus = "Delivered (Resend)";
       } catch (err: any) {
-        console.error("Resend Error:", err.message);
+        console.error("Resend Pipeline Failed:", err.message);
         emailStatus = `Resend Failure: ${err.message}`;
+        resendErrorDetail = err;
       }
     } else {
-      // Fallback to Formspree if Resend is not configured
+      emailStatus = "Skipped (No Resend Key)";
+    }
+
+    // Tier 2: Formspree Fallback (Secondary)
+    let formspreeStatus = "Not Attempted";
+    let formspreeErrorDetail = null;
+
+    if (emailStatus.includes("Failure") || emailStatus === "Skipped (No Resend Key)") {
       try {
         const FORMSPREE_ENDPOINT = process.env.FORMSPREE_ENDPOINT || "https://formspree.io/f/mqakqkqy";
-        await fetch(FORMSPREE_ENDPOINT, {
+        const fsResponse = await fetch(FORMSPREE_ENDPOINT, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...leadEntry, _subject: `🚨 LEAD: ${leadEntry.name}` }),
+          headers: { 
+            "Content-Type": "application/json",
+            "Accept": "application/json" 
+          },
+          body: JSON.stringify({ 
+            ...leadEntry, 
+            _subject: `🚨 LEAD: ${leadEntry.name}`,
+            _cc: "propsmartrealty@gmail.com"
+          }),
         });
-        emailStatus = "Delivered via Formspree Fallback";
-      } catch (err) {
-        emailStatus = "All mail relays failed";
+
+        if (fsResponse.ok) {
+          formspreeStatus = "Delivered (Formspree)";
+        } else {
+          const fsData = await fsResponse.json();
+          formspreeStatus = `Formspree Rejected: ${fsResponse.status}`;
+          formspreeErrorDetail = fsData;
+        }
+      } catch (err: any) {
+        formspreeStatus = `Formspree Error: ${err.message}`;
+        formspreeErrorDetail = err;
       }
     }
 
-    // Tier 2: Local JSON Ledger (Failsafe for developer Mac only)
+    // Tier 3: Nodemailer SMTP (Tertiary Fallback)
+    let smtpStatus = "Not Attempted";
+    let smtpErrorDetail = null;
+
+    if ((formspreeStatus.includes("Rejected") || formspreeStatus === "Not Attempted") && process.env.SMTP_HOST) {
+       try {
+          const transporter = nodemailer.createTransport({
+             host: process.env.SMTP_HOST,
+             port: Number(process.env.SMTP_PORT) || 465,
+             secure: true,
+             auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS,
+             },
+          });
+
+          await transporter.sendMail({
+             from: `"Kumar Magnacity Vault" <${process.env.SMTP_USER}>`,
+             to: "propsmartrealty@gmail.com",
+             subject: `🚨 BACKUP LEAD: ${leadEntry.name}`,
+             text: `New Lead: ${leadEntry.name}\nPhone: ${leadEntry.phone}\nEmail: ${leadEntry.email || 'N/A'}\nIntent: ${leadEntry.intent}\nVisit: ${leadEntry.timing}`,
+             html: `<b>New Lead Captured via SMTP Backup</b><br/><br/>Name: ${leadEntry.name}<br/>Phone: ${leadEntry.phone}<br/>Email: ${leadEntry.email || 'N/A'}<br/>Intent: ${leadEntry.intent}<br/>Visit: ${leadEntry.timing}`,
+          });
+          smtpStatus = "Delivered (SMTP)";
+       } catch (err: any) {
+          smtpStatus = `SMTP Error: ${err.message}`;
+          smtpErrorDetail = err;
+       }
+    }
+
+    // Tier 4: Local JSON Ledger (Failsafe)
     const isVercel = process.env.VERCEL === "1";
-    let localLedger = "Skipped (Cloud)";
+    let localLedgerStatus = "Skipped (Cloud)";
     if (!isVercel) {
       try {
         if (!fs.existsSync(LEDGER_PATH)) {
@@ -91,9 +154,9 @@ export async function POST(request: NextRequest) {
         const currentData = JSON.parse(fs.readFileSync(LEDGER_PATH, "utf8"));
         currentData.push(leadEntry);
         fs.writeFileSync(LEDGER_PATH, JSON.stringify(currentData, null, 2));
-        localLedger = "Secured Locally";
+        localLedgerStatus = "Secured Locally";
       } catch (fsErr) {
-        localLedger = "Local Write Failure";
+        localLedgerStatus = "Local Write Failure";
       }
     }
 
@@ -101,14 +164,25 @@ export async function POST(request: NextRequest) {
       success: true, 
       vault: "secured",
       telemetry: {
-        local_ledger: localLedger,
-        email: emailStatus
+        email: emailStatus,
+        email_error: resendErrorDetail,
+        fallback: formspreeStatus,
+        fallback_error: formspreeErrorDetail,
+        smtp: smtpStatus,
+        smtp_error: smtpErrorDetail,
+        ledger: localLedgerStatus
       }
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("Critical API error:", error);
-    return NextResponse.json({ success: false, error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ 
+      success: false, 
+      error: error.message || "Internal Server Error",
+      trace: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    }, { status: 500 });
   }
 }
+
+
 
