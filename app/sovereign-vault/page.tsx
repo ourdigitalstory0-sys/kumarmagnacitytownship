@@ -145,17 +145,18 @@ export default function SovereignVault() {
                 type="button"
                 onClick={() => handleAuth()}
                 disabled={isVerifying}
-                className="w-full bg-accent text-dark font-black uppercase tracking-[0.25em] py-5 rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-xl disabled:opacity-50 flex items-center justify-center gap-3"
+                className="w-full bg-accent text-dark hover:bg-white hover:text-dark font-black uppercase tracking-[0.3em] py-5 rounded-2xl transition-all shadow-[0_20px_50px_rgba(197,160,89,0.3)] disabled:opacity-50 flex items-center justify-center gap-3 active:scale-95"
               >
                 {isVerifying ? (
                   <>
                     <Loader2 className="animate-spin" size={20} />
-                    <span>Verifying...</span>
+                    <span className="text-[10px]">AUTH_SEQUENCE_RUNNING</span>
                   </>
                 ) : (
-                  "Unlock Vault"
+                  "INITIATE_BYPASS"
                 )}
               </button>
+
             </form>
 
             <p className="text-[10px] text-white/10 uppercase tracking-[0.5em] pt-4">Sovereign Security Node</p>

@@ -36,35 +36,42 @@ export async function POST(request: NextRequest) {
     };
 
     // Tier 1: Professional Google Sheets Ledger (PRIMARY)
+    let sheetSync = { success: false, detail: "Not Attempted" };
     try {
-      await appendToSheet([
+      const sheetResult = await appendToSheet([
         leadEntry.timestamp,
         leadEntry.name,
         leadEntry.phone,
+        data.email || "No Email",
         leadEntry.source_url,
         leadEntry.plot_id || "General",
-        leadEntry.source_meta || "Direct Portal",
-        data.email || "No Email"
+        leadEntry.source_meta || "Direct Portal"
       ]);
-    } catch (sheetErr) {
-      console.error("Google Sheets Sync Failed:", sheetErr);
+      sheetSync = { success: true, detail: "Synced Successfully" };
+    } catch (sheetErr: any) {
+      console.error("Google Sheets Sync Failed:", sheetErr.message);
+      sheetSync = { success: false, detail: sheetErr.message || "Unknown API Error" };
     }
 
     // Tier 2: Local Ledger (Failsafe for developer Mac only)
     const isVercel = process.env.VERCEL === "1";
+    let localLedger = "Skipped (Cloud)";
     if (!isVercel) {
       try {
         if (fs.existsSync(path.dirname(LEDGER_PATH))) {
           const currentData = JSON.parse(fs.readFileSync(LEDGER_PATH, "utf8"));
           currentData.push(leadEntry);
           fs.writeFileSync(LEDGER_PATH, JSON.stringify(currentData, null, 2));
+          localLedger = "Written Successfully";
         }
       } catch (fsErr) {
         console.error("Local Ledger Writing Failed:", fsErr);
+        localLedger = "Write Failure";
       }
     }
 
-    // Tier 2: Simple Server-Side Email Sender (Primary Path)
+    // Tier 3: Simple Server-Side Email Sender (Primary Path)
+    let emailStatus = "Not Sent";
     try {
       if (process.env.SMTP_USER && process.env.SMTP_PASS) {
         await transporter.sendMail({
@@ -85,17 +92,25 @@ export async function POST(request: NextRequest) {
             </div>
           `,
         });
+        emailStatus = "Delivered";
       } else {
-        console.warn("SMTP Credentials missing. Check Vercel Environment Variables.");
+        console.warn("SMTP Credentials missing.");
+        emailStatus = "Credentials Missing";
       }
-    } catch (mailErr) {
-      console.error("Mail Relay Failure:", mailErr);
+    } catch (mailErr: any) {
+      console.error("Mail Relay Failure:", mailErr.message);
+      emailStatus = `Relay Failure: ${mailErr.message}`;
     }
 
-    // Tier 3: Passive Console Log
-    await backupLead(leadEntry);
-
-    return NextResponse.json({ success: true, vault: "secured" });
+    return NextResponse.json({ 
+      success: true, 
+      vault: "secured",
+      telemetry: {
+        google_sheets: sheetSync,
+        local_ledger: localLedger,
+        email: emailStatus
+      }
+    });
 
   } catch (error) {
     console.error("Critical API error:", error);

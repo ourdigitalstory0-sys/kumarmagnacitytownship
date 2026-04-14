@@ -7,7 +7,7 @@ import { Phone, Mail, MapPin, Globe, ShieldCheck } from "lucide-react";
 export default function Footer() {
   const { openModal } = useModal();
   return (
-    <footer className="glass-obsidian text-white pt-32 pb-12 relative overflow-hidden">
+    <footer className="bg-dark text-white pt-24 md:pt-32 pb-12 relative overflow-hidden">
       {/* Cinematic Branding Layer */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />

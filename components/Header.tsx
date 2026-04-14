@@ -43,24 +43,27 @@ export default function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 w-full z-[10000] transition-all duration-700",
-          isScrolled ? "py-3 bg-dark/90 backdrop-blur-3xl border-b border-white/10" : "py-8 bg-transparent"
+          "fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-[1400px] z-[10000] transition-all duration-700 rounded-[2rem] overflow-hidden",
+          isScrolled 
+            ? "py-3 bg-dark/80 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)]" 
+            : "py-5 bg-dark/40 backdrop-blur-md border border-white/5"
         )}
       >
-        <div className="container mx-auto max-w-[1400px] px-6 lg:px-12 flex items-center justify-between gap-4">
+        <div className="container mx-auto px-6 lg:px-10 flex items-center justify-between gap-4">
           
           {/* LOGO AREA - Strong Anchor */}
           <Link href={isMarathi ? "/mr" : "/"} className="flex flex-col group shrink-0">
-              <span className="text-xl md:text-2xl lg:text-3xl font-heading font-black tracking-[0.15em] text-white group-hover:text-accent transition-colors duration-500">
+              <span className="text-lg md:text-xl lg:text-2xl font-heading font-black tracking-[0.15em] text-white group-hover:text-accent transition-colors duration-500">
                 KUMAR MAGNACITY
               </span>
-              <span className="text-[7px] md:text-[8px] font-bold text-accent tracking-[0.4em] uppercase mt-1">
-                 Premium NA Bungalow Plots
+              <span className="text-[7px] md:text-[8px] font-bold text-accent/60 tracking-[0.4em] uppercase mt-0.5">
+                 Sovereign Real Estate Node
               </span>
           </Link>
 
+
           {/* DESKTOP NAVIGATION & ACTIONS - Fluid Spacing */}
-          <div className="hidden md:flex items-center justify-end flex-1 gap-6 lg:gap-12">
+          <div className="hidden lg:flex items-center justify-end flex-1 gap-6 lg:gap-12">
             
             {/* Primary Links */}
             <nav className="flex items-center gap-1 xl:gap-8">
@@ -93,26 +96,28 @@ export default function Header() {
                 </button>
 
                 {/* Language Switcher */}
-                <div className="flex items-center gap-3 shrink-0">
-                   <Link href="/" className={cn("text-[9px] font-black tracking-tighter transition-all px-2 py-1 rounded", !isMarathi ? "bg-accent text-dark" : "text-white/30 hover:text-white")}>EN</Link>
-                   <Link href="/mr" className={cn("text-[9px] font-black tracking-tighter transition-all px-2 py-1 rounded", isMarathi ? "bg-accent text-dark" : "text-white/30 hover:text-white")}>MR</Link>
+                <div className="flex items-center gap-4 shrink-0">
+                   <Link href="/" className={cn("text-[11px] font-black tracking-tighter transition-all px-3 py-2 rounded-lg", !isMarathi ? "bg-accent text-dark shadow-lg shadow-accent/20" : "text-white/40 hover:text-white hover:bg-white/5")}>EN</Link>
+                   <Link href="/mr" className={cn("text-[11px] font-black tracking-tighter transition-all px-3 py-2 rounded-lg", isMarathi ? "bg-accent text-dark shadow-lg shadow-accent/20" : "text-white/40 hover:text-white hover:bg-white/5")}>MR</Link>
                 </div>
             </div>
           </div>
 
-          {/* Mobile Toggle */}
-          <div className="md:hidden flex items-center gap-6">
-             <div className="flex items-center gap-2">
-                <Link href="/" className={cn("text-[10px] font-bold", !isMarathi ? "text-accent underline underline-offset-4" : "text-white/30")}>EN</Link>
-                <Link href="/mr" className={cn("text-[10px] font-bold", isMarathi ? "text-accent underline underline-offset-4" : "text-white/30")}>MR</Link>
+          {/* Mobile Toggle & Mini Actions */}
+          <div className="lg:hidden flex items-center gap-4">
+             <div className="flex items-center gap-2 mr-2">
+                <Link href="/" className={cn("text-[11px] font-bold px-2 py-1 rounded transition-colors", !isMarathi ? "text-accent bg-white/5" : "text-white/20")}>EN</Link>
+                <div className="w-[1px] h-3 bg-white/10" />
+                <Link href="/mr" className={cn("text-[11px] font-bold px-2 py-1 rounded transition-colors", isMarathi ? "text-accent bg-white/5" : "text-white/20")}>MR</Link>
              </div>
              <button
                onClick={() => setMobileMenuOpen(true)}
-               className="text-white p-2 border border-white/10 rounded-xl bg-white/5"
+               className="text-white p-2.5 border border-white/10 rounded-2xl bg-white/5 active:scale-90 transition-all shadow-xl"
              >
-               <Menu size={24} />
+               <Menu size={22} />
              </button>
           </div>
+
         </div>
       </header>
 

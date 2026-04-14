@@ -1,0 +1,55 @@
+{
+    "plots": [
+        {
+            "id": "P-101",
+            "status": "available",
+            "size": "1700 sq.ft."
+        },
+        {
+            "id": "P-102",
+            "status": "sold",
+            "size": "1850 sq.ft."
+        },
+        {
+            "id": "P-103",
+            "status": "available",
+            "size": "1900 sq.ft."
+        },
+        {
+            "id": "P-104",
+            "status": "available",
+            "size": "1700 sq.ft."
+        },
+        {
+            "id": "P-105",
+            "status": "fast-selling",
+            "size": "2100 sq.ft."
+        },
+        {
+            "id": "P-201",
+            "status": "sold",
+            "size": "1700 sq.ft."
+        },
+        {
+            "id": "P-202",
+            "status": "available",
+            "size": "1750 sq.ft."
+        },
+        {
+            "id": "P-203",
+            "status": "sold",
+            "size": "1800 sq.ft."
+        },
+        {
+            "id": "P-204",
+            "status": "fast-selling",
+            "size": "1950 sq.ft."
+        },
+        {
+            "id": "P-205",
+            "status": "available",
+            "size": "2100 sq.ft."
+        }
+    ],
+    "lastUpdated": "2026-03-08T19:55:00Z"
+}

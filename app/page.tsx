@@ -45,22 +45,23 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 pt-4">
-              <Link 
-                href="/kumar-magnacity-na-bungalow-plots-availability" 
-                className="w-full sm:w-auto group bg-primary text-white px-10 py-5 rounded-full font-bold uppercase tracking-widest text-[11px] shadow-[0_20px_40px_rgba(10,77,60,0.4)] hover:shadow-[0_20px_50px_rgba(10,77,60,0.6)] transition-all flex items-center justify-center gap-3 shine-effect"
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-8 pt-8 animate-reveal-up" style={{ animationDelay: '0.4s' }}>
+              <button 
+                onClick={() => openModal({ title: "Sovereign Plot Tour", source: "Hero Primary" })}
+                className="w-full sm:w-auto group bg-primary text-white px-12 py-5 rounded-full font-bold uppercase tracking-[0.25em] text-[10px] md:text-[11px] shadow-[0_20px_50px_rgba(10,77,60,0.4)] hover:shadow-[0_20px_60px_rgba(10,77,60,0.6)] transition-all flex items-center justify-center gap-3 shine-effect"
               >
                 EXPLORE PLOTS
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </button>
               <button 
-                onClick={() => openModal({ title: "Request High-Res Brochure", subtitle: "Receive the complete 150-acre master-plan and floor plans instantly.", source: "Hero Brochure" })}
-                className="w-full sm:w-auto bg-accent text-dark px-10 py-5 rounded-full font-bold uppercase tracking-widest text-[11px] hover:bg-accent-hover transition-all flex items-center justify-center gap-3 shadow-[0_20px_40px_rgba(197,160,89,0.2)]"
+                onClick={() => openModal({ title: "High-Res Brochure", subtitle: "Receive the complete 150-acre master-plan instantly.", source: "Hero Brochure" })}
+                className="w-full sm:w-auto bg-accent text-dark px-12 py-5 rounded-full font-bold uppercase tracking-[0.25em] text-[10px] md:text-[11px] hover:bg-accent-hover transition-all flex items-center justify-center gap-3 shadow-[0_20px_50px_rgba(197,160,89,0.2)]"
               >
                 3D BROCHURE
                 <Download size={16} />
               </button>
             </div>
+
           </div>
         </div>
 
@@ -84,7 +85,7 @@ export default function Home() {
       </section>
 
       {/* Trust & Legacy Orchestration */}
-      <section className="py-24 md:py-40 bg-light relative overflow-hidden">
+      <section className="py-24 md:py-32 bg-white relative overflow-hidden border-y border-dark/5">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 md:gap-32 items-center">
             <div className="space-y-12">
@@ -100,7 +101,7 @@ export default function Home() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-                <div className="p-10 rounded-[2.5rem] bg-white border border-dark/5 shadow-xl hover:shadow-2xl transition-all group relative overflow-hidden">
+                <div className="p-10 rounded-[2.5rem] bg-light border border-dark/5 shadow-xl hover:shadow-2xl transition-all group relative overflow-hidden">
                    <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <ShieldCheck size={100} />
                    </div>
@@ -108,7 +109,7 @@ export default function Home() {
                    <h4 className="text-xl font-bold mb-3 relative z-10">100% Legal Title</h4>
                    <p className="text-sm text-dark/40 relative z-10 leading-relaxed">Individual 7/12 extracts and RERA registered peace of mind.</p>
                 </div>
-                <div className="p-10 rounded-[2.5rem] bg-white border border-dark/5 shadow-xl hover:shadow-2xl transition-all group relative overflow-hidden">
+                <div className="p-10 rounded-[2.5rem] bg-light border border-dark/5 shadow-xl hover:shadow-2xl transition-all group relative overflow-hidden">
                    <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <TrendingUp size={100} />
                    </div>
@@ -130,6 +131,7 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* Connectivity & Growth Analysis */}
       <section className="py-24 md:py-40 bg-dark text-white relative">
         <div className="container mx-auto max-w-7xl px-6 text-center space-y-24">
@@ -138,23 +140,24 @@ export default function Home() {
              <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white leading-tight">The Pulse of Pune East</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
              {[
                { icon: <MapPin size={24} />, title: "Manjari Excellence", desc: "Prime location connecting Hadapsar, Magarpatta, and Kharadi Hubs." },
                { icon: <ShieldCheck size={24} />, title: "City Within a City", desc: "Featuring a ~1 Lakh sq.ft. grand clubhouse and 25-26 acres of landscaped greens." },
                { icon: <ArrowRight size={24} />, title: "Infrastructure Boom", desc: "Positioned directly on the upcoming massive Pune Outer Ring Road junction." }
              ].map((item, i) => (
-               <div key={i} className="p-12 rounded-[3.5rem] glass-obsidian border border-white/5 text-left space-y-8 group hover:border-accent/40 transition-all relative overflow-hidden">
-                  <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-dark transition-all duration-500 shadow-xl">
+               <div key={i} className="p-10 md:p-12 rounded-[3.5rem] bg-white/[0.03] border border-white/5 text-left space-y-6 md:space-y-8 group hover:border-accent/40 transition-all relative overflow-hidden flex flex-col h-full">
+                  <div className="w-16 h-16 md:w-20 md:h-20 bg-accent/10 rounded-2xl md:rounded-3xl flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-dark transition-all duration-500 shadow-xl shrink-0">
                      {item.icon}
                   </div>
-                  <div className="space-y-4">
+                  <div className="space-y-4 flex-1">
                      <h3 className="text-2xl md:text-3xl font-bold italic tracking-tight">{item.title}</h3>
-                     <p className="text-white/40 font-light text-base leading-relaxed">{item.desc}</p>
+                     <p className="text-white/40 font-light text-sm md:text-base leading-relaxed">{item.desc}</p>
                   </div>
                </div>
              ))}
           </div>
+
         </div>
       </section>
 

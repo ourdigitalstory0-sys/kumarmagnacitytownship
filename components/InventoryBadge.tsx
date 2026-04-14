@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertTriangle, CheckCircle2, Flame, ShieldCheck } from "lucide-react";
-import inventory from "@/inventory.json";
+import inventory from "@/data/inventory.json";
 import { cn } from "@/lib/utils";
 
 export default function InventoryBadge({ text }: { text?: string }) {

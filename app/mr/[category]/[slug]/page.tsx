@@ -76,142 +76,139 @@ export default async function SEONodePageMR({ params }: PageProps) {
       />
       
       {/* Dynamic Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-primary">
-        {/* Background elements */}
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 skew-x-12 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 blur-[120px] rounded-full -translate-x-1/2 translate-y-1/2" />
+      <section className="relative pt-32 pb-24 md:pt-48 md:pb-40 overflow-hidden bg-dark">
+        {/* Background elements - Cinematic Layer */}
+        <div className="absolute inset-0">
+           <div className="absolute inset-0 bg-gradient-to-b from-dark/40 via-dark/20 to-dark z-10" />
+           <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/20 blur-[150px] rounded-full opacity-30 -translate-y-1/2 translate-x-1/2" />
+        </div>
         
-        <div className="container mx-auto max-w-7xl px-4 relative z-10 font-[family-name:var(--font-body)]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-7 space-y-8 animate-fade-in text-right md:text-left">
-              <div className="space-y-4">
+        <div className="container mx-auto max-w-7xl px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div className="lg:col-span-7 space-y-10 animate-reveal-up text-center md:text-left">
+              <div className="space-y-6">
                 <InventoryBadge />
-                <h1 className="text-4xl md:text-7xl font-heading font-bold text-white leading-[1.3] tracking-tight">
+                <h1 className="text-4xl md:text-7xl lg:text-[5.5rem] font-heading font-bold text-white leading-[1.1] tracking-tight">
                   {data.hero_title}
                 </h1>
-                <p className="text-xl md:text-2xl text-white/60 leading-relaxed font-light max-w-2xl">
+                <p className="text-xl md:text-2xl text-white/50 leading-relaxed font-light max-w-2xl">
                   {data.hero_subtitle}
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-6 pt-4 justify-end md:justify-start">
-                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-accent">
-                       <ShieldCheck size={20} />
+              <div className="flex flex-wrap gap-8 pt-4 justify-center md:justify-start">
+                 <div className="flex items-center gap-4 group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-dark transition-all">
+                       <ShieldCheck size={24} />
                     </div>
                     <div className="flex flex-col">
                        <span className="text-[10px] uppercase tracking-widest text-white/40 font-bold">नोंदणी</span>
-                       <span className="text-sm text-white font-medium">RERA नोंदणीकृत जमीन</span>
+                       <span className="text-sm text-white font-medium">RERA नोंदणीकृत</span>
                     </div>
                  </div>
-                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-accent">
-                       <TrendingUp size={20} />
+                 <div className="flex items-center gap-4 group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-dark transition-all">
+                       <TrendingUp size={24} />
                     </div>
                     <div className="flex flex-col">
                        <span className="text-[10px] uppercase tracking-widest text-white/40 font-bold">परतावा</span>
-                       <span className="text-sm text-white font-medium">१२.५% ऐतिहासिक वाढ (CAGR)</span>
+                       <span className="text-sm text-white font-medium">१२.५% वार्षिक वाढ</span>
                     </div>
                  </div>
               </div>
 
-              <div className="hidden lg:block pt-8 text-left">
-                 <div className="p-8 rounded-[2rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl space-y-4">
-                    <h4 className="text-white font-heading font-bold text-xl italic text-accent">गुंतवणूक माहिती (Insight)</h4>
-                    <p className="text-white/50 leading-relaxed text-sm">
-                       पुणे पूर्व हे पुढील रिअल इस्टेट तेजीचे केंद्र आहे. आगामी <span className="text-white font-bold">रिंग रोड</span> आणि <span className="text-white font-bold">मेट्रो विस्तारामुळे</span>, २०२८ पर्यंत मांजरी-हडपसरमधील जमिनीच्या किमती २२% नी वाढण्याची शक्यता आहे.
+              <div className="hidden lg:block pt-10">
+                 <div className="p-10 rounded-[3rem] bg-white/[0.03] border border-white/10 backdrop-blur-3xl space-y-4">
+                    <h4 className="text-accent font-heading font-bold text-2xl italic">एक्झिक्युटिव्ह इनसाइट (Insight)</h4>
+                    <p className="text-white/50 leading-relaxed text-base italic line-clamp-3">
+                       पुणे पूर्व हे पुढील रिअल इस्टेट तेजीचे केंद्र आहे. आगामी <span className="text-white font-bold">रिंग रोड</span> आणि <span className="text-white font-bold">मेट्रो विस्तारामुळे</span>, २०२८ पर्यंत मांजरी-हडपसरमधील जमिनीच्या किमती लक्षणीय वाढण्याची शक्यता आहे.
                     </p>
                  </div>
               </div>
             </div>
             
-            <div className="lg:col-span-5 relative animate-fade-in [animation-delay:200ms]">
+            <div className="lg:col-span-5 relative animate-reveal-up [animation-delay:200ms]">
                <EnquiryForm 
-                title="VIP प्रवेश मिळवा" 
-                subtitle="या क्लस्टरसाठी थेट किंमत पत्रक आणि इन्व्हेंटरी मॅप डाऊनलोड करा."
+                title="Sovereign Access" 
+                subtitle="या क्लस्टरसाठी थेट किंमत पत्रक आणि इन्व्हेंटरी डेटा मिळवा."
                 buttonText="प्लॅन्स आणि दर मिळवा"
                />
-               
-               {/* Quick stats below form */}
-               <div className="mt-8 flex items-center justify-center gap-8 opacity-40">
-                  <div className="text-center">
-                     <p className="text-2xl font-heading font-bold text-white tracking-widest">१५०</p>
-                     <p className="text-[8px] uppercase tracking-widest text-white/50">एकर</p>
-                  </div>
-                  <div className="w-[1px] h-8 bg-white/20" />
-                  <div className="text-center">
-                     <p className="text-2xl font-heading font-bold text-white tracking-widest">५९</p>
-                     <p className="text-[8px] uppercase tracking-widest text-white/50">वर्षांचा वारसा</p>
-                  </div>
-                  <div className="w-[1px] h-8 bg-white/20" />
-                  <div className="text-center">
-                     <p className="text-2xl font-heading font-bold text-white tracking-widest">३ स्तरीय</p>
-                     <p className="text-[8px] uppercase tracking-widest text-white/50">सुरक्षा</p>
-                  </div>
-               </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Trust & Intelligence Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        <div className="container mx-auto max-w-7xl px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="space-y-8">
-               <h2 className="text-4xl md:text-5xl font-heading font-bold text-dark leading-tight">
-                 पुण्यातील स्मार्ट गुंतवणूकदार <br /> <span className="text-accent underline decoration-accent/30 underline-offset-8 italic">कुमार मॅग्नासिटी</span> का निवडतात?
-               </h2>
-               <p className="text-lg text-dark/60 leading-relaxed font-light">
-                 असंघटित लोकल लेआउट्सच्या तुलनेत, कुमार मॅग्नासिटी तुम्हाला टायर-१ बिल्डरच्या सुरक्षिततेसह स्वतःच्या बंगल्याचा मालक बनण्याची संधी देते. हा तुमच्या विश्वासाचा पाया आहे.
-               </p>
-               <div className="space-y-4">
+      <section className="py-24 md:py-40 bg-white relative overflow-hidden">
+        <div className="container mx-auto max-w-7xl px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <div className="space-y-12">
+               <div className="space-y-6">
+                <h2 className="text-4xl md:text-6xl font-heading font-bold text-dark leading-tight">
+                  पुण्यातील स्मार्ट गुंतवणूकदार <br /> 
+                  <span className="text-primary italic font-light underline decoration-primary/20 underline-offset-[12px]">कुमार मॅग्नासिटी</span> का निवडतात?
+                </h2>
+                <p className="text-xl text-dark/60 leading-relaxed font-light">
+                  असंस्थागत लेआउट्सच्या तुलनेत, कुमार मॅग्नासिटी तुम्हाला टायर-१ बिल्डरच्या सुरक्षिततेसह स्वतःच्या बंगल्याचा मालक बनण्याची संधी देते. हा तुमच्या पिढ्यान् पिढ्यांच्या समृद्धीचा पाया आहे.
+                </p>
+               </div>
+
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[
-                    "प्रत्येक प्लॉटसाठी स्वतंत्र ७/१२ उतारा",
-                    "PMRDA मंजूर आणि RERA नोंदणीकृत",
-                    "भूमिगत युटिलिटी ग्रीड्स (पाणी, वीज, इंटरनेट)",
-                    "भव्य क्लबहाऊस आणि १२+ प्रीमियम सुविधा"
+                    "स्वतंत्र ७/१२ उतारा",
+                    "RERA नोंदणीकृत जमीन",
+                    "भूमिगत युटिलिटी ग्रीड्स",
+                    "भव्य क्लबहाऊस सुविधा"
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                       <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-                          <CheckIcon size={12} />
+                    <div key={i} className="flex items-center gap-4 p-5 rounded-2xl bg-light border border-dark/5">
+                       <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                          <CheckIcon size={16} />
                        </div>
-                       <span className="text-dark/80 font-medium">{item}</span>
+                       <span className="text-dark/80 font-bold text-sm tracking-tight">{item}</span>
                     </div>
                   ))}
                </div>
             </div>
-            
-            <div className="grid grid-cols-2 gap-6">
-               <div className="space-y-6">
-                  <div className="p-8 rounded-[2.5rem] bg-light border border-dark/5 space-y-4 hover:shadow-2xl transition-all hover:-translate-y-2">
-                     <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg text-primary">
-                        <Download size={24} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+               <div className="space-y-8">
+                  <div className="p-10 rounded-[3rem] bg-light border border-dark/5 space-y-6 hover:shadow-2xl transition-all group cursor-pointer relative overflow-hidden">
+                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                        <Download size={32} />
                      </div>
-                     <h4 className="font-heading font-bold text-xl text-right md:text-left">लीगल किट</h4>
-                     <p className="text-xs text-dark/50 leading-relaxed italic text-right md:text-left">७/१२ उतारा नमुना आणि RERA कागदपत्रे डाऊनलोड करा.</p>
+                     <div className="space-y-2">
+                        <h4 className="font-heading font-bold text-2xl">लीगल किट</h4>
+                        <p className="text-xs text-dark/40 leading-relaxed uppercase tracking-widest font-bold">७/१२ उतारा नमुना</p>
+                     </div>
                   </div>
-                  <div className="p-8 rounded-[2.5rem] bg-dark text-white space-y-4 hover:shadow-2xl transition-all hover:-translate-y-2">
-                     <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-accent">
-                        <TrendingUp size={24} />
+                  <div className="p-10 rounded-[3rem] bg-dark text-white space-y-6 hover:shadow-2xl transition-all group cursor-pointer relative overflow-hidden">
+                     <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-dark transition-all">
+                        <TrendingUp size={32} />
                      </div>
-                     <h4 className="font-heading font-bold text-xl text-right md:text-left">ROI मार्गदर्शक</h4>
-                     <p className="text-xs text-white/40 leading-relaxed italic text-right md:text-left">मांजरी-हडपसर जमिनीच्या वाढीचे सविस्तर विश्लेषण २०२६.</p>
+                     <div className="space-y-2">
+                        <h4 className="font-heading font-bold text-2xl text-accent">ROI विश्लेषण</h4>
+                        <p className="text-xs text-white/30 leading-relaxed uppercase tracking-widest font-bold">२०२४-२०२८ प्रोजेक्शन</p>
+                     </div>
                   </div>
                </div>
-               <div className="space-y-6 pt-12">
-                  <div className="p-8 rounded-[2.5rem] bg-accent text-dark space-y-4 hover:shadow-2xl transition-all hover:-translate-y-2 font-bold">
-                     <div className="w-12 h-12 bg-dark rounded-2xl flex items-center justify-center text-accent shadow-xl">
-                        <ArrowRight size={24} />
+               <div className="sm:pt-16">
+                  <div 
+                    onClick={() => openModal({ title: "Sovereign Site Visit", source: "Programmatic MR Visit" })}
+                    className="p-10 rounded-[3rem] bg-primary text-white space-y-6 hover:shadow-2xl transition-all group cursor-pointer h-full flex flex-col justify-center"
+                  >
+                     <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-accent group-hover:bg-white group-hover:text-primary transition-all shadow-xl">
+                        <ArrowRight size={32} />
                      </div>
-                     <h4 className="font-heading text-xl text-right md:text-left">साइट व्हिजिट</h4>
-                     <p className="text-xs text-dark/70 leading-relaxed italic text-right md:text-left">आजच मास्टर-प्लॅन्ड टाउनशिपचा प्रत्यक्ष अनुभव घ्या.</p>
+                     <div className="space-y-4">
+                        <h4 className="font-heading font-bold text-2xl tracking-tight leading-tight">साइट व्हिजिट बुक करा</h4>
+                        <p className="text-sm text-white/60 leading-relaxed font-light">आजच मास्टर-प्लॅन्ड टाउनशिपचा प्रत्यक्ष अनुभव घ्या.</p>
+                     </div>
                   </div>
                </div>
             </div>
           </div>
         </div>
       </section>
+
 
       {/* FAQ Section with Context */}
       <FAQSection faqJson={data.faq_json} />
