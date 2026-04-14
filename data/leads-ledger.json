@@ -48,5 +48,15 @@
     "source_url": "http://localhost:3005",
     "form_id": "verifyTest",
     "timestamp": "15/4/2026, 12:32:08 am"
+  },
+  {
+    "name": "Email Target Check",
+    "phone": "9000000010",
+    "email": "propsmartrealty@gmail.com",
+    "timing": "Next 48 Hours",
+    "intent": "Investment",
+    "source_url": "http://localhost:3005",
+    "form_id": "emailCheck",
+    "timestamp": "15/4/2026, 12:38:53 am"
   }
 ]

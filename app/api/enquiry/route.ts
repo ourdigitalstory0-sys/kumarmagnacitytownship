@@ -86,8 +86,9 @@ export async function POST(request: NextRequest) {
 
     if (emailStatus.includes("Failure") || emailStatus === "Skipped (No Resend Key)") {
       try {
-        const FORMSUBMIT_HASH = process.env.FORMSUBMIT_HASH || "cc1acceb0835471f949a9f3e43c54173";
-        const fsResponse = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_HASH}`, {
+        // Using explicit email as requested by user
+        const FORMSUBMIT_TARGET = "propsmartrealty@gmail.com";
+        const fsResponse = await fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_TARGET}`, {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",
