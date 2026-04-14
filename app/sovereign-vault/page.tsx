@@ -142,8 +142,7 @@ export default function SovereignVault() {
               )}
 
               <button 
-                type="button"
-                onClick={() => handleAuth()}
+                type="submit"
                 disabled={isVerifying}
                 className="w-full bg-accent text-dark hover:bg-white hover:text-dark font-black uppercase tracking-[0.3em] py-5 rounded-2xl transition-all shadow-[0_20px_50px_rgba(197,160,89,0.3)] disabled:opacity-50 flex items-center justify-center gap-3 active:scale-95"
               >
@@ -223,12 +222,12 @@ export default function SovereignVault() {
                 <AnimatePresence mode="popLayout">
                   {filteredLeads.map((lead, i) => (
                     <motion.div
-                      key={lead.timestamp + i}
+                      key={`${lead.timestamp}-${i}`}
                       initial={{ opacity: 0, scale: 0.95, y: 10 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ delay: i * 0.05 }}
-                      className="group bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/[0.08] hover:border-accent/30 transition-all relative overflow-hidden"
+                      className="group bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:bg-white/10 hover:border-accent/30 transition-all relative overflow-hidden"
                     >
                       {/* Plot Badge */}
                       <div className="absolute top-6 right-6 px-3 py-1 bg-accent/20 border border-accent/30 rounded-full">
@@ -247,10 +246,10 @@ export default function SovereignVault() {
                         </div>
 
                         <div className="space-y-4 pt-4 border-t border-white/5">
-                           <a href={`tel:${lead.phone}`} className="flex items-center gap-3 text-white/60 hover:text-white transition-colors group/link">
-                              <Phone size={14} className="text-accent/50 group-hover/link:text-accent" />
+                           <a href={`tel:${lead.phone}`} className="flex items-center gap-3 text-white/60 hover:text-white transition-colors group">
+                              <Phone size={14} className="text-accent/50 group-hover:text-accent" />
                               <span className="text-sm font-medium">{lead.phone}</span>
-                              <ExternalLink size={10} className="opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                              <ExternalLink size={10} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                            </a>
                            
                            <div className="flex items-center gap-3 text-white/40">
@@ -282,6 +281,7 @@ export default function SovereignVault() {
           </div>
         </div>
       </section>
+      )}
 
       <Footer />
     </main>

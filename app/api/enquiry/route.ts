@@ -61,33 +61,30 @@ export async function POST(request: NextRequest) {
     // Tier 3: Robust Formspree Email Relay (New Strategy)
     let emailStatus = "Not Sent";
     try {
-      if (FORMSPREE_ENDPOINT) {
-        const formspreeResponse = await fetch(FORMSPREE_ENDPOINT, {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: leadEntry.name,
-            phone: leadEntry.phone,
-            email: data.email || "No Email",
-            source: leadEntry.source_url,
-            plot: leadEntry.plot_id || "General",
-            meta: leadEntry.source_meta || "Direct Portal",
-            _subject: `🚨 NEW LEAD: ${leadEntry.name} (Kumar Magnacity)`
-          }),
-        });
+      const FORMSPREE_ENDPOINT = process.env.FORMSPREE_ENDPOINT || "https://formspree.io/f/mqakqkqy";
+      
+      const formspreeResponse = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: leadEntry.name,
+          phone: leadEntry.phone,
+          email: data.email || "No Email",
+          source: leadEntry.source_url,
+          plot: leadEntry.plot_id || "General",
+          meta: leadEntry.source_meta || "Direct Portal",
+          _subject: `🚨 NEW LEAD: ${leadEntry.name} (Kumar Magnacity)`
+        }),
+      });
 
-        if (formspreeResponse.ok) {
-          emailStatus = "Delivered via Formspree";
-        } else {
-          const fsError = await formspreeResponse.json();
-          emailStatus = `Formspree Error: ${fsError.error || "Unknown"}`;
-        }
+      if (formspreeResponse.ok) {
+        emailStatus = "Delivered via Formspree";
       } else {
-        console.warn("FORMSPREE_ENDPOINT missing.");
-        emailStatus = "Config Missing";
+        const fsError = await formspreeResponse.json();
+        emailStatus = `Formspree Error: ${fsError.error || "Unknown"}`;
       }
     } catch (mailErr: any) {
       console.error("Formspree Relay Failure:", mailErr.message);
