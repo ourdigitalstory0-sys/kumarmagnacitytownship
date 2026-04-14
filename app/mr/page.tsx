@@ -8,8 +8,28 @@ import Link from "next/link";
 import { ArrowRight, ShieldCheck, LandPlot, TrendingUp, Gem } from "lucide-react";
 import { useModal } from "@/lib/modal-context";
 
+import { useModal } from "@/lib/modal-context";
+import { useEffect } from "react";
+
 export default function Home() {
   const { openModal } = useModal();
+
+  // AUTOMATIC SOVEREIGN POPUP (Timed Engagement - MR)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const hasSeenPopup = sessionStorage.getItem("hasSeenSovereignPopup");
+      if (!hasSeenPopup) {
+        openModal({ 
+          title: "सोव्हरेन इन्व्हिटेशन", 
+          subtitle: "इन्व्हेन्टरी आणि किमतीची पूर्ण माहिती मिळवण्यासाठी आता चौकशी करा.",
+          source: "Timed Auto-Popup (MR)" 
+        });
+        sessionStorage.setItem("hasSeenSovereignPopup", "true");
+      }
+    }, 15000); // 15 Seconds
+    return () => clearTimeout(timer);
+  }, [openModal]);
+
   return (
     <main className="min-h-screen bg-light" lang="mr">
       <Header />

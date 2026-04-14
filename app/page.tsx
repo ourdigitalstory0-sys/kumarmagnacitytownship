@@ -23,6 +23,22 @@ export default function Home() {
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 1.1]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
+  // AUTOMATIC SOVEREIGN POPUP (Timed Engagement)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const hasSeenPopup = sessionStorage.getItem("hasSeenSovereignPopup");
+      if (!hasSeenPopup) {
+        openModal({ 
+          title: "Sovereign Invitation", 
+          subtitle: "Unlock the complete inventory suite and priority pricing for Phase 1.",
+          source: "Timed Auto-Popup" 
+        });
+        sessionStorage.setItem("hasSeenSovereignPopup", "true");
+      }
+    }, 15000); // 15 Seconds
+    return () => clearTimeout(timer);
+  }, [openModal]);
+
   return (
     <main ref={containerRef} className="min-h-screen bg-light selection:bg-accent/30">
       <Header />
