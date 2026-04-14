@@ -10,7 +10,7 @@ import registry from "@/data/seo-registry.json";
 import { ShieldCheck, TrendingUp, ArrowRight, Download } from "lucide-react";
 import { SEOPageData, SEORegistry } from "@/types/seo";
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 const getPageData = (category: string, slug: string): SEOPageData | null => {
   const key = `${category}/${slug}`;

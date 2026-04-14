@@ -4,7 +4,7 @@ import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
 import EnquiryModal from "@/components/EnquiryModal";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 
 const playfair = Playfair_Display({
