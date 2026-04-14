@@ -52,7 +52,10 @@ export default function AdvancedEnquiryForm({
     setStatus("submitting");
     setErrorMessage("");
 
+    const isMarathi = typeof window !== 'undefined' ? window.location.pathname.includes("/mr") : false;
+
     try {
+      // PRIMARY: Server-Side Quad-Tier API
       const response = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -61,16 +64,47 @@ export default function AdvancedEnquiryForm({
 
       if (response.ok) {
         setStatus("success");
-        // Track conversion if needed
         setTimeout(() => {
-          router.push("/kumar-magnacity-na-bungalow-plots-thank-you");
+          router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
         }, 3000);
       } else {
-        throw new Error("Submission failed. Please try again.");
+        throw new Error("Server-Side Relay Failed");
       }
     } catch (err: any) {
-      setStatus("error");
-      setErrorMessage(err.message || "Something went wrong");
+      console.warn("Server Relay Failed. Triggering Emergency Client-Side Failover...", err.message);
+      
+      // EMERGENCY FAILOVER: Direct Browser-to-FormSubmit
+      try {
+        const emergencyForm = document.createElement("form");
+        emergencyForm.method = "POST";
+        emergencyForm.action = "https://formsubmit.co/propsmartrealty@gmail.com";
+        emergencyForm.style.display = "none";
+
+        const fields = {
+          ...data,
+          _subject: `🚨 EMERGENCY LEAD (Advanced Bypass): ${data.name}`,
+          _captcha: "false",
+          _next: isMarathi 
+            ? "https://kumarmagnacitytownship.com/mr/kumar-magnacity-na-bungalow-plots-thank-you" 
+            : "https://kumarmagnacitytownship.com/kumar-magnacity-na-bungalow-plots-thank-you"
+        };
+
+        Object.entries(fields).forEach(([key, value]) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = key;
+          input.value = value as string;
+          emergencyForm.appendChild(input);
+        });
+
+        document.body.appendChild(emergencyForm);
+        emergencyForm.submit();
+        
+        setStatus("success");
+      } catch (failoverError: any) {
+        setStatus("error");
+        setErrorMessage(failoverError.message || "Something went wrong");
+      }
     }
   };
 

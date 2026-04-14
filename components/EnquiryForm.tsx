@@ -75,7 +75,7 @@ export default function EnquiryForm({
     };
 
     try {
-      // PRO-RELAY: Direct to your Formspree-enabled API
+      // PRIMARY: Server-Side Quad-Tier API
       const response = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -88,15 +88,49 @@ export default function EnquiryForm({
            router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
         }, 2000);
       } else {
-        throw new Error("Server rejected lead");
+        throw new Error("Server-Side Relay Failed");
       }
 
-    } catch (error: Error | unknown) {
-      console.error("Submission failed:", error instanceof Error ? error.message : "Unknown error");
-      setStatus("error");
-      setErrorMessage(isMarathi 
-        ? "सिस्टम एरर. कृपया पुन्हा प्रयत्न करा." 
-        : "Failed to send lead. Please try again.");
+    } catch (error: any) {
+      console.warn("Server Relay Failed. Triggering Emergency Client-Side Failover...", error.message);
+      
+      // EMERGENCY FAILOVER: Direct Browser-to-FormSubmit
+      // This bypasses Vercel and the API entirely. No room for failure.
+      try {
+        const emergencyForm = document.createElement("form");
+        emergencyForm.method = "POST";
+        emergencyForm.action = "https://formsubmit.co/propsmartrealty@gmail.com";
+        emergencyForm.style.display = "none";
+
+        const fields = {
+          ...data,
+          _subject: `🚨 EMERGENCY LEAD (Bypass): ${data.name}`,
+          _captcha: "false",
+          _next: isMarathi 
+            ? "https://kumarmagnacitytownship.com/mr/kumar-magnacity-na-bungalow-plots-thank-you" 
+            : "https://kumarmagnacitytownship.com/kumar-magnacity-na-bungalow-plots-thank-you"
+        };
+
+        Object.entries(fields).forEach(([key, value]) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = key;
+          input.value = value as string;
+          emergencyForm.appendChild(input);
+        });
+
+        document.body.appendChild(emergencyForm);
+        emergencyForm.submit();
+        
+        // Even if we submit, we show success to the user
+        setStatus("success");
+      } catch (failoverError) {
+        console.error("Total Failure:", failoverError);
+        setStatus("error");
+        setErrorMessage(isMarathi 
+          ? "सिस्टम एरर. कृपया पुन्हा प्रयत्न करा." 
+          : "Failed to send lead. Please try again.");
+      }
     }
   };
 
