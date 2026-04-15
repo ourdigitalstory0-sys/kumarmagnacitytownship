@@ -1,13 +1,9 @@
 "use client";
 
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SovereignBar from "@/components/SovereignBar";
-import Link from "next/link";
 import { ArrowRight, ShieldCheck, LandPlot, TrendingUp, Gem } from "lucide-react";
-import { useModal } from "@/lib/modal-context";
-
 import { useModal } from "@/lib/modal-context";
 import { useEffect } from "react";
 
