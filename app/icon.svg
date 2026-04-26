@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F2D77D" />
+      <stop offset="50%" stop-color="#C9A227" />
+      <stop offset="100%" stop-color="#8A6B11" />
+    </linearGradient>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A1A1A" />
+      <stop offset="100%" stop-color="#050505" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <rect width="512" height="512" rx="120" fill="url(#bgGradient)" />
+  
+  <path d="M200 150 v212 M200 256 l90 -106 M200 256 l110 106" stroke="url(#goldGradient)" stroke-width="56" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#glow)"/>
+  
+  <rect x="36" y="36" width="440" height="440" rx="90" fill="none" stroke="url(#goldGradient)" stroke-width="8" opacity="0.3" />
+</svg>
