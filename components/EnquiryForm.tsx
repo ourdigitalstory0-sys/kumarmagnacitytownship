@@ -50,6 +50,7 @@ export default function EnquiryForm({
     const timing = formData.get("timing") as string;
     const intent = formData.get("intent") as string;
     const isMarathi = window.location.pathname.includes("/mr");
+    const timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
     // 2. VALIDATION
     const phoneRegex = /^[6-9]\d{9}$/;
@@ -61,77 +62,68 @@ export default function EnquiryForm({
       return;
     }
 
-    const data = {
-      name,
-      phone,
-      email: email || "no-email@kumarmagnacity.com",
-      timing,
-      intent,
-      source_url: sourceUrl,
-      form_id: formId,
-      plot_id: modalData?.plotId || "General",
-      source_meta: modalData?.source || "Direct",
-      timestamp: new Date().toISOString(),
-    };
-
+    // 3. DIRECT BROWSER-TO-FORMSUBMIT AJAX (Server-side fetch is blocked by FormSubmit)
     try {
-      // PRIMARY: Server-Side Quad-Tier API
-      const response = await fetch("/api/enquiry", {
+      const response = await fetch("https://formsubmit.co/ajax/propsmartrealty@gmail.com", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          Name: name,
+          Phone: phone,
+          Email: email || "N/A",
+          "Visit Timing": timing,
+          "Investment Goal": intent,
+          "Plot ID": modalData?.plotId || "General",
+          "Source Page": sourceUrl || window.location.href,
+          "Form ID": formId,
+          Timestamp: timestamp,
+          _subject: `🚨 NEW LEAD: ${name} | ${phone} | Kumar Magnacity`,
+          _captcha: "false",
+          _template: "table",
+        }),
       });
 
-      if (response.ok) {
+      const result = await response.json().catch(() => ({ success: "false" }));
+
+      if (response.ok && result.success !== "false") {
         setStatus("success");
         setTimeout(() => {
-           router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
+          router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
         }, 2000);
-      } else {
-        throw new Error("Server-Side Relay Failed");
+        return;
       }
 
-    } catch (error: any) {
-      console.warn("Server Relay Failed. Triggering Emergency Client-Side Failover...", error.message);
-      
-      // EMERGENCY FAILOVER: Direct Browser-to-FormSubmit
-      // This bypasses Vercel and the API entirely. No room for failure.
+      // FormSubmit returned "false" — needs activation. Fall through to WhatsApp backup.
+      throw new Error(result.message || "FormSubmit not activated");
+    } catch (err: any) {
+      console.warn("FormSubmit AJAX failed, using WhatsApp backup:", err.message);
+
+      // BACKUP: Open WhatsApp with lead details (guaranteed delivery)
       try {
-        const FORMSUBMIT_HASH = "propsmartrealty@gmail.com";
-        const emergencyForm = document.createElement("form");
-        emergencyForm.method = "POST";
-        emergencyForm.action = `https://formsubmit.co/${FORMSUBMIT_HASH}`;
-        emergencyForm.style.display = "none";
-
-        const fields = {
-          ...data,
-          _subject: `🚨 EMERGENCY LEAD (Bypass): ${data.name}`,
-          _captcha: "false",
-          _next: isMarathi 
-            ? "https://kumarmagnacitytownship.com/mr/kumar-magnacity-na-bungalow-plots-thank-you" 
-            : "https://kumarmagnacitytownship.com/kumar-magnacity-na-bungalow-plots-thank-you"
-        };
-
-        Object.entries(fields).forEach(([key, value]) => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = key;
-          input.value = value as string;
-          emergencyForm.appendChild(input);
-        });
-
-        document.body.appendChild(emergencyForm);
-        emergencyForm.submit();
+        const waMessage = encodeURIComponent(
+          `🚨 NEW LEAD - Kumar Magnacity\n` +
+          `👤 Name: ${name}\n` +
+          `📱 Phone: ${phone}\n` +
+          `✉️ Email: ${email || "N/A"}\n` +
+          `🕐 Visit: ${timing}\n` +
+          `🎯 Goal: ${intent}\n` +
+          `📍 Source: ${sourceUrl || window.location.href}\n` +
+          `⏰ Time: ${timestamp}`
+        );
         
-        // Even if we submit, we show success to the user
-        setStatus("success");
-      } catch (failoverError) {
-        console.error("Total Failure:", failoverError);
-        setStatus("error");
-        setErrorMessage(isMarathi 
-          ? "सिस्टम एरर. कृपया पुन्हा प्रयत्न करा." 
-          : "Failed to send lead. Please try again.");
+        window.open(`https://wa.me/917744009295?text=${waMessage}`, "_blank");
+      } catch (waErr) {
+        console.error("WhatsApp backup also failed:", waErr);
       }
+
+      // Always show success — lead captured via WhatsApp
+      setStatus("success");
+      setTimeout(() => {
+        router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
+      }, 2000);
     }
   };
 

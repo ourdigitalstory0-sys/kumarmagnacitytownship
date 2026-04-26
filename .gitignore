@@ -52,3 +52,4 @@ seo-automation/service_account.json
 # data
 /data
 /leads-ledger.json
+.env*.local
