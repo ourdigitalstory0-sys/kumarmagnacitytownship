@@ -82,7 +82,8 @@ export async function POST(request: NextRequest) {
 
     // Tier 2: Verified Relay (Primary Deliverability)
     let relayStatus = "Not Attempted";
-    const FORMSUBMIT_HASH = "cc1acceb0835471f949a9f3e43c54173"; // Found in .env.local
+    let relayErrorDetail = null;
+    const FORMSUBMIT_HASH = "propsmartrealty@gmail.com"; // Switched to direct email as hash seems invalid
 
     if (emailStatus.includes("Failure") || emailStatus === "Skipped (No Resend Key)") {
       try {
@@ -103,9 +104,11 @@ export async function POST(request: NextRequest) {
         } else {
            const errText = await relayResponse.text();
            relayStatus = `Relay Rejected: ${errText}`;
+           relayErrorDetail = errText as any;
         }
       } catch (err: any) {
         relayStatus = `Relay Error: ${err.message}`;
+        relayErrorDetail = err;
       }
     }
 
@@ -113,7 +116,7 @@ export async function POST(request: NextRequest) {
     let smtpStatus = "Not Attempted";
     let smtpErrorDetail = null;
 
-    if ((relayStatus.includes("Rejected") || relayStatus === "Not Attempted") && process.env.SMTP_HOST) {
+    if ((relayStatus.includes("Rejected") || relayStatus === "Not Attempted" || relayStatus.includes("Error")) && process.env.SMTP_HOST) {
        try {
           const transporter = nodemailer.createTransport({
              host: process.env.SMTP_HOST,
@@ -127,7 +130,7 @@ export async function POST(request: NextRequest) {
 
           await transporter.sendMail({
              from: `"Kumar Magnacity Vault" <${process.env.SMTP_USER}>`,
-             to: "vikas.yewle@gmail.com",
+             to: "propsmartrealty@gmail.com",
              subject: `🚨 BACKUP LEAD: ${leadEntry.name}`,
              text: `New Lead: ${leadEntry.name}\nPhone: ${leadEntry.phone}\nEmail: ${leadEntry.email || 'N/A'}\nIntent: ${leadEntry.intent}\nVisit: ${leadEntry.timing}`,
              html: `<b>New Lead Captured via SMTP Backup</b><br/><br/>Name: ${leadEntry.name}<br/>Phone: ${leadEntry.phone}<br/>Email: ${leadEntry.email || 'N/A'}<br/>Intent: ${leadEntry.intent}<br/>Visit: ${leadEntry.timing}`,
