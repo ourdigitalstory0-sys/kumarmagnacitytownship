@@ -7,6 +7,7 @@ import EnquiryForm from "@/components/EnquiryForm";
 import FAQSection from "@/components/FAQSection";
 import InventoryBadge from "@/components/InventoryBadge";
 import NearbyMarkets from "@/components/NearbyMarkets";
+import AmenitiesGrid from "@/components/AmenitiesGrid";
 import registry from "@/data/seo-registry.json";
 import { ShieldCheck, TrendingUp, ArrowRight, Download } from "lucide-react";
 import { SEOPageData, SEORegistry } from "@/types/seo";
@@ -50,36 +51,62 @@ export default async function SEONodePageMR({ params }: PageProps) {
 
   if (!data) notFound();
 
-  // Advanced Real Estate Structured Data
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "RealEstateListing",
-    "name": data.title,
-    "description": data.description,
-    "image": "https://kumarmagnacitytownship.com/assets/hero-bg.jpg",
-    "url": `https://kumarmagnacitytownship.com/mr/${category}/${slug}`,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "कुमार मॅग्नासिटी, मांजरी खुर्द, हडपसर अ‍ॅनेक्सी",
-      "addressLocality": "पुणे",
-      "addressRegion": "महाराष्ट्र",
-      "postalCode": "४१२३०७",
-      "addressCountry": "IN"
+  // Advanced Real Estate Structured Data & Breadcrumbs
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+      "name": data.title,
+      "description": data.description,
+      "image": "https://kumarmagnacitytownship.com/assets/hero-bg.jpg",
+      "url": `https://kumarmagnacitytownship.com/mr/${category}/${slug}`,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "कुमार मॅग्नासिटी, मांजरी खुर्द, हडपसर अ‍ॅनेक्सी",
+        "addressLocality": "पुणे",
+        "addressRegion": "महाराष्ट्र",
+        "postalCode": "४१२३०७",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "18.5034",
+        "longitude": "73.9664"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "INR",
+        "price": "6799000",
+        "priceValidUntil": "2026-12-31",
+        "availability": "https://schema.org/InStock",
+        "url": `https://kumarmagnacitytownship.com/mr/${category}/${slug}`
+      }
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "18.5034",
-      "longitude": "73.9664"
-    },
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "INR",
-      "price": "6799000",
-      "priceValidUntil": "2026-12-31",
-      "availability": "https://schema.org/InStock",
-      "url": `https://kumarmagnacitytownship.com/mr/${category}/${slug}`
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "मुख्यपृष्ठ",
+          "item": "https://kumarmagnacitytownship.com/mr"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "पुणे रिअल इस्टेट",
+          "item": `https://kumarmagnacitytownship.com/mr/${category}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": data.hero_title,
+          "item": `https://kumarmagnacitytownship.com/mr/${category}/${slug}`
+        }
+      ]
     }
-  };
+  ];
 
   return (
     <main className="min-h-screen bg-light">
@@ -109,6 +136,9 @@ export default async function SEONodePageMR({ params }: PageProps) {
                   {data.hero_subtitle}
                 </p>
               </div>
+
+              {/* Dynamic Amenities Matrix */}
+              <AmenitiesGrid />
 
               <div className="flex flex-wrap gap-8 pt-4 justify-center md:justify-start">
                  <div className="flex items-center gap-4 group">

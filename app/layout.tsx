@@ -3,6 +3,7 @@ import { Playfair_Display, Outfit } from "next/font/google";
 import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
 import EnquiryModal from "@/components/EnquiryModal";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 
 export const runtime = "nodejs";
@@ -101,6 +102,7 @@ export default function RootLayout({
         <ModalProvider>
           {children}
           <EnquiryModal />
+          <WhatsAppWidget />
         </ModalProvider>
       </body>
     </html>
