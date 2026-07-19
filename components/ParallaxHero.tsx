@@ -9,6 +9,7 @@ interface ParallaxHeroProps {
   subtitle: string;
   badge: string;
   imagePath?: string;
+  videoPath?: string;
   accentColor?: "gold" | "green";
 }
 
@@ -17,6 +18,7 @@ export default function ParallaxHero({
   subtitle,
   badge,
   imagePath,
+  videoPath,
   accentColor = "gold"
 }: ParallaxHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,15 +46,25 @@ export default function ParallaxHero({
         className="absolute inset-0 z-0"
         aria-hidden="true"
       >
-        {imagePath ? (
-          <>
-            <div className="absolute inset-0 bg-dark/70 z-10" />
-            <img 
-              src={imagePath} 
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </>
+        <div className="absolute inset-0 bg-dark/70 z-10" />
+        
+        {videoPath ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={imagePath}
+            className="w-full h-full object-cover"
+          >
+            <source src={videoPath} type="video/mp4" />
+          </video>
+        ) : imagePath ? (
+          <img 
+            src={imagePath} 
+            alt=""
+            className="w-full h-full object-cover"
+          />
         ) : (
           <div className="absolute inset-0">
             <div className={cn(

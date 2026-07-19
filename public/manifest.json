@@ -1,19 +1,21 @@
 {
-  "name": "Kumar Magnacity Elite Portal",
-  "short_name": "Kumar Magnacity",
-  "description": "Secure your legacy with premium NA bungalow plots at Kumar Magnacity, Manjari.",
+  "name": "Kumar Magnacity Township",
+  "short_name": "Magnacity",
+  "description": "Premium 150-acre township at Manjari near Hadapsar by Kumar Properties.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0A0A0A",
-  "theme_color": "#C5A059",
+  "background_color": "#0a0a0a",
+  "theme_color": "#c9a227",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/assets/icon-192.png",
+      "src": "/assets/favicon.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "/assets/icon-512.png",
+      "src": "/assets/apple-touch-icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
