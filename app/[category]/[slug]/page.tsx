@@ -6,6 +6,7 @@ import SovereignBar from "@/components/SovereignBar";
 import EnquiryForm from "@/components/EnquiryForm";
 import FAQSection from "@/components/FAQSection";
 import InventoryBadge from "@/components/InventoryBadge";
+import NearbyMarkets from "@/components/NearbyMarkets";
 import registry from "@/data/seo-registry.json";
 import { ShieldCheck, TrendingUp, ArrowRight, Download } from "lucide-react";
 import { SEOPageData, SEORegistry } from "@/types/seo";
@@ -47,21 +48,34 @@ export default async function SEONodePage({ params }: PageProps) {
 
   if (!data) notFound();
 
-  // Structured Data
+  // Advanced Real Estate Structured Data
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "name": data.hero_title,
+    "@type": "RealEstateListing",
+    "name": data.title,
     "description": data.description,
-    "brand": {
-      "@type": "Brand",
-      "name": "Kumar Properties"
+    "image": "https://kumarmagnacitytownship.com/assets/hero-bg.jpg",
+    "url": `https://kumarmagnacitytownship.com/${category}/${slug}`,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kumar Magnacity, Manjari Khurd, Hadapsar Annexe",
+      "addressLocality": "Pune",
+      "addressRegion": "Maharashtra",
+      "postalCode": "412307",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "18.5034",
+      "longitude": "73.9664"
     },
     "offers": {
       "@type": "Offer",
-      "availability": "https://schema.org/InStock",
       "priceCurrency": "INR",
-      "price": "14900000"
+      "price": "6799000",
+      "priceValidUntil": "2026-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": `https://kumarmagnacitytownship.com/${category}/${slug}`
     }
   };
 
@@ -246,6 +260,9 @@ export default async function SEONodePage({ params }: PageProps) {
       {/* FAQ Section with Context */}
       <FAQSection faqJson={data.faq_json} />
       
+      {/* Internal Link Siloing */}
+      <NearbyMarkets />
+
       <Footer />
       <SovereignBar />
     </main>
