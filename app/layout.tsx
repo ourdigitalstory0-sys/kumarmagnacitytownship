@@ -18,9 +18,9 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Kumar Magnacity NA Bungalow Plots at Manjari Pune | Plots near Hadapsar",
-  description: "Secure your legacy at Kumar Magnacity, the premier 150-acre NA bungalow plot township at Manjari near Hadapsar. RERA-approved luxury plots with world-class amenities and Pune's best ROI potential.",
-  keywords: "kumar magnacity na bungalow plots, plots in manjari pune, plots near hadapsar, na plots pune east, kumar properties manjari, luxury bungalow plots pune",
+  title: "Kumar Magnacity Township | 2BHK & 3BHK Apartments + NA Plots | Manjari Pune",
+  description: "Kumar Magnacity — Pune's premier 150-acre township at Manjari near Hadapsar. 2BHK apartments from ₹67.99L, 3BHK from ₹92.99L + RERA-approved NA bungalow plots. 50+ amenities, grand clubhouse, 26 acres greens. By Kumar Properties (60-year legacy).",
+  keywords: "kumar magnacity apartments, 2bhk flats hadapsar pune, 3bhk apartments manjri pune, kumar magnacity price, na bungalow plots manjari, kumar properties pune, 2bhk 3bhk flats near magarpatta, apartments pune east, kumar magnacity township",
   manifest: "/manifest.json",
   icons: {
     icon: "/assets/favicon.png",

@@ -174,6 +174,104 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 2.5 PREMIUM APARTMENTS SHOWCASE */}
+      <section className="py-24 md:py-40 bg-dark relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(201,162,39,0.08),transparent_60%)]" />
+        <div className="container mx-auto max-w-7xl px-6 relative z-10">
+          <SectionHeader 
+            dark
+            badge="Premium Residences"
+            title="Elevated<br/>Township Living."
+            subtitle="Beyond bungalow plots — experience world-class 2BHK & 3BHK apartments within the same 150-acre master-planned ecosystem."
+            className="mb-24"
+          />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            {/* 2BHK Card */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="group relative bg-white/[0.03] border border-white/10 rounded-[3rem] p-10 md:p-14 space-y-8 hover:border-accent/30 transition-all duration-500 overflow-hidden"
+            >
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-accent/10 blur-[80px] rounded-full group-hover:bg-accent/20 transition-all duration-700" />
+              <div className="relative z-10 space-y-8">
+                <div className="flex items-center justify-between">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-bold text-[10px] uppercase tracking-[0.3em]">
+                    <Building2 size={14} />
+                    2 BHK
+                  </div>
+                  <div className="text-[10px] text-white/30 font-bold uppercase tracking-widest">RERA: P52100052096</div>
+                </div>
+                <div className="space-y-3">
+                  <div className="text-5xl md:text-6xl font-heading font-bold text-white">757 <span className="text-lg text-white/30">sq.ft</span></div>
+                  <div className="text-sm text-white/40 leading-relaxed">Compact yet spacious carpet area — perfect for young IT professionals and first-time homebuyers.</div>
+                </div>
+                <div className="flex items-end gap-2">
+                  <div className="text-3xl font-heading font-bold text-accent">₹67.99L</div>
+                  <div className="text-sm text-white/30 pb-1">onwards</div>
+                </div>
+                <a 
+                  href="/kumar-magnacity-2bhk-flats-hadapsar-pune-price"
+                  className="inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.25em] text-accent hover:text-white transition-colors group/link"
+                >
+                  EXPLORE 2BHK
+                  <ArrowRight size={16} className="group-hover/link:translate-x-2 transition-transform" />
+                </a>
+              </div>
+            </motion.div>
+
+            {/* 3BHK Card */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="group relative bg-white/[0.03] border border-white/10 rounded-[3rem] p-10 md:p-14 space-y-8 hover:border-accent/30 transition-all duration-500 overflow-hidden"
+            >
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 blur-[80px] rounded-full group-hover:bg-primary/20 transition-all duration-700" />
+              <div className="relative z-10 space-y-8">
+                <div className="flex items-center justify-between">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/40 text-white font-bold text-[10px] uppercase tracking-[0.3em]">
+                    <Building2 size={14} />
+                    3 BHK
+                  </div>
+                  <div className="text-[10px] text-white/30 font-bold uppercase tracking-widest">RERA: P52100054476</div>
+                </div>
+                <div className="space-y-3">
+                  <div className="text-5xl md:text-6xl font-heading font-bold text-white">1,053 <span className="text-lg text-white/30">sq.ft</span></div>
+                  <div className="text-sm text-white/40 leading-relaxed">Expansive 3-bedroom layout with premium finishes — designed for growing families and space-seekers.</div>
+                </div>
+                <div className="flex items-end gap-2">
+                  <div className="text-3xl font-heading font-bold text-accent">₹92.99L</div>
+                  <div className="text-sm text-white/30 pb-1">onwards</div>
+                </div>
+                <a 
+                  href="/kumar-magnacity-3bhk-apartments-manjari-pune-price"
+                  className="inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.25em] text-accent hover:text-white transition-colors group/link"
+                >
+                  EXPLORE 3BHK
+                  <ArrowRight size={16} className="group-hover/link:translate-x-2 transition-transform" />
+                </a>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Full Apartments CTA */}
+          <div className="mt-16 text-center">
+            <a 
+              href="/kumar-magnacity-2bhk-3bhk-apartments-manjari-pune"
+              className="inline-flex items-center gap-4 bg-accent text-dark px-12 py-5 rounded-full font-black uppercase tracking-[0.25em] text-[11px] shadow-[0_20px_60px_rgba(201,162,39,0.3)] hover:shadow-[0_20px_80px_rgba(201,162,39,0.5)] transition-all group relative overflow-hidden"
+            >
+              <span className="relative z-10">VIEW ALL APARTMENTS</span>
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform relative z-10" />
+              <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* 3. AMENITY ECOSYSTEM (Advanced Visuals) */}
       <section className="py-24 md:py-40 bg-dark">
         <div className="container mx-auto max-w-7xl px-6">

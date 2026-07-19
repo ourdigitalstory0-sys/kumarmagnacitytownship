@@ -4,12 +4,13 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Menu, X, ArrowRight, Home, LayoutGrid, Info, MessageSquare } from "lucide-react";
+import { Menu, X, ArrowRight, Home, LayoutGrid, Info, MessageSquare, Building2 } from "lucide-react";
 import { useModal } from "@/lib/modal-context";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
   { name: "THE CONCEPT", href: "/kumar-magnacity-na-bungalow-plots-concept", icon: Home },
+  { name: "APARTMENTS", href: "/kumar-magnacity-2bhk-3bhk-apartments-manjari-pune", icon: Building2 },
   { name: "OUR PLOTS", href: "/kumar-magnacity-na-bungalow-plots-availability", icon: LayoutGrid },
   { name: "INVESTMENT", href: "/kumar-magnacity-investment-plan-pune-east", icon: Info },
   { name: "FAQ VAULT", href: "/kumar-magnacity-na-bungalow-plots-faq", icon: MessageSquare },

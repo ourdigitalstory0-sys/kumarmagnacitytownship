@@ -17,6 +17,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/kumar-magnacity-na-bungalow-plots-master-plan",
     "/kumar-magnacity-market-data-pune-east",
     "/kumar-magnacity-na-bungalow-plots-faq",
+    // Apartment Pillar Pages
+    "/kumar-magnacity-2bhk-3bhk-apartments-manjari-pune",
+    "/kumar-magnacity-2bhk-flats-hadapsar-pune-price",
+    "/kumar-magnacity-3bhk-apartments-manjari-pune-price",
+    "/kumar-magnacity-floor-plan-2bhk-3bhk",
+    "/kumar-magnacity-specifications-apartments",
+    "/kumar-magnacity-location-advantages-hadapsar-manjari",
   ];
 
   const sitemapEntries: MetadataRoute.Sitemap = [];
