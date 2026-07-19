@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import InteractiveLayoutViewer from '@/components/InteractiveLayoutViewer';
 import PillarTemplate from '@/components/PillarTemplate';
 import AdvancedEnquiryForm from '@/components/AdvancedEnquiryForm';
-import FloorPlanViewer from '@/components/FloorPlanViewer';
 
 export const metadata: Metadata = {
   title: 'Kumar Magnacity Floor Plan | 2BHK 757 sqft & 3BHK 1053 sqft Layout',
@@ -37,9 +39,10 @@ export default function FloorPlansPage() {
         <p className="mb-4 text-lg">
           Explore the detailed room-by-room breakdown below to see how our spaces are designed to accommodate your family&apos;s needs flawlessly.
         </p>
+        <div className="mt-12">
+          <InteractiveLayoutViewer />
+        </div>
       </section>
-
-      <FloorPlanViewer />
 
       <section className="py-12 glass-white my-8 rounded-[2.5rem] p-8 dark:glass-obsidian">
         <h3 className="text-3xl font-bold mb-4 var(--font-heading)">Explore Configurations</h3>

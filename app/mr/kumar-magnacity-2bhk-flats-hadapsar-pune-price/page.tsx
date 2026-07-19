@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import SovereignBar from '@/components/SovereignBar';
 import AdvancedEnquiryForm from '@/components/AdvancedEnquiryForm';
 import ApartmentPriceMatrix from '@/components/ApartmentPriceMatrix';
-import FloorPlanViewer from '@/components/FloorPlanViewer';
+import InteractiveLayoutViewer from '@/components/InteractiveLayoutViewer';
 import ParallaxHero from '@/components/ParallaxHero';
 import PersonaDeepDive from '@/components/PersonaDeepDive';
 import { MapPin, Home, HeartHandshake, Briefcase } from 'lucide-react';
@@ -87,7 +87,7 @@ export default function TwoBHKPageMarathi() {
       <div className="bg-dark py-12 relative z-20">
         <div className="container mx-auto px-4 max-w-7xl space-y-24">
           <ApartmentPriceMatrix />
-          <FloorPlanViewer />
+          <InteractiveLayoutViewer />
           
           <section className="glass-obsidian rounded-[2.5rem] p-8 md:p-12 border border-white/10">
             <h3 className="text-3xl font-bold mb-6 font-heading text-accent">तुमची क्षितिजे विस्तृत करा</h3>

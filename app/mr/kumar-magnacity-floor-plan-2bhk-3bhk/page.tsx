@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import InteractiveLayoutViewer from "@/components/InteractiveLayoutViewer";
 import PillarTemplate from "@/components/PillarTemplate";
 import SectionHeader from "@/components/SectionHeader";
 import AdvancedEnquiryForm from "@/components/AdvancedEnquiryForm";
@@ -44,6 +45,8 @@ export default function FloorPlanMarathi() {
           </div>
         </div>
       </section>
+
+      <InteractiveLayoutViewer />
 
       <section className="py-16 md:py-24 bg-light/5">
         <div className="container mx-auto px-4">
