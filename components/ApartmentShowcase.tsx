@@ -71,12 +71,14 @@ export default function ApartmentShowcase() {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <header className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#C9A227]/30 bg-[#C9A227]/10 text-[#C9A227] text-[10px] uppercase tracking-[0.3em] mb-6 shadow-[0_0_30px_rgba(201,162,39,0.2)]"
+            role="doc-subtitle"
+            aria-label="Category: Premium Residences"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#C9A227] animate-pulse-slow shadow-[0_0_10px_rgba(201,162,39,1)]"></span>
             Premium Residences
@@ -90,15 +92,22 @@ export default function ApartmentShowcase() {
           >
             The Art of <span className="text-[#C9A227]">Living</span>
           </motion.h2>
-        </div>
+        </header>
 
         {/* Tabs */}
-        <div className="flex justify-center mb-12">
-          <div className="p-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl inline-flex shadow-2xl relative overflow-hidden">
-             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] animate-[shimmer_2s_infinite]" />
+        <nav className="flex justify-center mb-12" aria-label="Apartment Configuration Tabs">
+          <div 
+            className="p-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl inline-flex shadow-2xl relative overflow-hidden"
+            role="tablist"
+          >
+             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] animate-[shimmer_2s_infinite]" aria-hidden="true" />
             {apartmentTypes.map((apt, idx) => (
               <button
                 key={apt.type}
+                role="tab"
+                aria-selected={activeTab === idx}
+                aria-controls={`panel-${apt.type}`}
+                id={`tab-${apt.type}`}
                 onClick={() => setActiveTab(idx as 0 | 1)}
                 className={cn(
                   "px-8 py-3 rounded-full text-sm font-medium transition-all duration-500 relative z-10",
@@ -109,12 +118,15 @@ export default function ApartmentShowcase() {
               </button>
             ))}
           </div>
-        </div>
+        </nav>
 
         {/* Content */}
         <AnimatePresence mode="wait">
-          <motion.div
+          <motion.article
             key={activeTab}
+            id={`panel-${currentApt.type}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${currentApt.type}`}
             initial={{ opacity: 0, y: 30, scale: 0.98, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: -30, scale: 0.98, filter: "blur(10px)" }}
@@ -127,44 +139,44 @@ export default function ApartmentShowcase() {
                 
                 {/* Main Stat Card with 3D Tilt */}
                 <TiltCard>
-                  <div className="glass-obsidian rounded-[2.5rem] p-8 border border-white/10 h-full overflow-hidden relative shadow-2xl transform-gpu" style={{ transform: "translateZ(30px)" }}>
-                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none text-[#C9A227]">
+                  <section aria-label="Apartment Details" className="glass-obsidian rounded-[2.5rem] p-8 border border-white/10 h-full overflow-hidden relative shadow-2xl transform-gpu" style={{ transform: "translateZ(30px)" }}>
+                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none text-[#C9A227]" aria-hidden="true">
                       <Ruler size={140} />
                     </div>
-                    <p className="text-white/50 text-xs uppercase tracking-widest mb-2 font-bold flex items-center gap-2">
-                       <Sparkles size={12} className="text-[#C9A227]" />
+                    <p className="text-white/50 text-xs uppercase tracking-widest mb-2 font-bold flex items-center gap-2" id="carpet-area-label">
+                       <Sparkles size={12} className="text-[#C9A227]" aria-hidden="true" />
                        Carpet Area
                     </p>
-                    <div className="flex items-baseline gap-2 mb-8">
+                    <div className="flex items-baseline gap-2 mb-8" aria-labelledby="carpet-area-label">
                       <span className="text-7xl font-heading font-bold text-[#C9A227] drop-shadow-[0_0_15px_rgba(201,162,39,0.3)]">{currentApt.carpetArea}</span>
                       <span className="text-white/60 text-lg">{currentApt.carpetAreaUnit}</span>
                     </div>
-                    <div className="space-y-5">
-                      <div className="flex items-center gap-4 text-sm group/item hover:bg-white/5 p-2 -ml-2 rounded-xl transition-colors">
-                        <div className="w-8 h-8 rounded-full bg-[#C9A227]/10 flex items-center justify-center shrink-0 border border-[#C9A227]/20">
+                    <ul className="space-y-5" aria-label="Quick Stats">
+                      <li className="flex items-center gap-4 text-sm group/item hover:bg-white/5 p-2 -ml-2 rounded-xl transition-colors">
+                        <div className="w-8 h-8 rounded-full bg-[#C9A227]/10 flex items-center justify-center shrink-0 border border-[#C9A227]/20" aria-hidden="true">
                            <IndianRupee className="text-[#C9A227]" size={14} />
                         </div>
-                        <span className="font-bold text-lg">₹{(currentApt.priceFrom / 100000).toFixed(2)}L - ₹{(currentApt.priceTo / 100000).toFixed(2)}L</span>
-                      </div>
-                      <div className="flex items-center gap-4 text-sm group/item hover:bg-white/5 p-2 -ml-2 rounded-xl transition-colors">
-                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
+                        <span className="font-bold text-lg" aria-label={`Price ranging from ${currentApt.priceFrom} to ${currentApt.priceTo}`}>₹{(currentApt.priceFrom / 100000).toFixed(2)}L - ₹{(currentApt.priceTo / 100000).toFixed(2)}L</span>
+                      </li>
+                      <li className="flex items-center gap-4 text-sm group/item hover:bg-white/5 p-2 -ml-2 rounded-xl transition-colors">
+                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10" aria-hidden="true">
                            <ShieldCheck className="text-white/60" size={14} />
                         </div>
                         <span className="text-white/80">RERA: {currentApt.rera}</span>
-                      </div>
-                      <div className="flex items-center gap-4 text-sm group/item hover:bg-white/5 p-2 -ml-2 rounded-xl transition-colors">
-                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
+                      </li>
+                      <li className="flex items-center gap-4 text-sm group/item hover:bg-white/5 p-2 -ml-2 rounded-xl transition-colors">
+                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10" aria-hidden="true">
                            <Calendar className="text-white/60" size={14} />
                         </div>
                         <span className="text-white/80">Possession: {currentApt.possession}</span>
-                      </div>
-                    </div>
-                  </div>
+                      </li>
+                    </ul>
+                  </section>
                 </TiltCard>
 
                 {/* EMI Calculator */}
                 <TiltCard>
-                  <div className="glass-obsidian rounded-[2.5rem] p-8 border border-white/10 h-full shadow-2xl relative" style={{ transform: "translateZ(20px)" }}>
+                  <section aria-label="EMI Calculator" className="glass-obsidian rounded-[2.5rem] p-8 border border-white/10 h-full shadow-2xl relative" style={{ transform: "translateZ(20px)" }}>
                     <p className="text-white/50 text-xs uppercase tracking-widest mb-6 font-bold flex items-center gap-2">
                       EMI Calculator
                     </p>
@@ -195,7 +207,7 @@ export default function ApartmentShowcase() {
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </section>
                 </TiltCard>
               </div>
 
@@ -223,44 +235,45 @@ export default function ApartmentShowcase() {
             </div>
 
             {/* Right Column - Ideal For & CTA */}
-            <div className="lg:col-span-4 space-y-6">
+            <aside className="lg:col-span-4 space-y-6" aria-label="Ideal Buyer Profiles">
               <TiltCard className="h-full">
                 <div className="glass-obsidian rounded-[2.5rem] p-8 border border-[#C9A227]/30 bg-gradient-to-b from-[#C9A227]/10 to-transparent h-full flex flex-col relative" style={{ transform: "translateZ(40px)" }}>
-                  <div className="absolute inset-0 bg-[url('/assets/noise.png')] opacity-10 mix-blend-overlay rounded-[2.5rem]" />
+                  <div className="absolute inset-0 bg-[url('/assets/noise.png')] opacity-10 mix-blend-overlay rounded-[2.5rem]" aria-hidden="true" />
                   <div className="flex items-center gap-3 mb-8 relative z-10">
-                    <div className="w-10 h-10 rounded-full bg-[#C9A227]/20 flex items-center justify-center border border-[#C9A227]/30">
+                    <div className="w-10 h-10 rounded-full bg-[#C9A227]/20 flex items-center justify-center border border-[#C9A227]/30" aria-hidden="true">
                        <Target className="text-[#C9A227]" size={20} />
                     </div>
-                    <p className="text-white text-xs uppercase tracking-widest font-bold">Ideal For</p>
+                    <h3 className="text-white text-xs uppercase tracking-widest font-bold m-0">Ideal For</h3>
                   </div>
-                  <div className="space-y-3 mb-auto relative z-10">
+                  <ul className="space-y-3 mb-auto relative z-10">
                     {currentApt.idealFor.map((persona, idx) => (
-                      <motion.div 
+                      <motion.li 
                         key={idx} 
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: idx * 0.1 + 0.4 }}
                         className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 text-sm text-white/80 hover:bg-white/5 transition-colors flex items-center gap-3"
                       >
-                        <div className="w-1 h-1 rounded-full bg-white/30" />
+                        <div className="w-1 h-1 rounded-full bg-white/30" aria-hidden="true" />
                         {persona}
-                      </motion.div>
+                      </motion.li>
                     ))}
-                  </div>
+                  </ul>
                   
                   <button 
                     onClick={() => openModal({ title: `Explore ${currentApt.type} Availability`, source: 'ApartmentShowcase' })}
                     className="w-full mt-8 py-5 rounded-2xl bg-[#C9A227] text-dark font-black tracking-widest uppercase hover:bg-white transition-all duration-500 flex items-center justify-center gap-3 group relative overflow-hidden z-10 shadow-[0_15px_40px_rgba(201,162,39,0.4)] hover:shadow-[0_20px_50px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95"
+                    aria-label={`Enquire about ${currentApt.type} apartments`}
                   >
                     <span className="relative z-10">Enquire Now</span>
-                    <ChevronRight size={18} className="group-hover:translate-x-2 transition-transform relative z-10" />
-                    <div className="absolute inset-0 bg-white/40 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+                    <ChevronRight size={18} className="group-hover:translate-x-2 transition-transform relative z-10" aria-hidden="true" />
+                    <div className="absolute inset-0 bg-white/40 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" aria-hidden="true" />
                   </button>
                 </div>
               </TiltCard>
-            </div>
+            </aside>
 
-          </motion.div>
+          </motion.article>
         </AnimatePresence>
       </div>
     </section>

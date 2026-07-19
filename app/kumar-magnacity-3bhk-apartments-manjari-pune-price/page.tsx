@@ -14,6 +14,18 @@ export const metadata: Metadata = {
   title: '3BHK Apartments in Manjari Pune | Kumar Magnacity 1053 sqft @ ₹92.99L',
   description: 'Experience grandeur with premium 3BHK apartments at Kumar Magnacity in Manjari, Pune. Expansive 1053 sqft layouts priced from ₹92.99L. Ideal for growing families.',
   keywords: '3BHK apartments Manjari Pune, Kumar Magnacity 3BHK, luxury 3BHK flats Pune, 1053 sqft apartments',
+  openGraph: {
+    title: '3BHK Apartments in Manjari Pune | Kumar Magnacity',
+    description: 'Expansive 1053 sqft 3BHK apartments starting at ₹92.99L in Manjari, Pune. Ideal for growing families.',
+    url: 'https://kumarmagnacitytownship.com/kumar-magnacity-3bhk-apartments-manjari-pune-price',
+  },
+  alternates: {
+    canonical: 'https://kumarmagnacitytownship.com/kumar-magnacity-3bhk-apartments-manjari-pune-price',
+    languages: {
+      'en-IN': 'https://kumarmagnacitytownship.com/kumar-magnacity-3bhk-apartments-manjari-pune-price',
+      'mr-IN': 'https://kumarmagnacitytownship.com/mr/kumar-magnacity-3bhk-apartments-manjari-pune-price'
+    }
+  }
 };
 
 export default function ThreeBHKPage() {

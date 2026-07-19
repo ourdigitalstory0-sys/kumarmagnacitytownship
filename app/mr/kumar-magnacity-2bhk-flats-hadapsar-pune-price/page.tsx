@@ -14,6 +14,18 @@ export const metadata: Metadata = {
   title: 'हडपसर पुणे मध्ये २ बीएचके फ्लॅट | कुमार मॅग्नासिटी ७५७ चौ.फू. @ ₹६७.९९ लाख',
   description: 'कुमार मॅग्नासिटीमध्ये तुमचे स्वप्नातील २ बीएचके घर बुक करा. ७५७ चौ.फू.चे प्रशस्त फ्लॅट्स फक्त ₹६७.९९ लाखांपासून सुरू. आयटी प्रोफेशनल्स आणि कुटुंबांसाठी योग्य.',
   keywords: 'हडपसर पुणे 2BHK फ्लॅट्स, कुमार मॅग्नासिटी 2BHK किंमत, मगरपट्टा जवळ 2BHK अपार्टमेंट, 757 चौ.फू. फ्लॅट्स पुणे',
+  openGraph: {
+    title: 'हडपसर पुणे मध्ये २ बीएचके फ्लॅट | कुमार मॅग्नासिटी',
+    description: '७५७ चौ.फू.चे प्रशस्त फ्लॅट्स फक्त ₹६७.९९ लाखांपासून सुरू. आयटी प्रोफेशनल्स आणि कुटुंबांसाठी योग्य.',
+    url: 'https://kumarmagnacitytownship.com/mr/kumar-magnacity-2bhk-flats-hadapsar-pune-price',
+  },
+  alternates: {
+    canonical: 'https://kumarmagnacitytownship.com/mr/kumar-magnacity-2bhk-flats-hadapsar-pune-price',
+    languages: {
+      'en-IN': 'https://kumarmagnacitytownship.com/kumar-magnacity-2bhk-flats-hadapsar-pune-price',
+      'mr-IN': 'https://kumarmagnacitytownship.com/mr/kumar-magnacity-2bhk-flats-hadapsar-pune-price'
+    }
+  }
 };
 
 export default function TwoBHKPageMarathi() {

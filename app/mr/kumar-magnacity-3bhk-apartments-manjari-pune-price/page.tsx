@@ -14,6 +14,18 @@ export const metadata: Metadata = {
   title: 'मांजरी पुणे मध्ये ३ बीएचके अपार्टमेंट | कुमार मॅग्नासिटी १०५३ चौ.फू. @ ₹९२.९९ लाख',
   description: 'मांजरी, पुणे येथील कुमार मॅग्नासिटीमध्ये प्रीमियम ३ बीएचके अपार्टमेंट्सचा अनुभव घ्या. ₹९२.९९ लाखांपासून प्रशस्त १०५३ चौ.फू. लेआउट्स. वाढत्या कुटुंबांसाठी आदर्श.',
   keywords: '3BHK अपार्टमेंट्स मांजरी पुणे, कुमार मॅग्नासिटी 3BHK, लक्झरी 3BHK फ्लॅट्स पुणे, 1053 चौ.फू. अपार्टमेंट्स',
+  openGraph: {
+    title: 'मांजरी पुणे मध्ये ३ बीएचके अपार्टमेंट | कुमार मॅग्नासिटी',
+    description: '₹९२.९९ लाखांपासून प्रशस्त १०५३ चौ.फू. लेआउट्स. वाढत्या कुटुंबांसाठी आदर्श.',
+    url: 'https://kumarmagnacitytownship.com/mr/kumar-magnacity-3bhk-apartments-manjari-pune-price',
+  },
+  alternates: {
+    canonical: 'https://kumarmagnacitytownship.com/mr/kumar-magnacity-3bhk-apartments-manjari-pune-price',
+    languages: {
+      'en-IN': 'https://kumarmagnacitytownship.com/kumar-magnacity-3bhk-apartments-manjari-pune-price',
+      'mr-IN': 'https://kumarmagnacitytownship.com/mr/kumar-magnacity-3bhk-apartments-manjari-pune-price'
+    }
+  }
 };
 
 export default function ThreeBHKPageMarathi() {

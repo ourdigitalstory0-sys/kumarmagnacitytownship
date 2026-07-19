@@ -14,6 +14,18 @@ export const metadata: Metadata = {
   title: '2BHK Flats in Hadapsar Pune | Kumar Magnacity 757 sqft @ ₹67.99L',
   description: 'Book your dream 2BHK flat in Hadapsar, Pune at Kumar Magnacity. Spacious 757 sqft layouts starting at just ₹67.99L. Perfect for young professionals and families.',
   keywords: '2BHK flats in Hadapsar Pune, Kumar Magnacity 2BHK price, 2BHK apartments near Magarpatta, 757 sqft flats Pune',
+  openGraph: {
+    title: '2BHK Flats in Hadapsar Pune | Kumar Magnacity',
+    description: 'Spacious 757 sqft layouts starting at just ₹67.99L. Perfect for young professionals and families.',
+    url: 'https://kumarmagnacitytownship.com/kumar-magnacity-2bhk-flats-hadapsar-pune-price',
+  },
+  alternates: {
+    canonical: 'https://kumarmagnacitytownship.com/kumar-magnacity-2bhk-flats-hadapsar-pune-price',
+    languages: {
+      'en-IN': 'https://kumarmagnacitytownship.com/kumar-magnacity-2bhk-flats-hadapsar-pune-price',
+      'mr-IN': 'https://kumarmagnacitytownship.com/mr/kumar-magnacity-2bhk-flats-hadapsar-pune-price'
+    }
+  }
 };
 
 export default function TwoBHKPage() {

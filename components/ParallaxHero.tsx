@@ -42,13 +42,14 @@ export default function ParallaxHero({
       <motion.div 
         style={{ y: yBackground, scale: scaleBackground }}
         className="absolute inset-0 z-0"
+        aria-hidden="true"
       >
         {imagePath ? (
           <>
             <div className="absolute inset-0 bg-dark/70 z-10" />
             <img 
               src={imagePath} 
-              alt={title}
+              alt=""
               className="w-full h-full object-cover"
             />
           </>
@@ -64,7 +65,7 @@ export default function ParallaxHero({
       </motion.div>
 
       {/* Content layer */}
-      <motion.div 
+      <motion.header 
         style={{ y: yText, opacity: opacityText }}
         className="relative z-10 container mx-auto px-6 text-center"
       >
@@ -76,11 +77,12 @@ export default function ParallaxHero({
             "inline-flex items-center gap-2 px-6 py-2 rounded-full border bg-opacity-10 backdrop-blur-md text-[10px] md:text-xs uppercase tracking-[0.4em] mb-8 shadow-2xl",
             isGold ? "border-accent/30 bg-accent/10 text-accent" : "border-primary/40 bg-primary/20 text-white"
           )}
+          role="doc-subtitle"
         >
           <div className={cn(
             "w-2 h-2 rounded-full animate-pulse-slow",
             isGold ? "bg-accent shadow-[0_0_10px_rgba(201,162,39,0.8)]" : "bg-primary shadow-[0_0_10px_rgba(10,77,60,0.8)]"
-          )} />
+          )} aria-hidden="true" />
           {badge}
         </motion.div>
         
@@ -109,10 +111,10 @@ export default function ParallaxHero({
         >
           {subtitle}
         </motion.p>
-      </motion.div>
+      </motion.header>
 
       {/* Fade out gradient at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent z-20 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent z-20 pointer-events-none" aria-hidden="true" />
     </section>
   );
 }
