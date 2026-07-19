@@ -3,6 +3,7 @@ import { Playfair_Display, Outfit } from "next/font/google";
 import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
 import EnquiryModal from "@/components/EnquiryModal";
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 
 export const runtime = "nodejs";
 
@@ -78,6 +79,9 @@ export const metadata: Metadata = {
     icon: "/assets/favicon.png",
     apple: "/assets/apple-touch-icon.png",
   },
+  verification: {
+    google: "PLACEHOLDER_GOOGLE_VERIFICATION_ID",
+  },
 };
 
 export default function RootLayout({
@@ -88,6 +92,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfair.variable} ${outfit.variable} antialiased`}>
+        {/* Google Tag Manager (Loads asynchronously without blocking rendering) */}
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX'} />
+        {/* Google Analytics 4 */}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'} />
+        
         {/* Deployment V2.3.1 - Restoration Fix */}
         <ModalProvider>
           {children}
