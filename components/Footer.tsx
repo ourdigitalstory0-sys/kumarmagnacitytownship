@@ -90,7 +90,10 @@ export default function Footer() {
         {/* Institutional Footnote */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
           <div className="space-y-2">
-             <p className="text-[10px] text-accent font-bold uppercase tracking-[0.3em]">MAHARERA REG. NO: P52100052096</p>
+             <div className="flex items-center gap-3">
+               <ShieldCheck size={20} className="text-accent" />
+               <p className="text-[10px] text-accent font-bold uppercase tracking-[0.3em]">MAHARERA REG. NO: P52100052096 | P52100054476</p>
+             </div>
              <p className="text-[9px] text-white/20 uppercase tracking-widest">Available at maharera.mahaonline.gov.in</p>
           </div>
           <div className="text-center md:text-right">

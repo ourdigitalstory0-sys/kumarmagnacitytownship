@@ -71,7 +71,7 @@ export default function Home() {
           >
             <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass-obsidian border border-accent/40 text-accent font-bold text-[10px] md:text-[11px] uppercase tracking-[0.4em] backdrop-blur-3xl shadow-2xl mx-auto ring-1 ring-white/10">
                <Gem size={14} className="animate-pulse" />
-               RERA: P52100052096 // PHASE 1 AUTH
+               RERA: P52100052096 | P52100054476
             </div>
             
             <div className="space-y-6">
@@ -189,7 +189,7 @@ export default function Home() {
             dark
             badge="Premium Residences"
             title="Elevated<br/>Township Living."
-            subtitle="Beyond bungalow plots — experience world-class 2BHK & 3BHK apartments within the same 150-acre master-planned ecosystem."
+            subtitle="Beyond bungalow plots — experience world-class G+30 High-Rise 2BHK & 3BHK apartments within the same 150-acre master-planned ecosystem."
             className="mb-24"
           />
           

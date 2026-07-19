@@ -102,6 +102,10 @@ export default function ApartmentPriceMatrix() {
                 {priceComparison.insight}
               </p>
             </div>
+            <div className="p-4 bg-dark/50 flex justify-between items-center text-xs text-white/50 border-t border-white/5 uppercase tracking-widest font-bold px-6">
+               <span>STATUS: UNDER CONSTRUCTION</span>
+               <span className="text-accent">POSSESSION: DEC 2028</span>
+            </div>
           </motion.div>
           
         </div>
