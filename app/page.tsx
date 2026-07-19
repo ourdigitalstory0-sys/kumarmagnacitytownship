@@ -149,6 +149,7 @@ export default function Home() {
             loop
             muted
             playsInline
+            preload="metadata"
             poster="/assets/hero-bg.jpg"
             className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity"
           >

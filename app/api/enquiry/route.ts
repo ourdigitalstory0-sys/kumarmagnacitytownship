@@ -7,6 +7,20 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
+    // 0. Hardened Cross-Origin Spam Protection
+    const origin = request.headers.get("origin") || "";
+    const referer = request.headers.get("referer") || "";
+    const isLocalhost = origin.includes("localhost") || referer.includes("localhost");
+    const isDomain = origin.includes("kumarmagnacitytownship.com") || referer.includes("kumarmagnacitytownship.com");
+    
+    if (process.env.NODE_ENV === "production" && !isDomain) {
+      console.warn("Blocked potential spam bot from origin:", origin);
+      return NextResponse.json(
+        { success: false, error: "Unauthorized cross-origin request" },
+        { status: 403 }
+      );
+    }
+
     // 1. Validate Schema with Zod
     const validation = EnquirySchema.safeParse(body);
     if (!validation.success) {
