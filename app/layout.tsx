@@ -32,7 +32,10 @@ export const metadata: Metadata = {
     "2bhk 3bhk flats near magarpatta", "apartments pune east", "kumar magnacity township",
     "Pune Real Estate Market", "Flats in Hadapsar", "Apartments near Kharadi IT Park",
     "Flats near Fursungi SP Infocity", "Pune East Property", "Kumar Magnacity Manjari",
-    "2BHK near EON IT Park", "3BHK near World Trade Center Pune", "Real Estate Investment Pune East"
+    "2BHK near EON IT Park", "3BHK near World Trade Center Pune", "Real Estate Investment Pune East",
+    "Kumar Magnacity 2BHK Price", "Kumar Magnacity 3BHK Floor Plan", "Luxury 2 BHK in Pune East",
+    "G+30 High-Rise Apartments Pune", "Flats near Pune Solapur Highway", "Under Construction Flats in Hadapsar",
+    "Best ROI Properties in Manjari", "MahaRERA Approved Projects Pune", "Flats with Clubhouse in Hadapsar"
   ],
   robots: {
     index: true,

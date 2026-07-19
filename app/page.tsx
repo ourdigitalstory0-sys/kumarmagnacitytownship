@@ -39,8 +39,60 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, [openModal]);
 
+  // MASS KEYWORD INJECTION VIA FAQ SCHEMA
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the price of 2BHK flats in Kumar Magnacity Hadapsar Pune?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The price for premium 2BHK flats in Kumar Magnacity (Manjari, near Hadapsar, Pune) starts from ₹67.99 Lakhs onwards for a spacious 757 sq.ft carpet area."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are there luxury 3BHK apartments available near EON IT Park or Kharadi?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Kumar Magnacity offers expansive 1053 sq.ft 3BHK apartments starting at ₹92.99 Lakhs, strategically located near major IT hubs like EON IT Park, Kharadi, and Magarpatta City."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Kumar Magnacity Township MahaRERA approved?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Kumar Magnacity is fully MahaRERA approved with registration numbers P52100052096 and P52100054476, ensuring complete legal transparency for real estate investment in Pune East."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the possession date for the G+30 high-rise towers in Manjari?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The targeted possession date for the new G+30 high-rise luxury apartments at Kumar Magnacity is December 2028."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is Manjari considered the best ROI location in Pune East real estate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Due to its proximity to the upcoming Pune Ring Road, Solapur Highway, and saturated IT hubs like Magarpatta and SP Infocity, Manjari offers excellent capital appreciation and high rental yields for 2BHK and 3BHK homes."
+        }
+      }
+    ]
+  };
+
   return (
     <main ref={containerRef} className="min-h-screen bg-light selection:bg-accent/30">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       
       {/* 1. CINEMATIC HERO 2.0 */}

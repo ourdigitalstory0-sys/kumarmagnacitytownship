@@ -3,11 +3,14 @@
 import Link from "next/link";
 import { useModal } from "@/lib/modal-context";
 import { Phone, Mail, MapPin, Globe, ShieldCheck } from "lucide-react";
+import SemanticKeywordsCloud from "./SemanticKeywordsCloud";
 
 export default function Footer() {
   const { openModal } = useModal();
   return (
-    <footer className="bg-dark text-white pt-24 md:pt-32 pb-12 relative overflow-hidden">
+    <>
+      <SemanticKeywordsCloud />
+      <footer className="bg-dark text-white pt-24 md:pt-32 pb-12 relative overflow-hidden">
       {/* Cinematic Branding Layer */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
@@ -102,5 +105,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }
