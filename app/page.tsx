@@ -87,11 +87,56 @@ export default function Home() {
     ]
   };
 
+  // KNOWLEDGE GRAPH ORGANIZATION & REAL ESTATE LISTING SCHEMA
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": ["RealEstateAgent", "Organization"],
+    "name": "Kumar Properties",
+    "url": "https://kumarmagnacitytownship.com",
+    "logo": "https://kumarmagnacitytownship.com/assets/favicon.png",
+    "description": "Kumar Properties is Pune's leading real estate developer with a 59-year legacy, developing Kumar Magnacity—a premium 150-acre township in Manjari, Hadapsar.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kumar Magnacity, Manjari Khurd, Hadapsar Annexe",
+      "addressLocality": "Pune",
+      "addressRegion": "Maharashtra",
+      "postalCode": "412307",
+      "addressCountry": "IN"
+    },
+    "sameAs": [
+      "https://www.kumarrealty.in/"
+    ]
+  };
+
+  const townshipSchema = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    "name": "Kumar Magnacity Township",
+    "description": "150-Acre integrated township featuring NA Bungalow Plots and G+30 High-Rise 2BHK & 3BHK premium apartments.",
+    "url": "https://kumarmagnacitytownship.com",
+    "image": "https://kumarmagnacitytownship.com/assets/hero-bg.jpg",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "INR",
+      "lowPrice": "6799000",
+      "highPrice": "10800000",
+      "offerCount": "200"
+    }
+  };
+
   return (
     <main ref={containerRef} className="min-h-screen bg-light selection:bg-accent/30">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(townshipSchema) }}
       />
       <Header />
       
