@@ -1,77 +1,99 @@
-import { Metadata } from "next";
-import PillarTemplate from "@/components/PillarTemplate";
-import SectionHeader from "@/components/SectionHeader";
-import AdvancedEnquiryForm from "@/components/AdvancedEnquiryForm";
-import ApartmentShowcase from "@/components/ApartmentShowcase";
-import Link from "next/link";
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import SovereignBar from '@/components/SovereignBar';
+import AdvancedEnquiryForm from '@/components/AdvancedEnquiryForm';
+import ApartmentPriceMatrix from '@/components/ApartmentPriceMatrix';
+import FloorPlanViewer from '@/components/FloorPlanViewer';
+import ParallaxHero from '@/components/ParallaxHero';
+import PersonaDeepDive from '@/components/PersonaDeepDive';
+import { Users, Expand, Shield, Trees } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "मांजरी पुणे मध्ये ३ बीएचके अपार्टमेंट | कुमार मॅग्नासिटी १०५३ चौ.फू. @ ₹९२.९९ लाख",
-  description: "कुमार मॅग्नासिटीमधील प्रशस्त ३ बीएचके अपार्टमेंट्स. मांजरी आणि हडपसर जवळ लक्झरी घरे. १०५३ चौ.फू. क्षेत्रफळ, किंमत ₹९२.९९ लाखांपासून.",
-  keywords: ["3 BHK apartments Manjari", "Kumar Magnacity 3 BHK", "Pune premium flats", "३ बीएचके अपार्टमेंट", "मांजरी पुणे"],
-  alternates: {
-    canonical: "https://kumarmagnacity-pune.in/mr/kumar-magnacity-3bhk-apartments-manjari-pune-price",
-    languages: {
-      "en-IN": "https://kumarmagnacity-pune.in/kumar-magnacity-3bhk-apartments-manjari-pune-price",
-      "mr-IN": "https://kumarmagnacity-pune.in/mr/kumar-magnacity-3bhk-apartments-manjari-pune-price"
-    }
-  }
+  title: 'मांजरी पुणे मध्ये ३ बीएचके अपार्टमेंट | कुमार मॅग्नासिटी १०५३ चौ.फू. @ ₹९२.९९ लाख',
+  description: 'मांजरी, पुणे येथील कुमार मॅग्नासिटीमध्ये प्रीमियम ३ बीएचके अपार्टमेंट्सचा अनुभव घ्या. ₹९२.९९ लाखांपासून प्रशस्त १०५३ चौ.फू. लेआउट्स. वाढत्या कुटुंबांसाठी आदर्श.',
+  keywords: '3BHK अपार्टमेंट्स मांजरी पुणे, कुमार मॅग्नासिटी 3BHK, लक्झरी 3BHK फ्लॅट्स पुणे, 1053 चौ.फू. अपार्टमेंट्स',
 };
 
-export default function ThreeBHKMarathi() {
+export default function ThreeBHKPageMarathi() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'RealEstateListing',
+    name: 'कुमार मॅग्नासिटी येथे लक्झरी ३ बीएचके अपार्टमेंट्स',
+    description: 'मांजरी, पुणे येथे ₹९२.९९ लाखांपासून सुरू होणारे १०५३ चौ.फू. चे प्रशस्त ३ बीएचके अपार्टमेंट्स.',
+    offers: {
+      '@type': 'Offer',
+      price: '9299000',
+      priceCurrency: 'INR'
+    }
+  };
+
+  const personaFeatures = [
+    {
+      title: "प्रशस्त १०५३ चौ.फू. जागा",
+      description: "मोठ्या आकाराच्या खोल्यांमुळे कुटुंबातील प्रत्येकाला स्वतःची खाजगी जागा मिळते, तसेच कौटुंबिक संमेलनासाठी भव्य सामायिक जागाही मिळते.",
+      icon: <Expand size={24} />
+    },
+    {
+      title: "मल्टी-जनरेशनल राहणीमान",
+      description: "३ प्रशस्त बेडरूम आणि २ अटॅच्ड बाथरूम्ससह डिझाइन केलेले, हे एकत्र कुटुंबांसाठी किंवा वृद्ध पालकांना सोबत ठेवणाऱ्या जोडप्यांसाठी योग्य आहे.",
+      icon: <Users size={24} />
+    },
+    {
+      title: "सुरक्षित, गेटेड इकोसिस्टम",
+      description: "तुमच्या मुलांना मुक्तपणे खेळू द्या. २४/७ बहु-स्तरीय सुरक्षा, व्हिडिओ डोअर फोन आणि पादचाऱ्यांसाठी अनुकूल झोनसह, हे एक सुरक्षित आश्रयस्थान आहे.",
+      icon: <Shield size={24} />
+    },
+    {
+      title: "निसर्ग तुमच्या दारात",
+      description: "२६ एकरांच्या हिरवळीवर आणि निसर्गरम्य मार्गांवर दिसणाऱ्या विस्तीर्ण बाल्कनींमुळे तुमचे कुटुंब स्वच्छ हवा घेईल आणि निसर्गाच्या संपर्कात राहील.",
+      icon: <Trees size={24} />
+    }
+  ];
+
   return (
-    <PillarTemplate
-      title="३ बीएचके लक्झरी अपार्टमेंट्स"
-      subtitle="तुमच्या कुटुंबासाठी एक प्रशस्त आणि आरामदायक ३ बीएचके घर, ₹९२.९९ लाखांपासून."
-      badgeText="१०५३ चौ.फू. | प्रीमियम लाइफस्टाइल"
-      isMarathi={true}
-    >
-      <section className="py-16 md:py-24 bg-dark">
-        <div className="container mx-auto px-4">
-          <SectionHeader 
-            title="३ बीएचके अपार्टमेंटची वैशिष्ट्ये"
-            subtitle="विस्तीर्ण जागा आणि लक्झरी"
-          />
-          <div className="mt-12 text-light space-y-6 max-w-4xl mx-auto text-lg leading-relaxed">
-            <p>
-              कुमार मॅग्नासिटी मधील ३ बीएचके अपार्टमेंट्स मोठ्या कुटुंबांसाठी डिझाइन केले आहेत. १०५३ चौ.फू. च्या या विस्तीर्ण घरांमध्ये तुम्हाला मोकळी आणि हवेशीर जागा मिळते.
-            </p>
-            <p>
-              या प्रीमियम घरांमध्ये उत्कृष्ट दर्जाचे बांधकाम आणि उच्च दर्जाच्या सुविधा देण्यात आल्या आहेत. बाल्कनीमधून मिळणारे निसर्गरम्य दृश्य तुमच्या घराची शोभा आणखी वाढवते.
-            </p>
-            <p>
-              मांजरी मधील हे ३ बीएचके अपार्टमेंट्स हडपसर आणि प्रमुख आयटी पार्क्सपासून अत्यंत जवळ आहेत. येथे तुम्हाला शहराच्या गजबजाटापासून दूर, पण सर्व आवश्यक सुविधांच्या जवळ राहण्याचा अनुभव मिळेल.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-dark">
-        {/* The ApartmentShowcase likely uses named export or default. The previous files used named import. Let me stick to what works. I'll change it to { ApartmentShowcase } in the next edit or leave it as it was if both are valid. */}
-        <ApartmentShowcase />
-      </section>
-
-      <section className="py-16 md:py-24 bg-light/5">
-        <div className="container mx-auto px-4">
-          <AdvancedEnquiryForm isMarathi={true} />
-        </div>
-      </section>
+    <main className="bg-dark min-h-screen text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       
-      <section className="py-12 bg-dark border-t border-white/10">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap gap-6 justify-center">
-            <Link href="/mr/kumar-magnacity-2bhk-3bhk-apartments-manjari-pune" className="text-accent hover:text-white transition-colors">
-              प्रकल्पाची माहिती
-            </Link>
-            <Link href="/mr/kumar-magnacity-2bhk-flats-hadapsar-pune-price" className="text-accent hover:text-white transition-colors">
-              २ बीएचके फ्लॅट्स
-            </Link>
-            <Link href="/mr/kumar-magnacity-floor-plan-2bhk-3bhk" className="text-accent hover:text-white transition-colors">
-              फ्लोर प्लॅन
-            </Link>
-          </div>
+      <Header />
+      
+      <ParallaxHero 
+        title="प्रीमियम ३ बीएचके अपार्टमेंट्स"
+        subtitle="₹९२.९९ लाखांपासून सुरू होणारे १०५३ चौ.फू. चे प्रशस्त लेआउट्स"
+        badge="टाऊनशिप जीवनशैली"
+        accentColor="green"
+      />
+
+      <PersonaDeepDive 
+        personaTitle="वाढत्या कुटुंबांचे सुरक्षित आश्रयस्थान."
+        personaSubtitle="जिथे जागा, सुरक्षा आणि जागतिक दर्जाच्या सुविधा एकत्र येऊन तुमच्या प्रियजनांसाठी परिपूर्ण वातावरण तयार करतात."
+        features={personaFeatures}
+        accentColor="green"
+      />
+
+      <div className="bg-dark py-12 relative z-20">
+        <div className="container mx-auto px-4 max-w-7xl space-y-24">
+          <ApartmentPriceMatrix />
+          <FloorPlanViewer />
+          
+          <section className="glass-obsidian rounded-[2.5rem] p-8 md:p-12 border border-white/10">
+            <h3 className="text-3xl font-bold mb-6 font-heading text-primary">अधिक एक्सप्लोर करा</h3>
+            <ul className="list-disc pl-6 space-y-4 text-white/70">
+              <li><Link href="/mr/kumar-magnacity-2bhk-3bhk-apartments-manjari-pune" className="hover:text-primary transition-colors">मुख्य अपार्टमेंट शोकेसवर परत जा</Link></li>
+              <li><Link href="/mr/kumar-magnacity-2bhk-flats-hadapsar-pune-price" className="hover:text-primary transition-colors">काहीतरी कॉम्पॅक्ट शोधत आहात? आमचे २ बीएचके पहा</Link></li>
+              <li><Link href="/mr/kumar-magnacity-specifications-apartments" className="hover:text-primary transition-colors">तपशीलवार वैशिष्ट्यांचे पुनरावलोकन करा</Link></li>
+            </ul>
+          </section>
         </div>
-      </section>
-    </PillarTemplate>
+      </div>
+
+      <div className="relative z-20 bg-dark py-24">
+         <AdvancedEnquiryForm />
+      </div>
+
+      <Footer />
+      <SovereignBar />
+    </main>
   );
 }

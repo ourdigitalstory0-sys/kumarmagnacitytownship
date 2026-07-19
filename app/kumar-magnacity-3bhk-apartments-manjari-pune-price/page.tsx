@@ -1,9 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import PillarTemplate from '@/components/PillarTemplate';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import SovereignBar from '@/components/SovereignBar';
 import AdvancedEnquiryForm from '@/components/AdvancedEnquiryForm';
 import ApartmentPriceMatrix from '@/components/ApartmentPriceMatrix';
 import FloorPlanViewer from '@/components/FloorPlanViewer';
+import ParallaxHero from '@/components/ParallaxHero';
+import PersonaDeepDive from '@/components/PersonaDeepDive';
+import { Users, Expand, Shield, Trees } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: '3BHK Apartments in Manjari Pune | Kumar Magnacity 1053 sqft @ ₹92.99L',
@@ -24,43 +29,71 @@ export default function ThreeBHKPage() {
     }
   };
 
+  const personaFeatures = [
+    {
+      title: "Expansive 1053 sq.ft. Canvas",
+      description: "Generously sized rooms ensure that everyone in the family has their own private sanctuary, without compromising on grand communal spaces for family gatherings.",
+      icon: <Expand size={24} />
+    },
+    {
+      title: "Multi-Generational Living",
+      description: "Designed with 3 spacious bedrooms and 2 attached baths, it provides the perfect layout for joint families or couples accommodating elderly parents with privacy and dignity.",
+      icon: <Users size={24} />
+    },
+    {
+      title: "Secure, Gated Ecosystem",
+      description: "Let your children roam free. With 24/7 multi-tier security, video door phones, and pedestrian-friendly zones, it's a sanctuary where families thrive safely.",
+      icon: <Shield size={24} />
+    },
+    {
+      title: "Nature at Your Doorstep",
+      description: "Panoramic balconies overlooking 26 acres of lush greens and botanical trails ensure your family breathes clean air and stays connected to nature.",
+      icon: <Trees size={24} />
+    }
+  ];
+
   return (
-    <PillarTemplate 
-      title="Premium 3BHK Apartments in Manjari, Pune"
-      subtitle="1053 sq.ft. of pure luxury starting at ₹92.99L"
-    >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    <main className="bg-dark min-h-screen text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      
+      <Header />
+      
+      <ParallaxHero 
+        title="Premium 3BHK Apartments"
+        subtitle="Expansive 1053 sq.ft. layouts starting at ₹92.99L"
+        badge="TOWNSHIP LIVING"
+        accentColor="green"
       />
 
-      <section className="py-12 glass-obsidian my-8 rounded-[2.5rem] p-8">
-        <h2 className="text-4xl font-bold mb-6 var(--font-heading) text-accent">Elevate Your Lifestyle with Our 3BHK Homes</h2>
-        <p className="mb-4 text-lg">
-          Designed for growing families who desire space and sophistication, our <strong>3BHK apartments in Manjari, Pune</strong> offer a sprawling 1053 sqft of carpet area. 
-          Priced from ₹92.99L, these residences represent the pinnacle of luxury living in East Pune.
-        </p>
-        <p className="mb-4 text-lg">
-          Each 3BHK unit features a grand master bedroom, expansive living areas, and premium finishes that reflect your success. 
-          Experience a lifestyle upgrade at Kumar Magnacity.
-        </p>
-      </section>
+      <PersonaDeepDive 
+        personaTitle="The Growing Family's Sanctuary."
+        personaSubtitle="Where space, security, and world-class amenities converge to create the perfect environment for your loved ones."
+        features={personaFeatures}
+        accentColor="green"
+      />
 
-      <ApartmentPriceMatrix />
-      <FloorPlanViewer />
+      <div className="bg-dark py-12 relative z-20">
+        <div className="container mx-auto px-4 max-w-7xl space-y-24">
+          <ApartmentPriceMatrix />
+          <FloorPlanViewer />
+          
+          <section className="glass-obsidian rounded-[2.5rem] p-8 md:p-12 border border-white/10">
+            <h3 className="text-3xl font-bold mb-6 font-heading text-primary">Discover More</h3>
+            <ul className="list-disc pl-6 space-y-4 text-white/70">
+              <li><Link href="/kumar-magnacity-2bhk-3bhk-apartments-manjari-pune" className="hover:text-primary transition-colors">Return to Main Apartments Showcase</Link></li>
+              <li><Link href="/kumar-magnacity-2bhk-flats-hadapsar-pune-price" className="hover:text-primary transition-colors">Seeking something compact? View our 2BHKs</Link></li>
+              <li><Link href="/kumar-magnacity-specifications-apartments" className="hover:text-primary transition-colors">Review Detailed Specifications</Link></li>
+            </ul>
+          </section>
+        </div>
+      </div>
 
-      <section className="py-12 glass-white my-8 rounded-[2.5rem] p-8 dark:glass-obsidian">
-        <h3 className="text-3xl font-bold mb-4 var(--font-heading)">Related Pages</h3>
-        <ul className="list-disc pl-6 space-y-2">
-          <li><Link href="/kumar-magnacity-2bhk-3bhk-apartments-manjari-pune" className="text-accent hover:underline">View All Apartments</Link></li>
-          <li><Link href="/kumar-magnacity-2bhk-flats-hadapsar-pune-price" className="text-accent hover:underline">Discover 2BHK Options</Link></li>
-          <li><Link href="/kumar-magnacity-floor-plan-2bhk-3bhk" className="text-accent hover:underline">Detailed Floor Plans</Link></li>
-        </ul>
-      </section>
+      <div className="relative z-20 bg-dark py-24">
+         <AdvancedEnquiryForm />
+      </div>
 
-      <section className="mt-16">
-        <AdvancedEnquiryForm />
-      </section>
-    </PillarTemplate>
+      <Footer />
+      <SovereignBar />
+    </main>
   );
 }
