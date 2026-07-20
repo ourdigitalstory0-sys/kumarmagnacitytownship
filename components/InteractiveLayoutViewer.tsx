@@ -6,6 +6,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Layers, Maximize2, X, Download } from "lucide-react";
 import InteractivePlotGrid from "./InteractivePlotGrid";
+import { useDataLayer } from "@/hooks/useDataLayer";
 
 const LAYOUT_TABS = [
   {
@@ -39,8 +40,15 @@ const LAYOUT_TABS = [
 ];
 
 export default function InteractiveLayoutViewer() {
-  const [activeTab, setActiveTab] = useState(LAYOUT_TABS[0].id);
+  const [activeTab, setActiveTab] = useState("township");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
+  const { trackViewItem } = useDataLayer();
+
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    trackViewItem(tabId, tabId, 'Layout Maps');
+  };
 
   const activeData = LAYOUT_TABS.find(t => t.id === activeTab) || LAYOUT_TABS[0];
 
@@ -80,7 +88,7 @@ export default function InteractiveLayoutViewer() {
             {LAYOUT_TABS.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleTabChange(tab.id)}
                 className={cn(
                   "px-6 py-3 rounded-xl md:rounded-full text-[11px] md:text-sm font-bold uppercase tracking-wider transition-all duration-300",
                   activeTab === tab.id ? "bg-accent text-dark shadow-lg" : "text-white/60 hover:text-white hover:bg-white/5"

@@ -84,7 +84,9 @@ export default function NRIEnquiryForm({
         setStatus("success");
         trackLead({
           lead_type: 'NRI_Enquiry',
-          project: 'Kumar Magnacity'
+          project: 'Kumar Magnacity',
+          email: email,
+          phone: fullPhone
         });
         setTimeout(() => {
           router.push("/kumar-magnacity-na-bungalow-plots-thank-you");
@@ -113,7 +115,9 @@ export default function NRIEnquiryForm({
       setStatus("success");
       trackLead({
         lead_type: 'NRI_Enquiry',
-        project: 'Kumar Magnacity'
+        project: 'Kumar Magnacity',
+        email: email,
+        phone: fullPhone
       });
       setTimeout(() => {
         router.push("/kumar-magnacity-na-bungalow-plots-thank-you");

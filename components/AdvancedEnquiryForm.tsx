@@ -89,7 +89,9 @@ export default function AdvancedEnquiryForm({
         setStatus("success");
         trackLead({
           lead_type: data.intent,
-          project: 'Kumar Magnacity'
+          project: 'Kumar Magnacity',
+          email: data.email,
+          phone: data.phone
         });
         setTimeout(() => {
           router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
@@ -127,7 +129,9 @@ export default function AdvancedEnquiryForm({
       setStatus("success");
       trackLead({
         lead_type: data.intent,
-        project: 'Kumar Magnacity'
+        project: 'Kumar Magnacity',
+        email: data.email,
+        phone: data.phone
       });
       setTimeout(() => {
         router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");

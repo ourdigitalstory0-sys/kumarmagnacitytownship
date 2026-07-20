@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useModal } from "@/lib/modal-context";
+import { useDataLayer } from "@/hooks/useDataLayer";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MapPin, MessageSquare } from "lucide-react";
 import AdvancedEnquiryForm from "./AdvancedEnquiryForm";
@@ -9,6 +10,13 @@ import AdvancedEnquiryForm from "./AdvancedEnquiryForm";
 export default function EnquiryModal() {
   const { isOpen, closeModal, modalData } = useModal();
   const [isMobile, setIsMobile] = useState(false);
+  const { trackBeginCheckout } = useDataLayer();
+
+  useEffect(() => {
+    if (isOpen) {
+      trackBeginCheckout(modalData.source || 'modal');
+    }
+  }, [isOpen, modalData.source, trackBeginCheckout]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);

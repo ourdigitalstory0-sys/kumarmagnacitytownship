@@ -11,13 +11,15 @@ declare global {
   }
 }
 
-type EventName = 'generate_lead' | 'view_item' | 'virtual_page_view' | 'conversion';
+type EventName = 'generate_lead' | 'view_item' | 'add_to_cart' | 'begin_checkout' | 'virtual_page_view' | 'conversion';
 
 interface LeadEventData {
   currency?: string;
   value?: number;
   lead_type?: string;
   project?: string;
+  email?: string;
+  phone?: string;
 }
 
 interface ConversionEventData {
@@ -70,10 +72,47 @@ export function useDataLayer() {
         content_name: data.project || 'Kumar Magnacity'
       });
     }
+
+    // Server-Side Measurement Protocol (Bypass Ad Blockers)
+    if (data.email || data.phone) {
+      fetch('/api/track-conversion', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: 'generate_lead',
+          lead_type: data.lead_type,
+          project: data.project,
+          email: data.email,
+          phone: data.phone
+        })
+      }).catch(err => console.warn('SS-Track Error:', err));
+    }
+  }, [pushToDataLayer]);
+
+  // Micro-Conversion (E-commerce) Methods
+  const trackViewItem = useCallback((itemId: string, itemName: string, category: string = 'Real Estate') => {
+    pushToDataLayer('view_item', {
+      items: [{ item_id: itemId, item_name: itemName, item_category: category }]
+    });
+  }, [pushToDataLayer]);
+
+  const trackAddToCart = useCallback((itemId: string, itemName: string) => {
+    pushToDataLayer('add_to_cart', {
+      items: [{ item_id: itemId, item_name: itemName, item_category: 'Brochure/PriceList' }]
+    });
+  }, [pushToDataLayer]);
+
+  const trackBeginCheckout = useCallback((formName: string) => {
+    pushToDataLayer('begin_checkout', {
+      items: [{ item_id: formName, item_name: formName, item_category: 'Enquiry Form' }]
+    });
   }, [pushToDataLayer]);
 
   return {
     pushToDataLayer,
-    trackLead
+    trackLead,
+    trackViewItem,
+    trackAddToCart,
+    trackBeginCheckout
   };
 }
