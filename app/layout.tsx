@@ -8,6 +8,8 @@ import GoogleConsent from "@/components/GoogleConsent";
 import StructuredData from "@/components/StructuredData";
 import ExitIntentModal from "@/components/ExitIntentModal";
 import ScarcityToasts from "@/components/ScarcityToasts";
+import AIChatWidget from "@/components/AIChatWidget";
+import NRIGeoBanner from "@/components/NRIGeoBanner";
 import MetaPixel from "@/components/MetaPixel";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { Suspense } from "react";
@@ -105,7 +107,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${playfair.variable} ${outfit.variable} antialiased`}>
+      <body className={`${playfair.variable} font-sans antialiased bg-dark`}>
+        <NRIGeoBanner />
         <StructuredData />
         {/* Google Consent Mode V2 (Must be loaded FIRST) */}
         <GoogleConsent />
@@ -124,6 +127,7 @@ export default function RootLayout({
           <EnquiryModal />
           <ExitIntentModal />
           <ScarcityToasts />
+          <AIChatWidget />
           <WhatsAppWidget />
           <Suspense fallback={null}>
             <MetaPixel />
