@@ -9,13 +9,32 @@ import SectionHeader from "@/components/SectionHeader";
 import { useModal } from "@/lib/modal-context";
 import { ArrowRight, Download, MapPin, ShieldCheck, Gem, Sparkles, Building2, Landmark } from "lucide-react";
 
-// Lazy-loaded Below-the-fold components (Reduces First-Load JS payload significantly)
-const AmenityGrid = dynamic(() => import("@/components/AmenityGrid"), { ssr: false });
-const InvestmentMatrix = dynamic(() => import("@/components/InvestmentMatrix"), { ssr: false });
-const InvestmentCalculator = dynamic(() => import("@/components/InvestmentCalculator"), { ssr: false });
-const AdvancedEnquiryForm = dynamic(() => import("@/components/AdvancedEnquiryForm"), { ssr: false });
+// Lazy-loaded Below-the-fold components (Reduces First-Load JS payload significantly, Skeleton loaders prevent CLS)
+const AmenityGrid = dynamic(() => import("@/components/AmenityGrid"), { 
+  ssr: false,
+  loading: () => <div className="w-full h-[600px] bg-white/5 animate-pulse rounded-[3rem]" />
+});
+const InvestmentMatrix = dynamic(() => import("@/components/InvestmentMatrix"), { 
+  ssr: false,
+  loading: () => <div className="w-full h-[400px] bg-dark/5 animate-pulse rounded-[3rem]" />
+});
+const InvestmentCalculator = dynamic(() => import("@/components/InvestmentCalculator"), { 
+  ssr: false,
+  loading: () => <div className="w-full h-[500px] bg-dark/5 animate-pulse rounded-[3rem]" />
+});
+const AdvancedEnquiryForm = dynamic(() => import("@/components/AdvancedEnquiryForm"), { 
+  ssr: false,
+  loading: () => <div className="w-full max-w-2xl mx-auto h-[600px] bg-white/5 animate-pulse rounded-[3rem]" />
+});
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
-const SovereignBar = dynamic(() => import("@/components/SovereignBar"), { ssr: false });
+const SovereignBar = dynamic(() => import("@/components/SovereignBar"), { 
+  ssr: false,
+  loading: () => <div className="w-full h-[80px] bg-dark/5 animate-pulse" />
+});
+const InteractiveLayoutViewer = dynamic(() => import("@/components/InteractiveLayoutViewer"), { 
+  ssr: false,
+  loading: () => <div className="w-full aspect-video md:aspect-[21/9] bg-white/5 animate-pulse rounded-[2rem]" />
+});
 
 export default function Home() {
   const { openModal } = useModal();

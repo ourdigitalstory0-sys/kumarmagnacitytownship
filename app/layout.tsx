@@ -6,6 +6,7 @@ import EnquiryModal from "@/components/EnquiryModal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import MetaPixel from "@/components/MetaPixel";
 import GoogleConsent from "@/components/GoogleConsent";
+import StructuredData from "@/components/StructuredData";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { Suspense } from "react";
 
@@ -103,6 +104,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfair.variable} ${outfit.variable} antialiased`}>
+        <StructuredData />
         {/* Google Consent Mode V2 (Must be loaded FIRST) */}
         <GoogleConsent />
         {/* Google Tag Manager (Loads asynchronously without blocking rendering) */}
