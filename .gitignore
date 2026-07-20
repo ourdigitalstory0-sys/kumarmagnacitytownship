@@ -49,7 +49,6 @@ wrangler.toml
 scratch/
 seo-automation/service_account.json
 *.html
-# data
-/data
+
 /leads-ledger.json
 .env*.local
