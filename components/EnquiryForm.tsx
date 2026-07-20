@@ -70,11 +70,15 @@ export default function EnquiryForm({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          "Form ID": formId,
-          Timestamp: timestamp,
+          name,
+          phone,
+          email,
+          timing,
+          intent,
+          source_url: sourceUrl || window.location.href,
+          form_id: formId,
+          timestamp,
           _subject: `🚨 NEW LEAD: ${name} | ${phone} | Kumar Magnacity`,
-          _captcha: "false",
-          _template: "table",
         }),
       });
 
@@ -160,6 +164,7 @@ export default function EnquiryForm({
       )}
 
       <form id={formId} onSubmit={handleSubmit} className="relative space-y-5">
+        <input type="text" name="_honey" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="group relative">
             <input
