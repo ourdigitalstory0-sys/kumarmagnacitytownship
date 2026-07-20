@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import React from "react";
 import fs from "fs";
 import path from "path";
 import { Resend } from "resend";
 import { sendWhatsAppBrochure } from "@/lib/whatsapp";
+import { renderToBuffer } from "@react-pdf/renderer";
+import { BrochurePDF } from "@/components/BrochurePDF";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
@@ -132,12 +135,21 @@ export async function POST(req: NextRequest) {
           </div>
         `;
         
+        // 3b. Generate Personalized PDF Brochure
+        const pdfBuffer = await renderToBuffer(React.createElement(BrochurePDF, { clientName: data.name || "Valued Client" }));
+
         // Note: For this to work in production, you must verify your domain in Resend and change the 'from' address.
         await resend.emails.send({
           from: 'Kumar Magnacity <onboarding@resend.dev>', // Change to 'info@kumarmagnacitytownship.com' after domain verification
           to: data.email,
           subject: 'Your Official Brochure - Kumar Magnacity',
           html: buyerHtmlContent,
+          attachments: [
+            {
+              filename: `Kumar-Magnacity-Portfolio-${data.name.replace(/\s+/g, '-')}.pdf`,
+              content: pdfBuffer,
+            }
+          ]
         }).catch(e => console.error("Buyer Email Dispatch Failed:", e));
       }
     }
