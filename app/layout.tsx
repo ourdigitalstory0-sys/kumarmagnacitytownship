@@ -27,15 +27,19 @@ export const metadata: Metadata = {
   },
   description: "Kumar Magnacity — Pune's premier 150-acre township at Manjari near Hadapsar. 2BHK apartments from ₹67.99L, 3BHK from ₹92.99L + RERA-approved NA bungalow plots. 50+ amenities, grand clubhouse, 26 acres greens. By Kumar Properties (60-year legacy).",
   keywords: [
-    "kumar magnacity apartments", "2bhk flats hadapsar pune", "3bhk apartments manjri pune", 
-    "kumar magnacity price", "na bungalow plots manjari", "kumar properties pune", 
-    "2bhk 3bhk flats near magarpatta", "apartments pune east", "kumar magnacity township",
-    "Pune Real Estate Market", "Flats in Hadapsar", "Apartments near Kharadi IT Park",
-    "Flats near Fursungi SP Infocity", "Pune East Property", "Kumar Magnacity Manjari",
-    "2BHK near EON IT Park", "3BHK near World Trade Center Pune", "Real Estate Investment Pune East",
-    "Kumar Magnacity 2BHK Price", "Kumar Magnacity 3BHK Floor Plan", "Luxury 2 BHK in Pune East",
-    "G+30 High-Rise Apartments Pune", "Flats near Pune Solapur Highway", "Under Construction Flats in Hadapsar",
-    "Best ROI Properties in Manjari", "MahaRERA Approved Projects Pune", "Flats with Clubhouse in Hadapsar"
+    "Kumar Magnacity Township", "Kumar Magnacity Pune", "Kumar Magnacity Hadapsar", 
+    "Kumar Magnacity Manjari", "Kumar Magnacity Apartments", "Kumar Magnacity Flats", 
+    "Kumar Magnacity Property", "Kumar Magnacity New Launch", "Kumar Magnacity 2 BHK", 
+    "Kumar Magnacity 3 BHK", "Kumar Magnacity property price", "Kumar Magnacity floor plans",
+    "Hadapsar Real Estate", "Hadapsar Property Market", "Flats in Hadapsar", 
+    "Luxury Flats Hadapsar", "Invest in Hadapsar", "Manjari Real Estate", 
+    "Flats in Manjari", "New Projects in Manjari", "East Pune Real Estate", 
+    "East Pune Residential Projects", "Best Township East Pune", "Pune Real Estate", 
+    "Pune Property Market", "Pune Residential Projects", "Pune Township Projects", 
+    "Buy Flat in Hadapsar", "Buy Flat in Manjari", "Buy Apartment Pune", 
+    "Invest in Pune Property", "Best Flats Near Magarpatta", "Property Near EON IT Park", 
+    "Pune Investment Property", "Real Estate Appreciation Pune", "Premium Township Pune",
+    "Pune Metro Real Estate", "Pune Ring Road Real Estate"
   ],
   robots: {
     index: true,

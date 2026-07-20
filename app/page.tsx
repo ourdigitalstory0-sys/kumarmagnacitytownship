@@ -124,6 +124,35 @@ export default function Home() {
     }
   };
 
+  // ADVANCED WEBPAGE SCHEMA FOR MASS MICRO-MARKET INJECTION
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Kumar Magnacity Township | Pune Real Estate Market",
+    "description": "Premium real estate and investment township in Pune East.",
+    "about": [
+      { "@type": "Place", "name": "Hadapsar" },
+      { "@type": "Place", "name": "Manjari" },
+      { "@type": "Place", "name": "Kharadi" },
+      { "@type": "Place", "name": "East Pune" },
+      { "@type": "Place", "name": "Wagholi" },
+      { "@type": "Place", "name": "Magarpatta City" },
+      { "@type": "Place", "name": "SP Infocity" },
+      { "@type": "Place", "name": "EON IT Park" },
+      { "@type": "Place", "name": "Pune Ring Road" }
+    ],
+    "mentions": [
+      { "@type": "Thing", "name": "Pune Real Estate Investment" },
+      { "@type": "Thing", "name": "Luxury Apartments Pune" },
+      { "@type": "Thing", "name": "NA Bungalow Plots" },
+      { "@type": "Thing", "name": "2 BHK Flats" },
+      { "@type": "Thing", "name": "3 BHK Apartments" },
+      { "@type": "Thing", "name": "Commercial Property Pune" },
+      { "@type": "Thing", "name": "High ROI Property" },
+      { "@type": "Thing", "name": "Pune Metro Expansion" }
+    ]
+  };
+
   return (
     <main ref={containerRef} className="min-h-screen bg-light selection:bg-accent/30">
       <script
@@ -137,6 +166,10 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(townshipSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <Header />
       
