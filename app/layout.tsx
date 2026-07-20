@@ -7,6 +7,7 @@ import WhatsAppWidget from "@/components/WhatsAppWidget";
 import MetaPixel from "@/components/MetaPixel";
 import GoogleConsent from "@/components/GoogleConsent";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
+import { Suspense } from "react";
 
 export const runtime = "nodejs";
 
@@ -118,7 +119,9 @@ export default function RootLayout({
           {children}
           <EnquiryModal />
           <WhatsAppWidget />
-          <MetaPixel />
+          <Suspense fallback={null}>
+            <MetaPixel />
+          </Suspense>
         </ModalProvider>
       </body>
     </html>
