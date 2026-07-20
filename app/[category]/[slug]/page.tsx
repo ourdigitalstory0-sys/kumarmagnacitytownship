@@ -40,7 +40,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
        languages: {
           'mr-IN': `https://kumarmagnacitytownship.com/mr/${category}/${slug}/`,
        }
-    }
+    },
+    openGraph: {
+      title: data.title,
+      description: data.description,
+      url: `https://kumarmagnacitytownship.com/${category}/${slug}`,
+      siteName: 'Kumar Magnacity',
+      images: [
+        {
+          url: `https://kumarmagnacitytownship.com/api/og?title=${encodeURIComponent(data.title)}&subtitle=PUNE%20EAST%20REAL%20ESTATE`,
+          width: 1200,
+          height: 630,
+          alt: data.title,
+        }
+      ],
+      type: 'website',
+    },
   };
 }
 

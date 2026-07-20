@@ -30,11 +30,24 @@ export async function generateMetadata({ params }: { params: Promise<{ location:
   
   if (!locationData) return { title: 'Not Found' };
 
+  const cleanLocation = locationData.name;
+
   return {
-    title: `Premium Flats near ${locationData.name} Pune | Kumar Magnacity`,
-    description: `Looking for 2 & 3 BHK flats near ${locationData.name}? Discover Kumar Magnacity, a 150-acre premium township just ${locationData.distance} away.`,
+    title: `Premium NA Bungalow Plots & Flats Near ${cleanLocation}, Pune | Kumar Magnacity`,
+    description: `Looking for flats or plots near ${cleanLocation}? Kumar Magnacity offers 150 acres of premium living. Just minutes away from ${cleanLocation}. Explore pricing and floor plans.`,
     alternates: {
-      canonical: `https://kumarmagnacity.com/flats-near-${resolvedParams.location}`,
+       canonical: `https://kumarmagnacitytownship.com/flats-near-${resolvedParams.location}/`,
+    },
+    openGraph: {
+      title: `Flats Near ${cleanLocation} - Kumar Magnacity`,
+      description: `Explore premium properties near ${cleanLocation}.`,
+      images: [
+        {
+          url: `https://kumarmagnacitytownship.com/api/og?title=${encodeURIComponent(`Properties Near ${cleanLocation}`)}&subtitle=PREMIUM%20TOWNSHIP`,
+          width: 1200,
+          height: 630,
+        }
+      ],
     }
   };
 }
