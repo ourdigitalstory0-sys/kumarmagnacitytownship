@@ -4,6 +4,8 @@ import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
 import EnquiryModal from "@/components/EnquiryModal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import MetaPixel from "@/components/MetaPixel";
+import GoogleConsent from "@/components/GoogleConsent";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 
 export const runtime = "nodejs";
@@ -88,7 +90,7 @@ export const metadata: Metadata = {
     apple: "/assets/apple-touch-icon.png",
   },
   verification: {
-    google: "PLACEHOLDER_GOOGLE_VERIFICATION_ID",
+    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION_ID || "PLACEHOLDER_GOOGLE_VERIFICATION_ID",
   },
 };
 
@@ -100,16 +102,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfair.variable} ${outfit.variable} antialiased`}>
+        {/* Google Consent Mode V2 (Must be loaded FIRST) */}
+        <GoogleConsent />
         {/* Google Tag Manager (Loads asynchronously without blocking rendering) */}
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX'} />
         {/* Google Analytics 4 */}
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'} />
+        {/* Google Ads Global Site Tag */}
+        {process.env.NEXT_PUBLIC_GOOGLE_ADS_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ADS_ID} />
+        )}
         
         {/* Deployment V2.3.1 - Restoration Fix */}
         <ModalProvider>
           {children}
           <EnquiryModal />
           <WhatsAppWidget />
+          <MetaPixel />
         </ModalProvider>
       </body>
     </html>

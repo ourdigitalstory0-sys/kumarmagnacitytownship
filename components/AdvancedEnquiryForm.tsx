@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle2, Loader2, ArrowRight, Download, ShieldCheck, Gem } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { useDataLayer } from "@/hooks/useDataLayer";
 
 interface AdvancedEnquiryFormProps {
   formId?: string;
@@ -25,6 +26,7 @@ export default function AdvancedEnquiryForm({
   buttonText = "Get Details",
 }: AdvancedEnquiryFormProps) {
   const router = useRouter();
+  const { trackLead } = useDataLayer();
   const [step, setStep] = useState(1);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -82,6 +84,10 @@ export default function AdvancedEnquiryForm({
 
       if (response.ok && result.success !== "false") {
         setStatus("success");
+        trackLead({
+          lead_type: data.intent,
+          project: 'Kumar Magnacity'
+        });
         setTimeout(() => {
           router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
         }, 3000);
@@ -115,6 +121,10 @@ export default function AdvancedEnquiryForm({
 
       // Always show success to user regardless — lead was captured via WhatsApp
       setStatus("success");
+      trackLead({
+        lead_type: data.intent,
+        project: 'Kumar Magnacity'
+      });
       setTimeout(() => {
         router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
       }, 3000);

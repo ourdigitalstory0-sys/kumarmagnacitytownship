@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useModal } from "@/lib/modal-context";
 import { useRouter } from "next/navigation";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { useDataLayer } from "@/hooks/useDataLayer";
 import { cn } from "@/lib/utils";
 
 interface EnquiryFormProps {
@@ -25,6 +26,7 @@ export default function EnquiryForm({
 }: EnquiryFormProps) {
   const router = useRouter();
   const { modalData } = useModal();
+  const { trackLead } = useDataLayer();
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -90,6 +92,10 @@ export default function EnquiryForm({
 
       if (response.ok && result.success !== "false") {
         setStatus("success");
+        trackLead({
+          lead_type: intent,
+          project: 'Kumar Magnacity'
+        });
         setTimeout(() => {
           router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
         }, 2000);
@@ -121,6 +127,10 @@ export default function EnquiryForm({
 
       // Always show success — lead captured via WhatsApp
       setStatus("success");
+      trackLead({
+        lead_type: intent,
+        project: 'Kumar Magnacity'
+      });
       setTimeout(() => {
         router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
       }, 2000);
