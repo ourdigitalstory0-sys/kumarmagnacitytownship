@@ -3,7 +3,7 @@
     "silent": true
   },
   "framework": "nextjs",
-  "installCommand": "npm install --legacy-peer-deps",
+  "installCommand": "rm -f package-lock.json && npm install --legacy-peer-deps",
   "buildCommand": "npm run build",
   "headers": [
     {
