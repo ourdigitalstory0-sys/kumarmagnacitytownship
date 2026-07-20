@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Layers, Maximize2, X, Download } from "lucide-react";
+import InteractivePlotGrid from "./InteractivePlotGrid";
 
 const LAYOUT_TABS = [
   {
@@ -108,30 +109,34 @@ export default function InteractiveLayoutViewer() {
                 <p className="text-white/50 mt-2">{activeData.description}</p>
               </div>
 
-              {/* Image Container */}
-              <div 
-                className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden cursor-zoom-in group border border-white/5 bg-black/50"
-                onClick={() => setLightboxImage(activeData.imagePath)}
-              >
-                <Image 
-                  src={activeData.imagePath} 
-                  onError={handleImageError}
-                  alt={activeData.title} 
-                  fill
-                  sizes="(max-width: 768px) 100vw, 80vw"
-                  className="object-contain transition-transform duration-700 group-hover:scale-105"
-                />
-                
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                  <div className="flex flex-col items-center gap-3">
-                    <div className="w-16 h-16 rounded-full bg-accent text-dark flex items-center justify-center">
-                      <Maximize2 size={24} />
+              {/* Image / Grid Container */}
+              {activeTab === "master" ? (
+                <InteractivePlotGrid imagePath={activeData.imagePath} fallbackPath={activeData.fallbackPath} />
+              ) : (
+                <div 
+                  className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden cursor-zoom-in group border border-white/5 bg-black/50"
+                  onClick={() => setLightboxImage(activeData.imagePath)}
+                >
+                  <Image 
+                    src={activeData.imagePath} 
+                    onError={handleImageError}
+                    alt={activeData.title} 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 80vw"
+                    className="object-contain transition-transform duration-700 group-hover:scale-105"
+                  />
+                  
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="w-16 h-16 rounded-full bg-accent text-dark flex items-center justify-center">
+                        <Maximize2 size={24} />
+                      </div>
+                      <span className="text-xs font-bold uppercase tracking-widest text-white drop-shadow-md">Click to Enlarge</span>
                     </div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-white drop-shadow-md">Click to Enlarge</span>
                   </div>
                 </div>
-              </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>

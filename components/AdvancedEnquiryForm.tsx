@@ -16,6 +16,7 @@ interface AdvancedEnquiryFormProps {
   title?: string;
   subtitle?: string;
   buttonText?: string;
+  plotId?: string;
 }
 
 export default function AdvancedEnquiryForm({
@@ -24,6 +25,7 @@ export default function AdvancedEnquiryForm({
   title = "Request Exclusive Access",
   subtitle = "Secure the detailed price list and inventory for Kumar Magnacity.",
   buttonText = "Get Details",
+  plotId,
 }: AdvancedEnquiryFormProps) {
   const router = useRouter();
   const { trackLead } = useDataLayer();
@@ -71,10 +73,11 @@ export default function AdvancedEnquiryForm({
           Email: data.email || "N/A",
           "Visit Timing": data.timing,
           "Investment Goal": data.intent,
+          "Specific Plot": plotId || "Not Specified",
           "Source Page": data.source_url || window.location.href,
           "Form ID": data.form_id || formId,
           Timestamp: timestamp,
-          _subject: `🚨 NEW LEAD: ${data.name} | ${data.phone} | Kumar Magnacity`,
+          _subject: `🚨 NEW LEAD: ${data.name} | ${data.phone} | Plot: ${plotId || "N/A"}`,
           _captcha: "false",
           _template: "table",
         }),
@@ -109,6 +112,7 @@ export default function AdvancedEnquiryForm({
           `✉️ Email: ${data.email || "N/A"}\n` +
           `🕐 Visit: ${data.timing}\n` +
           `🎯 Goal: ${data.intent}\n` +
+          (plotId ? `📍 Plot ID: ${plotId}\n` : "") +
           `📍 Source: ${data.source_url || window.location.href}\n` +
           `⏰ Time: ${timestamp}`
         );
