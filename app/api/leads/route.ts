@@ -40,6 +40,25 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     const leadData = { ...data, timestamp: new Date().toISOString() };
 
+    // 0. Cloudflare Turnstile Bot Protection
+    const turnstileToken = req.headers.get('cf-turnstile-response');
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+    
+    if (turnstileSecret) {
+      if (!turnstileToken) {
+        return NextResponse.json({ success: false, error: "Bot verification failed: No token." }, { status: 403 });
+      }
+      const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${turnstileSecret}&response=${turnstileToken}`,
+      });
+      const verifyOutcome = await verifyRes.json();
+      if (!verifyOutcome.success) {
+        return NextResponse.json({ success: false, error: "Bot verification failed: Invalid token." }, { status: 403 });
+      }
+    }
+
     // 1. Save to Local Ledger
     if (fs.existsSync(LEDGER_PATH)) {
       try {
@@ -76,16 +95,50 @@ export async function POST(req: NextRequest) {
         </div>
       `;
 
-      const { error } = await resend.emails.send({
+      const { error: salesError } = await resend.emails.send({
         from: 'Kumar Magnacity Leads <onboarding@resend.dev>',
         to: SALES_EMAIL,
         subject: emailSubject,
         html: htmlContent,
       });
 
-      if (error) {
-        console.error('Resend Error:', error);
-        return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+      if (salesError) {
+        console.error('Resend Sales Notification Error:', salesError);
+      }
+
+      // 3. Automated Welcome Email to Buyer (Instant Autoresponder)
+      if (data.email) {
+        const buyerHtmlContent = `
+          <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; background-color: #FAFAFA;">
+            <div style="background-color: #111111; padding: 40px; text-align: center; border-radius: 12px 12px 0 0;">
+              <h1 style="color: #C9A227; margin: 0; font-size: 28px; letter-spacing: 4px; text-transform: uppercase; font-weight: 300;">Kumar Magnacity</h1>
+              <p style="color: #FFFFFF; margin-top: 10px; font-size: 14px; letter-spacing: 2px;">THE SOVEREIGN LIVING</p>
+            </div>
+            <div style="background-color: #FFFFFF; padding: 40px; border-radius: 0 0 12px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+              <h2 style="color: #111111; font-size: 24px; margin-top: 0;">Welcome, ${data.name.split(' ')[0]}</h2>
+              <p style="color: #666666; line-height: 1.6; font-size: 16px;">
+                Thank you for your interest in Kumar Magnacity, Manjari's most prestigious 150-acre township. We have received your inquiry.
+              </p>
+              <p style="color: #666666; line-height: 1.6; font-size: 16px;">
+                Our official presentation, including detailed floor plans, master layouts, and investment models, is available for your review.
+              </p>
+              <div style="text-align: center; margin: 40px 0;">
+                <a href="https://kumarmagnacitytownship.com/nri-investment" style="background-color: #C9A227; color: #111111; padding: 16px 32px; text-decoration: none; font-weight: bold; border-radius: 4px; letter-spacing: 1px; display: inline-block;">DOWNLOAD BROCHURE</a>
+              </div>
+              <p style="color: #666666; line-height: 1.6; font-size: 16px; border-top: 1px solid #EEEEEE; padding-top: 24px;">
+                Your dedicated Relationship Manager will contact you shortly on <strong>${data.phone}</strong> to assist with priority allocation.
+              </p>
+            </div>
+          </div>
+        `;
+        
+        // Note: For this to work in production, you must verify your domain in Resend and change the 'from' address.
+        await resend.emails.send({
+          from: 'Kumar Magnacity <onboarding@resend.dev>', // Change to 'info@kumarmagnacitytownship.com' after domain verification
+          to: data.email,
+          subject: 'Your Official Brochure - Kumar Magnacity',
+          html: buyerHtmlContent,
+        }).catch(e => console.error("Buyer Email Dispatch Failed:", e));
       }
     }
 
