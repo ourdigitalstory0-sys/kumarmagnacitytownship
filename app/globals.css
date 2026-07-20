@@ -4,13 +4,13 @@
   --font-heading: var(--font-playfair);
   --font-sans: var(--font-outfit);
   
-  --color-primary: #0F172A; /* Midnight Charcoal */
-  --color-primary-hover: #1E293B;
-  --color-accent: #D4AF37; /* Sovereign Gold */
+  --color-primary: #121212; /* Deep Obsidian */
+  --color-primary-hover: #1A1A1A;
+  --color-accent: #FFD700; /* Radiant Gold for extreme contrast */
   --color-accent-hover: #F3E5AB;
-  --color-dark: #111111; /* Deep Text */
-  --color-light: #FFFFFF; /* Crisp White Panels */
-  --color-light-soft: #F8F9FA; /* Off-White Ivory Body */
+  --color-dark: #050505; /* True Black */
+  --color-light: #1A1A1A; /* Surface Dark */
+  --color-light-soft: #242424; /* Elevated Dark */
 }
 
 @layer base {
@@ -20,8 +20,8 @@
   
   body {
     @apply font-sans;
-    background-color: var(--color-light-soft);
-    color: var(--color-dark);
+    background-color: var(--color-dark);
+    color: #FFFFFF;
   }
 }
 

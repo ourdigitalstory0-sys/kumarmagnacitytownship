@@ -290,31 +290,47 @@ export default function Home() {
               />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div className="space-y-4 p-8 rounded-[2.5rem] bg-light-soft border border-dark/5 hover:border-accent/30 transition-all group">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.4 }}
+                  className="space-y-4 p-8 rounded-[2.5rem] bg-light-soft border border-dark/5 hover:border-accent/30 transition-all group cursor-pointer"
+                >
                    <div className="w-12 h-12 bg-dark rounded-xl flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
                       <Building2 size={24} />
                    </div>
-                   <h4 className="text-xl font-bold text-dark">Established Heritage</h4>
-                   <p className="text-sm text-dark/40 leading-relaxed">Built on Kumar Props&apos; 59-year legacy of delivering high-appreciation assets.</p>
-                </div>
-                <div className="space-y-4 p-8 rounded-[2.5rem] bg-light-soft border border-dark/5 hover:border-accent/30 transition-all group">
+                   <h4 className="text-xl font-bold text-white">Established Heritage</h4>
+                   <p className="text-sm text-white/60 leading-relaxed">Built on Kumar Props&apos; 59-year legacy of delivering high-appreciation assets.</p>
+                </motion.div>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  className="space-y-4 p-8 rounded-[2.5rem] bg-light-soft border border-dark/5 hover:border-accent/30 transition-all group cursor-pointer"
+                >
                    <div className="w-12 h-12 bg-dark rounded-xl flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
                       <ShieldCheck size={24} />
                    </div>
-                   <h4 className="text-xl font-bold text-dark">Complete NA Title</h4>
-                   <p className="text-sm text-dark/40 leading-relaxed">Individual 7/12 extracts and full RERA compliance for 100% legal security.</p>
-                </div>
+                   <h4 className="text-xl font-bold text-white">Complete NA Title</h4>
+                   <p className="text-sm text-white/60 leading-relaxed">Individual 7/12 extracts and full RERA compliance for 100% legal security.</p>
+                </motion.div>
               </div>
 
-              <div className="pt-8">
+              <motion.div 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                className="pt-8"
+              >
                  <button 
                   onClick={() => openModal({ title: "Sector Wise Detailing", source: "Vision Section" })}
-                  className="inline-flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.3em] text-dark hover:text-accent transition-colors group"
+                  className="inline-flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.3em] text-white/60 hover:text-accent transition-colors group"
                  >
                     INTERNAL INFRASTRUCTURE SPECS
                     <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
                  </button>
-              </div>
+              </motion.div>
             </div>
 
             <div className="relative">
@@ -333,10 +349,14 @@ export default function Home() {
                 </div>
               </motion.div>
               {/* Floating Stat */}
-              <div className="absolute -bottom-10 -right-10 z-20 bg-dark text-white p-10 rounded-[3rem] shadow-2xl space-y-2 hidden md:block border border-white/10">
+              <motion.div 
+                animate={{ y: [0, -15, 0] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                className="absolute -bottom-10 -right-10 z-20 bg-dark text-white p-10 rounded-[3rem] shadow-[0_30px_60px_rgba(255,215,0,0.15)] space-y-2 hidden md:block border border-accent/20"
+              >
                  <div className="text-4xl font-heading font-bold text-accent">1700+</div>
-                 <div className="text-[10px] font-bold uppercase tracking-widest opacity-40">SQ.FT PLOTTING STARTING</div>
-              </div>
+                 <div className="text-[10px] font-bold uppercase tracking-widest opacity-60">SQ.FT PLOTTING STARTING</div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -359,9 +379,10 @@ export default function Home() {
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6 }}
-              className="group relative bg-white/[0.03] border border-white/10 rounded-[3rem] p-10 md:p-14 space-y-8 hover:border-accent/30 transition-all duration-500 overflow-hidden"
+              className="group relative bg-white/[0.03] border border-white/10 rounded-[3rem] p-10 md:p-14 space-y-8 hover:border-accent/50 hover:shadow-[0_20px_80px_rgba(255,215,0,0.1)] transition-all duration-500 overflow-hidden cursor-pointer"
             >
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-accent/10 blur-[80px] rounded-full group-hover:bg-accent/20 transition-all duration-700" />
               <div className="relative z-10 space-y-8">
@@ -394,9 +415,10 @@ export default function Home() {
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="group relative bg-white/[0.03] border border-white/10 rounded-[3rem] p-10 md:p-14 space-y-8 hover:border-accent/30 transition-all duration-500 overflow-hidden"
+              className="group relative bg-white/[0.03] border border-white/10 rounded-[3rem] p-10 md:p-14 space-y-8 hover:border-accent/50 hover:shadow-[0_20px_80px_rgba(255,215,0,0.1)] transition-all duration-500 overflow-hidden cursor-pointer"
             >
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 blur-[80px] rounded-full group-hover:bg-primary/20 transition-all duration-700" />
               <div className="relative z-10 space-y-8">
@@ -498,25 +520,31 @@ export default function Home() {
               ].map((loc, i) => (
                 <motion.div 
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="p-10 rounded-[3rem] bg-light-soft border border-dark/5 transition-all hover:shadow-2xl space-y-4"
+                  transition={{ delay: i * 0.1, type: "spring", stiffness: 300, damping: 20 }}
+                  className="p-10 rounded-[3rem] bg-light-soft border border-dark/5 transition-all hover:shadow-[0_20px_60px_rgba(255,215,0,0.1)] hover:border-accent/40 space-y-4 cursor-pointer"
                 >
-                   <div className="w-12 h-12 mx-auto bg-white rounded-2xl flex items-center justify-center shadow-lg">
+                   <div className="w-12 h-12 mx-auto bg-dark rounded-2xl flex items-center justify-center shadow-lg border border-white/10">
                       {loc.icon}
                    </div>
                    <div className="space-y-1">
-                      <div className="text-2xl font-heading font-bold text-dark">{loc.time}</div>
-                      <div className="text-[10px] font-bold uppercase tracking-widest text-dark/30">{loc.label}</div>
+                      <div className="text-2xl font-heading font-bold text-white">{loc.time}</div>
+                      <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">{loc.label}</div>
                    </div>
                 </motion.div>
               ))}
            </div>
            
            {/* Interactive Google Map Embed (Local SEO Hook) */}
-           <div className="mt-20 w-full h-[400px] md:h-[500px] rounded-[3rem] overflow-hidden border border-dark/5 shadow-2xl relative z-20">
+           <motion.div 
+             initial={{ opacity: 0, scale: 0.95, y: 40 }}
+             whileInView={{ opacity: 1, scale: 1, y: 0 }}
+             transition={{ duration: 0.8, ease: "easeOut" }}
+             className="mt-20 w-full h-[400px] md:h-[500px] rounded-[3rem] overflow-hidden border border-accent/20 shadow-[0_30px_100px_rgba(255,215,0,0.1)] relative z-20 group"
+           >
              <iframe 
                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1m2!1s0x3bc2c14041d86d63%3A0x67bb484d2da6b0d9!2sKumar%20Magnacity!5e0!3m2!1sen!2sin!4v1714902123456!5m2!1sen!2sin" 
                width="100%" 
@@ -526,8 +554,9 @@ export default function Home() {
                loading="lazy" 
                referrerPolicy="no-referrer-when-downgrade"
                title="Kumar Magnacity Master Location Map"
+               className="grayscale group-hover:grayscale-0 transition-all duration-[2s]"
              />
-           </div>
+           </motion.div>
         </div>
       </section>
 
