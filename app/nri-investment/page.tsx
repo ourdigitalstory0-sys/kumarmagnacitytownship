@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NRIEnquiryForm from "@/components/NRIEnquiryForm";
-import { Globe, TrendingUp, Building2, ShieldCheck, Scale, Plane, ArrowRight } from "lucide-react";
+import { Globe, TrendingUp, Building2, ShieldCheck, Scale, Plane, ArrowRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 
 export const metadata: Metadata = {
