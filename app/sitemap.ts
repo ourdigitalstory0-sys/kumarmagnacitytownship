@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import registry from "@/data/seo-registry.json";
 import { SEORegistry } from "@/types/seo";
+import { getInsightSlugs } from '@/lib/markdown';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://kumarmagnacitytownship.com";
@@ -81,6 +82,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  // Insights (Blog) Routes
+  const insightSlugs = getInsightSlugs();
+  const insightRoutes: MetadataRoute.Sitemap = insightSlugs.map((slug) => ({
+    url: `${baseUrl}/insights/${slug.replace(/\.md$/, '')}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+  
+  const insightsIndexRoute: MetadataRoute.Sitemap = [{
+    url: `${baseUrl}/insights`,
+    lastModified: new Date(),
+    changeFrequency: "daily",
+    priority: 0.8,
+  }];
+
   // Combine static and dynamic routes
-  return [...sitemapEntries, ...pSEORoutes];
+  return [...sitemapEntries, ...pSEORoutes, ...insightsIndexRoute, ...insightRoutes];
 }
