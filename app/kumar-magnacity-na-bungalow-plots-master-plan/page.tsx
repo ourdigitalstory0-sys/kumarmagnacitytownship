@@ -2,7 +2,6 @@ import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 import { Compass, Shield, Zap, Droplets, Map } from "lucide-react";
 
-export const runtime = "edge";
 
 export const metadata = {
   title: "150-Acre Master Plan | Kumar Magnacity Township Layout",

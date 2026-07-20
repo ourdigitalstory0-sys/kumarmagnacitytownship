@@ -248,20 +248,26 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-12">
-              <button 
+              <motion.button 
+                whileHover={{ scale: 1.05, boxShadow: "0px 25px 80px rgba(212,175,55,0.4)" }}
+                whileTap={{ scale: 0.95 }}
+                animate={{ boxShadow: ["0px 10px 30px rgba(212,175,55,0.2)", "0px 20px 60px rgba(212,175,55,0.5)", "0px 10px 30px rgba(212,175,55,0.2)"] }}
+                transition={{ boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" } }}
                 onClick={() => openModal({ title: "Sovereign Plot Tour", source: "Hero Primary" })}
-                className="w-full sm:w-auto group bg-accent text-dark px-12 py-5 rounded-full font-black uppercase tracking-[0.25em] text-[11px] shadow-[0_20px_60px_rgba(201,162,39,0.3)] hover:shadow-[0_20px_80px_rgba(201,162,39,0.5)] transition-all flex items-center justify-center gap-3 relative overflow-hidden"
+                className="w-full sm:w-auto group bg-accent text-dark px-12 py-5 rounded-full font-black uppercase tracking-[0.25em] text-[11px] transition-all flex items-center justify-center gap-3 relative overflow-hidden"
               >
                 <span className="relative z-10">EXPLORE MASTERPLAN</span>
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform relative z-10" />
                 <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-              </button>
-              <button 
+              </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.05, boxShadow: "0px 20px 60px rgba(255,255,255,0.1)" }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => openModal({ title: "Instant Brochure Access", source: "Hero Secondary" })}
-                className="w-full sm:w-auto bg-white/5 text-white px-12 py-5 rounded-full font-bold uppercase tracking-[0.25em] text-[11px] hover:bg-white/10 transition-all border border-white/10 backdrop-blur-xl"
+                className="w-full sm:w-auto bg-white/5 text-white px-12 py-5 rounded-full font-bold uppercase tracking-[0.25em] text-[11px] border border-white/10 backdrop-blur-xl transition-all"
               >
                 REQUEST BROCHURE
-              </button>
+              </motion.button>
             </div>
           </motion.div>
         </div>
@@ -291,11 +297,12 @@ export default function Home() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.4 }}
-                  className="space-y-4 p-8 rounded-[2.5rem] bg-light-soft border border-dark/5 hover:border-accent/30 transition-all group cursor-pointer"
+                  initial={{ opacity: 0, y: 60, filter: "blur(10px)" }}
+                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  whileHover={{ scale: 1.05, y: -10, rotateX: 2, rotateY: -2, boxShadow: "0px 30px 100px rgba(212,175,55,0.15)" }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  className="space-y-4 p-8 rounded-[2.5rem] bg-light-soft border border-dark/5 transition-all group cursor-pointer"
                 >
                    <div className="w-12 h-12 bg-dark rounded-xl flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
                       <Building2 size={24} />
@@ -304,11 +311,12 @@ export default function Home() {
                    <p className="text-sm text-white/60 leading-relaxed">Built on Kumar Props&apos; 59-year legacy of delivering high-appreciation assets.</p>
                 </motion.div>
                 <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
-                  className="space-y-4 p-8 rounded-[2.5rem] bg-light-soft border border-dark/5 hover:border-accent/30 transition-all group cursor-pointer"
+                  initial={{ opacity: 0, y: 60, filter: "blur(10px)" }}
+                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  whileHover={{ scale: 1.05, y: -10, rotateX: 2, rotateY: 2, boxShadow: "0px 30px 100px rgba(212,175,55,0.15)" }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="space-y-4 p-8 rounded-[2.5rem] bg-light-soft border border-dark/5 transition-all group cursor-pointer"
                 >
                    <div className="w-12 h-12 bg-dark rounded-xl flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
                       <ShieldCheck size={24} />
@@ -335,13 +343,15 @@ export default function Home() {
 
             <div className="relative">
               <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                className="relative z-10 rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)] group"
+                initial={{ opacity: 0, scale: 0.8, filter: "blur(20px)" }}
+                whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                whileHover={{ scale: 1.02, rotateZ: 1 }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, margin: "-100px" }}
+                className="relative z-10 rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(212,175,55,0.15)] group"
               >
                 <Image src="/assets/plot-layout.jpg" alt="Masterplan" width={1200} height={800} className="w-full h-auto transition-transform duration-[3s] group-hover:scale-110" />
-                <div className="absolute inset-0 bg-dark/20 group-hover:bg-transparent transition-colors" />
+                <div className="absolute inset-0 bg-dark/20 group-hover:bg-dark/40 transition-colors" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                    <div className="bg-white px-8 py-4 rounded-full text-[10px] font-bold tracking-widest uppercase text-dark flex items-center gap-2">
                       VIEW FULL RESOLUTION <Sparkles size={14} className="text-accent" />
@@ -377,12 +387,12 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {/* 2BHK Card */}
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -10, scale: 1.02 }}
+              initial={{ opacity: 0, y: 80, filter: "blur(15px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              whileHover={{ y: -15, scale: 1.02, rotateX: 2, rotateY: -2, boxShadow: "0px 40px 120px rgba(212,175,55,0.25)" }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-              className="group relative bg-white/[0.03] border border-white/10 rounded-[3rem] p-10 md:p-14 space-y-8 hover:border-accent/50 hover:shadow-[0_20px_80px_rgba(255,215,0,0.1)] transition-all duration-500 overflow-hidden cursor-pointer"
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative bg-light border border-white/10 rounded-[3rem] p-10 md:p-14 space-y-8 hover:border-accent/50 transition-all duration-700 overflow-hidden cursor-pointer"
             >
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-accent/10 blur-[80px] rounded-full group-hover:bg-accent/20 transition-all duration-700" />
               <div className="relative z-10 space-y-8">
@@ -413,12 +423,12 @@ export default function Home() {
 
             {/* 3BHK Card */}
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -10, scale: 1.02 }}
+              initial={{ opacity: 0, y: 80, filter: "blur(15px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              whileHover={{ y: -15, scale: 1.02, rotateX: 2, rotateY: 2, boxShadow: "0px 40px 120px rgba(212,175,55,0.25)" }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="group relative bg-white/[0.03] border border-white/10 rounded-[3rem] p-10 md:p-14 space-y-8 hover:border-accent/50 hover:shadow-[0_20px_80px_rgba(255,215,0,0.1)] transition-all duration-500 overflow-hidden cursor-pointer"
+              transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative bg-light border border-white/10 rounded-[3rem] p-10 md:p-14 space-y-8 hover:border-accent/50 transition-all duration-700 overflow-hidden cursor-pointer"
             >
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 blur-[80px] rounded-full group-hover:bg-primary/20 transition-all duration-700" />
               <div className="relative z-10 space-y-8">
@@ -520,12 +530,12 @@ export default function Home() {
               ].map((loc, i) => (
                 <motion.div 
                   key={i}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, type: "spring", stiffness: 300, damping: 20 }}
-                  className="p-10 rounded-[3rem] bg-light-soft border border-dark/5 transition-all hover:shadow-[0_20px_60px_rgba(255,215,0,0.1)] hover:border-accent/40 space-y-4 cursor-pointer"
+                  initial={{ opacity: 0, y: 60, scale: 0.8, filter: "blur(10px)" }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                  whileHover={{ scale: 1.08, y: -15, rotateZ: i % 2 === 0 ? 2 : -2, boxShadow: "0px 30px 100px rgba(212,175,55,0.25)" }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="p-10 rounded-[3rem] bg-light border border-white/5 transition-all hover:border-accent/60 space-y-4 cursor-pointer"
                 >
                    <div className="w-12 h-12 mx-auto bg-dark rounded-2xl flex items-center justify-center shadow-lg border border-white/10">
                       {loc.icon}

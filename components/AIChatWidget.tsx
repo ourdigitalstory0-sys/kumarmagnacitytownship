@@ -91,14 +91,14 @@ export default function AIChatWidget() {
             <div className="p-4 bg-white/5 border-t border-white/10">
               <form onSubmit={handleSubmit} className="flex items-center gap-2 relative">
                 <input
-                  value={input}
+                  value={input || ""}
                   onChange={handleInputChange}
                   placeholder="Ask about pricing, location..."
                   className="w-full bg-dark border border-white/20 rounded-full py-3 pl-4 pr-12 text-sm text-white focus:outline-none focus:border-accent"
                 />
                 <button 
                   type="submit" 
-                  disabled={isLoading || !input.trim()}
+                  disabled={isLoading || !(input || "").trim()}
                   className="absolute right-2 p-2 bg-accent text-dark rounded-full disabled:opacity-50"
                 >
                   <Send size={16} />

@@ -2,7 +2,6 @@ import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 import { MapPin, Plane, Train, Building2, School } from "lucide-react";
 
-export const runtime = "edge";
 
 export const metadata = {
   title: "Strategic Neighborhood & Location | Kumar Magnacity | The Pride of Pune's Rising East",

@@ -99,7 +99,7 @@ export default function AdvancedEnquiryForm({
 
       // If FormSubmit says "false" it needs activation — still show success to user
       // and send via WhatsApp as backup
-      throw new Error(result.message || "FormSubmit not activated");
+      throw new Error("FormSubmit AJAX failed");
     } catch (err: any) {
       console.warn("FormSubmit AJAX failed, using WhatsApp backup:", err.message);
 

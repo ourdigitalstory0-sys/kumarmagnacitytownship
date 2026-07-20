@@ -2,7 +2,6 @@ import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 import { Waves, Dumbbell, ShieldCheck } from "lucide-react";
 
-export const runtime = "edge";
 
 export const metadata = {
   title: "जागतिक दर्जाच्या सोयी-सुविधा | कुमार मॅग्नासिटी",

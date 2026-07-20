@@ -1,7 +1,6 @@
 import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 
-export const runtime = "edge";
 
 export const metadata = {
   title: "मास्टर प्लॅन | १५०-एकर टाउनशिप | कुमार मॅग्नासिटी",

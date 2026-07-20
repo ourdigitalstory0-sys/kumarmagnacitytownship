@@ -2,7 +2,6 @@ import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 import { Sparkles, Waves, Dumbbell, TreePine, Coffee, ShieldCheck } from "lucide-react";
 
-export const runtime = "edge";
 
 export const metadata = {
   title: "World-Class Amenities & Safety | Kumar Magnacity | The Pride of Pune's Rising East",

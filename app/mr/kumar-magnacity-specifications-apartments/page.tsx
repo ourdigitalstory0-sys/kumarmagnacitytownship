@@ -22,8 +22,8 @@ export default function SpecificationsMarathi() {
     <PillarTemplate
       title="प्रकल्पाची वैशिष्ट्ये"
       subtitle="प्रीमियम बांधकाम आणि जागतिक दर्जाच्या सुविधा. तुमच्या प्रत्येक गरजांचा विचार करून बनवलेली घरे."
-      badgeText="उत्कृष्ट दर्जा | प्रीमियम लाइफ"
-      isMarathi={true}
+      
+      
     >
       <section className="py-16 md:py-24 bg-dark">
         <div className="container mx-auto px-4">
@@ -47,7 +47,7 @@ export default function SpecificationsMarathi() {
 
       <section className="py-16 md:py-24 bg-light/5">
         <div className="container mx-auto px-4">
-          <AdvancedEnquiryForm isMarathi={true} />
+          <AdvancedEnquiryForm  />
         </div>
       </section>
       

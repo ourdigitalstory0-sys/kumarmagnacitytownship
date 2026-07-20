@@ -2,7 +2,6 @@ import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 import { TrendingUp, BarChart3, PieChart, ShieldCheck, Landmark } from "lucide-react";
 
-export const runtime = "edge";
 
 export const metadata = {
   title: "Investment Potential | Kumar Magnacity ROI Analysis",

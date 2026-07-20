@@ -4,13 +4,13 @@
   --font-heading: var(--font-playfair);
   --font-sans: var(--font-outfit);
   
-  --color-primary: #121212; /* Deep Obsidian */
-  --color-primary-hover: #1A1A1A;
-  --color-accent: #FFD700; /* Radiant Gold for extreme contrast */
-  --color-accent-hover: #F3E5AB;
-  --color-dark: #050505; /* True Black */
-  --color-light: #1A1A1A; /* Surface Dark */
-  --color-light-soft: #242424; /* Elevated Dark */
+  --color-primary: #1A1814; /* Deep Bronze Obsidian */
+  --color-primary-hover: #2A2620;
+  --color-accent: #D4AF37; /* Metallic Dark Gold */
+  --color-accent-hover: #F9E596; /* Luminous Gold Highlight */
+  --color-dark: #0F0E0C; /* Rich Slate Black */
+  --color-light: #1F1C18; /* Surface Dark Gold-Tinted */
+  --color-light-soft: #2D2924; /* Elevated Dark */
 }
 
 @layer base {
@@ -27,11 +27,11 @@
 
 @layer components {
   .glass-obsidian {
-    @apply bg-dark/60 backdrop-blur-3xl;
+    @apply bg-dark/70 backdrop-blur-3xl border border-accent/10 shadow-[0_8px_32px_rgba(212,175,55,0.05)];
   }
   
   .glass-white {
-    @apply bg-white/60 backdrop-blur-3xl;
+    @apply bg-white/60 backdrop-blur-3xl shadow-[0_8px_32px_rgba(255,255,255,0.1)];
   }
   
   .shine-effect {
@@ -40,7 +40,7 @@
   
   .shine-effect::after {
     content: '';
-    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full;
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-accent/20 to-transparent -translate-x-full;
   }
   
   .shine-effect:hover::after {

@@ -4,8 +4,6 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import { House, Search, ArrowLeft } from "lucide-react";
 
-export const runtime = "edge";
-
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-dark flex flex-col">

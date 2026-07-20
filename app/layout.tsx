@@ -7,7 +7,6 @@ import WhatsAppWidget from "@/components/WhatsAppWidget";
 import GoogleConsent from "@/components/GoogleConsent";
 import StructuredData from "@/components/StructuredData";
 import ExitIntentModal from "@/components/ExitIntentModal";
-import ScarcityToasts from "@/components/ScarcityToasts";
 import AIChatWidget from "@/components/AIChatWidget";
 import NRIGeoBanner from "@/components/NRIGeoBanner";
 import MetaPixel from "@/components/MetaPixel";
@@ -133,7 +132,6 @@ export default function RootLayout({
           {children}
           <EnquiryModal />
           <ExitIntentModal />
-          <ScarcityToasts />
           <AIChatWidget />
           <WhatsAppWidget />
           <Suspense fallback={null}>

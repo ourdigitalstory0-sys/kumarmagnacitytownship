@@ -2,7 +2,6 @@ import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 import { Shield, LandPlot } from "lucide-react";
 
-export const runtime = "edge";
 
 export const metadata = {
   title: "संकल्पना | सोव्हेरीन लाइफस्टाईल | कुमार मॅग्नासिटी",

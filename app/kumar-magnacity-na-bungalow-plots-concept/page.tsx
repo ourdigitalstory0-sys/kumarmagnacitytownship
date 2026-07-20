@@ -2,7 +2,6 @@ import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 import { Shield, MapPin, LandPlot, TrendingUp, Gem, Sparkles } from "lucide-react";
 
-export const runtime = "edge";
 
 export const metadata = {
   title: "The Vision & Concept | Kumar Magnacity | The Pride of Pune's Rising East",

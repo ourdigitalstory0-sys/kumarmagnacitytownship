@@ -23,7 +23,7 @@ export default function LocationAdvantagesMarathi() {
       title="लोकेशन फायदे"
       subtitle="हडपसर, मगरपट्टा आणि खराडी आयटी हबच्या जवळ मोक्याचे ठिकाण."
       badgeText="सुवर्ण मध्य | मांजरी, पुणे"
-      isMarathi={true}
+      
     >
       <section className="py-16 md:py-24 bg-dark">
         <div className="container mx-auto px-4">
@@ -47,7 +47,7 @@ export default function LocationAdvantagesMarathi() {
 
       <section className="py-16 md:py-24 bg-light/5">
         <div className="container mx-auto px-4">
-          <AdvancedEnquiryForm isMarathi={true} />
+          <AdvancedEnquiryForm  />
         </div>
       </section>
       

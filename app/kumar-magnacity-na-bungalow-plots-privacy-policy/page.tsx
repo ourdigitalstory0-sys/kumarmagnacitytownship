@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export const runtime = "edge";
 import { Shield } from "lucide-react";
 
 export const metadata = {

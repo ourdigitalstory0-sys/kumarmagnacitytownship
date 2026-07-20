@@ -2,7 +2,6 @@ import PillarTemplate from "@/components/PillarTemplate";
 import EnquiryForm from "@/components/EnquiryForm";
 import { Building2, Train, Plane, MapPin } from "lucide-react";
 
-export const runtime = "edge";
 
 export const metadata = {
   title: "स्थान आणि परिसर | मांजरी-हडपसर | कुमार मॅग्नासिटी",
