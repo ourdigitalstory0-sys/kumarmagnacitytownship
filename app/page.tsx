@@ -2,15 +2,19 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect } from "react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import SovereignBar from "@/components/SovereignBar";
-import AdvancedEnquiryForm from "@/components/AdvancedEnquiryForm";
 import SectionHeader from "@/components/SectionHeader";
-import AmenityGrid from "@/components/AmenityGrid";
-import InvestmentMatrix from "@/components/InvestmentMatrix";
 import { useModal } from "@/lib/modal-context";
 import { ArrowRight, Download, MapPin, ShieldCheck, Gem, Sparkles, Building2, Landmark } from "lucide-react";
+
+// Lazy-loaded Below-the-fold components (Reduces First-Load JS payload significantly)
+const AmenityGrid = dynamic(() => import("@/components/AmenityGrid"), { ssr: false });
+const InvestmentMatrix = dynamic(() => import("@/components/InvestmentMatrix"), { ssr: false });
+const AdvancedEnquiryForm = dynamic(() => import("@/components/AdvancedEnquiryForm"), { ssr: false });
+const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
+const SovereignBar = dynamic(() => import("@/components/SovereignBar"), { ssr: false });
 
 export default function Home() {
   const { openModal } = useModal();
@@ -294,7 +298,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="relative z-10 rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)] group"
               >
-                <img src="/assets/plot-layout.jpg" alt="Masterplan" className="w-full h-auto transition-transform duration-[3s] group-hover:scale-110" />
+                <Image src="/assets/plot-layout.jpg" alt="Masterplan" width={1200} height={800} className="w-full h-auto transition-transform duration-[3s] group-hover:scale-110" />
                 <div className="absolute inset-0 bg-dark/20 group-hover:bg-transparent transition-colors" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                    <div className="bg-white px-8 py-4 rounded-full text-[10px] font-bold tracking-widest uppercase text-dark flex items-center gap-2">

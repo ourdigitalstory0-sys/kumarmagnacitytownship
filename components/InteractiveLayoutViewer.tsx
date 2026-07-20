@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Layers, Maximize2, X, Download } from "lucide-react";
 
@@ -112,11 +113,13 @@ export default function InteractiveLayoutViewer() {
                 className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden cursor-zoom-in group border border-white/5 bg-black/50"
                 onClick={() => setLightboxImage(activeData.imagePath)}
               >
-                <img 
+                <Image 
                   src={activeData.imagePath} 
                   onError={handleImageError}
                   alt={activeData.title} 
-                  className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 80vw"
+                  className="object-contain transition-transform duration-700 group-hover:scale-105"
                 />
                 
                 {/* Hover Overlay */}

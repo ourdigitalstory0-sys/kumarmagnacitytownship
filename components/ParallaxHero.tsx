@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface ParallaxHeroProps {
@@ -60,9 +61,11 @@ export default function ParallaxHero({
             <source src={videoPath} type="video/mp4" />
           </video>
         ) : imagePath ? (
-          <img 
+          <Image 
             src={imagePath} 
-            alt=""
+            alt="Hero Background"
+            fill
+            priority
             className="w-full h-full object-cover"
           />
         ) : (
