@@ -12,6 +12,7 @@ import { ArrowRight, Download, MapPin, ShieldCheck, Gem, Sparkles, Building2, La
 // Lazy-loaded Below-the-fold components (Reduces First-Load JS payload significantly)
 const AmenityGrid = dynamic(() => import("@/components/AmenityGrid"), { ssr: false });
 const InvestmentMatrix = dynamic(() => import("@/components/InvestmentMatrix"), { ssr: false });
+const InvestmentCalculator = dynamic(() => import("@/components/InvestmentCalculator"), { ssr: false });
 const AdvancedEnquiryForm = dynamic(() => import("@/components/AdvancedEnquiryForm"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
 const SovereignBar = dynamic(() => import("@/components/SovereignBar"), { ssr: false });
@@ -445,6 +446,11 @@ export default function Home() {
              </div>
           </div>
           <InvestmentMatrix />
+          
+          {/* Dynamic Financial Intelligence Calculator */}
+          <div className="mt-24">
+            <InvestmentCalculator />
+          </div>
         </div>
       </section>
 

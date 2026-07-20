@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NRIEnquiryForm from "@/components/NRIEnquiryForm";
+import InvestmentCalculator from "@/components/InvestmentCalculator";
 import { Globe, TrendingUp, Building2, ShieldCheck, Scale, Plane, ArrowRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 
@@ -113,6 +114,17 @@ export default function NRIInvestmentPage() {
                     </p>
                 </div>
             </div>
+        </div>
+      </section>
+
+      {/* 2.5 FINANCIAL INTELLIGENCE */}
+      <section className="py-24 bg-dark">
+        <div className="container-custom">
+            <div className="mb-12 text-center">
+                <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">Capital Allocation Calculator</h2>
+                <p className="text-white/50 max-w-2xl mx-auto">Model your EMI, down payment, and projected appreciation from overseas before making a commitment.</p>
+            </div>
+            <InvestmentCalculator />
         </div>
       </section>
 
