@@ -114,7 +114,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://connect.facebook.net" />
         <link rel="dns-prefetch" href="https://connect.facebook.net" />
       </head>
-      <body className={`${playfair.variable} font-sans antialiased bg-dark text-white`}>
+      <body className={`${playfair.variable} font-sans antialiased`}>
         <NRIGeoBanner />
         <StructuredData />
         {/* Google Consent Mode V2 (Must be loaded FIRST) */}
