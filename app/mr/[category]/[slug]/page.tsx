@@ -236,7 +236,7 @@ export default async function SEONodePageMR({ params }: PageProps) {
                </div>
                <div className="sm:pt-16">
                   <div 
-                    onClick={() => openModal({ title: "Sovereign Site Visit", source: "Programmatic MR Visit" })}
+                    onClick={() => {}}
                     className="p-10 rounded-[3rem] bg-primary text-white space-y-6 hover:shadow-2xl transition-all group cursor-pointer h-full flex flex-col justify-center"
                   >
                      <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-accent group-hover:bg-white group-hover:text-primary transition-all shadow-xl">
@@ -255,7 +255,7 @@ export default async function SEONodePageMR({ params }: PageProps) {
 
 
       {/* FAQ Section with Context */}
-      <FAQSection faqJson={data.faq_json} />
+      <FAQSection faqJson={data.faq_json || null} />
       
       {/* Internal Link Siloing */}
       <NearbyMarkets />

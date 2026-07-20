@@ -6,7 +6,7 @@ import SpecificationGrid from '@/components/SpecificationGrid';
 import LocationAdvantageMap from '@/components/LocationAdvantageMap';
 import ApartmentPriceMatrix from '@/components/ApartmentPriceMatrix';
 import AdvancedEnquiryForm from '@/components/AdvancedEnquiryForm';
-import { apartmentsData } from '@/data/apartments';
+
 
 export const metadata: Metadata = {
   title: 'Kumar Magnacity 2BHK & 3BHK Apartments in Manjari Pune | ₹67.99L Onwards',

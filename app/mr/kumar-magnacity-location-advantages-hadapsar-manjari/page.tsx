@@ -22,7 +22,7 @@ export default function LocationAdvantagesMarathi() {
     <PillarTemplate
       title="लोकेशन फायदे"
       subtitle="हडपसर, मगरपट्टा आणि खराडी आयटी हबच्या जवळ मोक्याचे ठिकाण."
-      badgeText="सुवर्ण मध्य | मांजरी, पुणे"
+      badge="सुवर्ण मध्य | मांजरी, पुणे"
       
     >
       <section className="py-16 md:py-24 bg-dark">

@@ -304,7 +304,7 @@ export default async function SEONodePage({ params }: PageProps) {
       )}
 
       {/* FAQ Section with Context */}
-      <FAQSection faqJson={data.faq_json} />
+      <FAQSection faqJson={data.faq_json || null} />
       
       {/* Internal Link Siloing */}
       <NearbyMarkets />

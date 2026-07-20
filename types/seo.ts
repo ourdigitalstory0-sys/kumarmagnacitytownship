@@ -23,7 +23,7 @@ export interface SEOPageData {
     heading: string;
     paragraph: string;
   }[];
-  faq_json: FAQSchema | null;
+  faq_json?: FAQSchema | null;
 }
 
 export type SEORegistry = Record<string, SEOPageData>;

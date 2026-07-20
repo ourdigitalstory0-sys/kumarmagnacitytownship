@@ -50,7 +50,7 @@ const nextConfig: NextConfig = {
       { old: '/faq', new: '/kumar-magnacity-na-bungalow-plots-faq' },
     ];
 
-    const redirectsList = [];
+    let redirectsList: any[] = [];
 
     // English Redirects
     seoMappings.forEach(mapping => {

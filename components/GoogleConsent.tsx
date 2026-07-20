@@ -6,7 +6,7 @@ export default function GoogleConsent() {
   return (
     <Script
       id="google-consent-v2"
-      strategy="beforeInteractive"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: `
           // Define dataLayer and the gtag function.

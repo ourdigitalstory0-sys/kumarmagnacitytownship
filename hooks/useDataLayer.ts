@@ -5,7 +5,7 @@ import { useCallback } from "react";
 // Define the global window object to accept dataLayer and gtag
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer?: any[];
     gtag: (...args: any[]) => void;
     fbq: (...args: any[]) => void;
   }

@@ -85,7 +85,7 @@ export default function SovereignVault() {
     if (isAuthenticated) {
       fetchLeads();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, fetchLeads]);
 
   const filteredLeads = leads.filter(lead => 
     lead.name.toLowerCase().includes(searchTerm.toLowerCase()) || 

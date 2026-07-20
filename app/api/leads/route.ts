@@ -137,7 +137,7 @@ export async function POST(req: NextRequest) {
         `;
         
         // 3b. Generate Personalized PDF Brochure
-        const pdfBuffer = await renderToBuffer(React.createElement(BrochurePDF, { clientName: data.name || "Valued Client" }));
+        const pdfBuffer = await renderToBuffer(React.createElement(BrochurePDF, { clientName: data.name || "Valued Client" }) as any);
 
         // Note: For this to work in production, you must verify your domain in Resend and change the 'from' address.
         await resend.emails.send({
@@ -177,12 +177,11 @@ export async function POST(req: NextRequest) {
 
     if (googleSheetId && googleEmail && googleKey) {
       try {
-        const jwtClient = new google.auth.JWT(
-          googleEmail, 
-          undefined, 
-          googleKey, 
-          ['https://www.googleapis.com/auth/spreadsheets']
-        );
+        const jwtClient = new google.auth.JWT({
+          email: googleEmail,
+          key: googleKey,
+          scopes: ['https://www.googleapis.com/auth/spreadsheets']
+        });
         const sheets = google.sheets({ version: 'v4', auth: jwtClient });
         await sheets.spreadsheets.values.append({
           spreadsheetId: googleSheetId,
@@ -190,7 +189,7 @@ export async function POST(req: NextRequest) {
           valueInputOption: 'USER_ENTERED',
           requestBody: {
             values: [[
-              timestamp, 
+              leadData.timestamp, 
               data.name, 
               data.phone, 
               data.email || 'N/A', 

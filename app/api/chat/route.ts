@@ -41,7 +41,7 @@ export async function POST(req: Request) {
       messages,
     });
 
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
   } catch (error) {
     console.error("AI Chat Error:", error);
     return NextResponse.json({ error: "Failed to generate AI response." }, { status: 500 });

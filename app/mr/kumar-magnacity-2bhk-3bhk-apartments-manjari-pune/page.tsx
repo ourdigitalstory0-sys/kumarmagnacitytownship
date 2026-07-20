@@ -23,7 +23,7 @@ export default function PrimaryLandingMarathi() {
     <PillarTemplate
       title="कुमार मॅग्नासिटी अपार्टमेंट्स"
       subtitle="मांजरी, पुणे मधील एक प्रीमियम रेसिडेन्शियल प्रकल्प. तुमचे स्वप्नातील घर आता सत्यात."
-      badgeText="लक्झरी २ व ३ बीएचके घरे"
+      badge="लक्झरी २ व ३ बीएचके घरे"
       isMarathi={true}
     >
       <section className="py-16 md:py-24 bg-dark">
@@ -47,12 +47,12 @@ export default function PrimaryLandingMarathi() {
       </section>
 
       <section className="py-16 bg-dark">
-        <ApartmentShowcase isMarathi={true} />
+        <ApartmentShowcase />
       </section>
 
       <section className="py-16 md:py-24 bg-light/5">
         <div className="container mx-auto px-4">
-          <AdvancedEnquiryForm isMarathi={true} />
+          <AdvancedEnquiryForm />
         </div>
       </section>
       

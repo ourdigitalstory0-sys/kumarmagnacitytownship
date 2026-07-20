@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next();
   
   // 1. Edge Geolocation (NRI Personalization)
-  const geo = request.geo?.country || 'UNKNOWN';
+  const geo = request.headers.get('x-vercel-ip-country') || 'UNKNOWN';
   response.headers.set('x-user-geo', geo);
 
   // 2. Protect API routes
@@ -31,7 +31,7 @@ export function middleware(request: NextRequest) {
     }
 
     // IP Rate Limiting
-    const ip = request.headers.get('x-forwarded-for') || request.ip || '127.0.0.1';
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || '127.0.0.1';
     const now = Date.now();
     
     const record = ipMap.get(ip);

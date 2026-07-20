@@ -5,10 +5,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-interface ParallaxHeroProps {
+interface ParallaxHeroProps { badge?: string; 
   title: string;
   subtitle: string;
-  badge: string;
   imagePath?: string;
   videoPath?: string;
   accentColor?: "gold" | "green";

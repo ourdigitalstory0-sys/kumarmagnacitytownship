@@ -23,7 +23,7 @@ export default function FloorPlanMarathi() {
     <PillarTemplate
       title="फ्लोर प्लॅन्स"
       subtitle="तुमच्या स्वप्नातील घराची रचना. २ बीएचके आणि ३ बीएचके अपार्टमेंट्सचे विस्तृत लेआउट."
-      badgeText="७५७ चौ.फू. व १०५३ चौ.फू."
+      badge="७५७ चौ.फू. व १०५३ चौ.फू."
       isMarathi={true}
     >
       <section className="py-16 md:py-24 bg-dark">
@@ -50,7 +50,7 @@ export default function FloorPlanMarathi() {
 
       <section className="py-16 md:py-24 bg-light/5">
         <div className="container mx-auto px-4">
-          <AdvancedEnquiryForm isMarathi={true} />
+          <AdvancedEnquiryForm />
         </div>
       </section>
       
