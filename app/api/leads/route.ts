@@ -6,6 +6,7 @@ import { Resend } from "resend";
 import { sendWhatsAppBrochure } from "@/lib/whatsapp";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { BrochurePDF } from "@/components/BrochurePDF";
+import { google } from "googleapis";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
@@ -166,6 +167,42 @@ export async function POST(req: NextRequest) {
       } catch (webhookError) {
         console.error("CRM Webhook Dispatch Failed:", webhookError);
         // Do not fail the request if webhook fails
+      }
+    }
+    
+    // 4b. Google Sheets CRM Integration
+    const googleSheetId = process.env.GOOGLE_SHEET_ID;
+    const googleEmail = process.env.GOOGLE_CLIENT_EMAIL;
+    const googleKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+
+    if (googleSheetId && googleEmail && googleKey) {
+      try {
+        const jwtClient = new google.auth.JWT(
+          googleEmail, 
+          undefined, 
+          googleKey, 
+          ['https://www.googleapis.com/auth/spreadsheets']
+        );
+        const sheets = google.sheets({ version: 'v4', auth: jwtClient });
+        await sheets.spreadsheets.values.append({
+          spreadsheetId: googleSheetId,
+          range: 'Leads!A:H',
+          valueInputOption: 'USER_ENTERED',
+          requestBody: {
+            values: [[
+              timestamp, 
+              data.name, 
+              data.phone, 
+              data.email || 'N/A', 
+              data.timing || 'N/A', 
+              data.intent || 'N/A', 
+              data.source_url || 'N/A', 
+              data.form_id || 'N/A'
+            ]]
+          }
+        });
+      } catch (sheetErr) {
+        console.error("Google Sheets Sync Failed:", sheetErr);
       }
     }
 

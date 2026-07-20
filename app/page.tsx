@@ -513,6 +513,20 @@ export default function Home() {
                 </motion.div>
               ))}
            </div>
+           
+           {/* Interactive Google Map Embed (Local SEO Hook) */}
+           <div className="mt-20 w-full h-[400px] md:h-[500px] rounded-[3rem] overflow-hidden border border-dark/5 shadow-2xl relative z-20">
+             <iframe 
+               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1m2!1s0x3bc2c14041d86d63%3A0x67bb484d2da6b0d9!2sKumar%20Magnacity!5e0!3m2!1sen!2sin!4v1714902123456!5m2!1sen!2sin" 
+               width="100%" 
+               height="100%" 
+               style={{ border: 0 }} 
+               allowFullScreen={true} 
+               loading="lazy" 
+               referrerPolicy="no-referrer-when-downgrade"
+               title="Kumar Magnacity Master Location Map"
+             />
+           </div>
         </div>
       </section>
 

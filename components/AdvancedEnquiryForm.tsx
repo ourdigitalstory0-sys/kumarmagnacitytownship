@@ -9,6 +9,7 @@ import { Send, CheckCircle2, Loader2, ArrowRight, Download, ShieldCheck, Gem } f
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useDataLayer } from "@/hooks/useDataLayer";
+import { sendGAEvent } from "@next/third-parties/google";
 
 interface AdvancedEnquiryFormProps {
   formId?: string;
@@ -86,6 +87,10 @@ export default function AdvancedEnquiryForm({
           email: data.email,
           phone: data.phone
         });
+        
+        // Push precise Google Ads Conversion Event
+        sendGAEvent({ event: 'conversion', send_to: 'AW-1123456789/AbCd-EfGhiJkLmNo' });
+        
         setTimeout(() => {
           router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
         }, 3000);
@@ -126,6 +131,10 @@ export default function AdvancedEnquiryForm({
         email: data.email,
         phone: data.phone
       });
+      
+      // Push precise Google Ads Conversion Event
+      sendGAEvent({ event: 'conversion', send_to: 'AW-1123456789/AbCd-EfGhiJkLmNo' });
+      
       setTimeout(() => {
         router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
       }, 3000);

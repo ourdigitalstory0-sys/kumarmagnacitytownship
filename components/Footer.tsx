@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useModal } from "@/lib/modal-context";
 import { Phone, Mail, MapPin, Globe, ShieldCheck } from "lucide-react";
 import SemanticKeywordsCloud from "./SemanticKeywordsCloud";
+import SiloInterlinkMatrix from "./SiloInterlinkMatrix";
 
 export default function Footer() {
   const { openModal } = useModal();
   return (
     <>
+      <SiloInterlinkMatrix />
       <SemanticKeywordsCloud />
       <footer className="bg-dark text-white pt-24 md:pt-32 pb-12 relative overflow-hidden">
       {/* Cinematic Branding Layer */}
