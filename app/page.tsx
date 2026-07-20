@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "@/components/Header";
 import SectionHeader from "@/components/SectionHeader";
 import { useModal } from "@/lib/modal-context";
@@ -285,7 +286,7 @@ export default function Home() {
                 align="left"
                 badge="The 150-Acre Vision"
                 title="A City Within <br/> A Sanctuary."
-                subtitle="Integrated within Pune East's most successful residential ecosystem, Kumar Magnacity is not just a layout; it's a future-proofed micro-market designed for the elite."
+                subtitle="Integrated within Pune East&apos;s most successful residential ecosystem, Kumar Magnacity is not just a layout; it's a future-proofed micro-market designed for the elite."
               />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -294,7 +295,7 @@ export default function Home() {
                       <Building2 size={24} />
                    </div>
                    <h4 className="text-xl font-bold text-dark">Established Heritage</h4>
-                   <p className="text-sm text-dark/40 leading-relaxed">Built on Kumar Props' 59-year legacy of delivering high-appreciation assets.</p>
+                   <p className="text-sm text-dark/40 leading-relaxed">Built on Kumar Props&apos; 59-year legacy of delivering high-appreciation assets.</p>
                 </div>
                 <div className="space-y-4 p-8 rounded-[2.5rem] bg-light-soft border border-dark/5 hover:border-accent/30 transition-all group">
                    <div className="w-12 h-12 bg-dark rounded-xl flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
@@ -379,13 +380,13 @@ export default function Home() {
                   <div className="text-3xl font-heading font-bold text-accent">₹67.99L</div>
                   <div className="text-sm text-white/30 pb-1">onwards</div>
                 </div>
-                <a 
+                <Link 
                   href="/kumar-magnacity-2bhk-flats-hadapsar-pune-price"
                   className="inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.25em] text-accent hover:text-white transition-colors group/link"
                 >
                   EXPLORE 2BHK
                   <ArrowRight size={16} className="group-hover/link:translate-x-2 transition-transform" />
-                </a>
+                </Link>
               </div>
             </motion.div>
 
@@ -414,27 +415,27 @@ export default function Home() {
                   <div className="text-3xl font-heading font-bold text-accent">₹92.99L</div>
                   <div className="text-sm text-white/30 pb-1">onwards</div>
                 </div>
-                <a 
+                <Link 
                   href="/kumar-magnacity-3bhk-apartments-manjari-pune-price"
                   className="inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.25em] text-accent hover:text-white transition-colors group/link"
                 >
                   EXPLORE 3BHK
                   <ArrowRight size={16} className="group-hover/link:translate-x-2 transition-transform" />
-                </a>
+                </Link>
               </div>
             </motion.div>
           </div>
 
           {/* Full Apartments CTA */}
           <div className="mt-16 text-center">
-            <a 
+            <Link 
               href="/kumar-magnacity-2bhk-3bhk-apartments-manjari-pune"
               className="inline-flex items-center gap-4 bg-accent text-dark px-12 py-5 rounded-full font-black uppercase tracking-[0.25em] text-[11px] shadow-[0_20px_60px_rgba(201,162,39,0.3)] hover:shadow-[0_20px_80px_rgba(201,162,39,0.5)] transition-all group relative overflow-hidden"
             >
               <span className="relative z-10">VIEW ALL APARTMENTS</span>
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform relative z-10" />
               <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -446,7 +447,7 @@ export default function Home() {
             dark
             badge="Luxury Portfolio"
             title="The Magnum Opus <br/> Social Hub."
-            subtitle="Featuring a ~1 Lakh sq.ft clubhouse and 25+ acres of peripheral greens, Kumar Magnacity redefines the lifestyle of Pune East's IT & Business elite."
+            subtitle="Featuring a ~1 Lakh sq.ft clubhouse and 25+ acres of peripheral greens, Kumar Magnacity redefines the lifestyle of Pune East&apos;s IT & Business elite."
             className="mb-24"
           />
           <AmenityGrid />

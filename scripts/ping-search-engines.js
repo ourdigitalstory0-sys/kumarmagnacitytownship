@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 const https = require('https');
 
 const sitemapUrl = 'https://kumarmagnacitytownship.com/sitemap.xml';

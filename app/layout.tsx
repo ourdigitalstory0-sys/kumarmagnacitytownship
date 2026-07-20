@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     default: "Kumar Magnacity Township | 2BHK & 3BHK Apartments + NA Plots | Manjari Pune",
     template: "%s | Kumar Magnacity Township"
   },
-  description: "Kumar Magnacity — Pune's premier 150-acre township at Manjari near Hadapsar. 2BHK apartments from ₹67.99L, 3BHK from ₹92.99L + RERA-approved NA bungalow plots. 50+ amenities, grand clubhouse, 26 acres greens. By Kumar Properties (60-year legacy).",
+  description: "Kumar Magnacity — Pune&apos;s premier 150-acre township at Manjari near Hadapsar. 2BHK apartments from ₹67.99L, 3BHK from ₹92.99L + RERA-approved NA bungalow plots. 50+ amenities, grand clubhouse, 26 acres greens. By Kumar Properties (60-year legacy).",
   keywords: [
     "Kumar Magnacity Township", "Kumar Magnacity Pune", "Kumar Magnacity Hadapsar", 
     "Kumar Magnacity Manjari", "Kumar Magnacity Apartments", "Kumar Magnacity Flats", 
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     url: "https://kumarmagnacitytownship.com",
     siteName: "Kumar Magnacity Township",
     title: "Kumar Magnacity Township | 2BHK & 3BHK Apartments",
-    description: "Pune's premier 150-acre township at Manjari near Hadapsar. Premium 2BHK & 3BHK flats by Kumar Properties.",
+    description: "Pune&apos;s premier 150-acre township at Manjari near Hadapsar. Premium 2BHK & 3BHK flats by Kumar Properties.",
     images: [
       {
         url: "/assets/hero-bg.jpg",
