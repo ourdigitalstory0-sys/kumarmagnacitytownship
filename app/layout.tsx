@@ -107,6 +107,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Core Web Vitals Resource Hints */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
+        <link rel="dns-prefetch" href="https://connect.facebook.net" />
+      </head>
       <body className={`${playfair.variable} font-sans antialiased bg-dark`}>
         <NRIGeoBanner />
         <StructuredData />
