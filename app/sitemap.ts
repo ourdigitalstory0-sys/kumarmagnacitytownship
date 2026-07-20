@@ -64,5 +64,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
 
-  return sitemapEntries;
+  // Dynamic pSEO Routes (Flats near X)
+  const pSEOLocations = [
+    'magarpatta-city',
+    'kharadi-it-park',
+    'sp-infocity',
+    'viman-nagar',
+    'koregaon-park',
+    'pune-station'
+  ];
+
+  const pSEORoutes: MetadataRoute.Sitemap = pSEOLocations.map((slug) => ({
+    url: `${baseUrl}/flats-near-${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  // Combine static and dynamic routes
+  return [...sitemapEntries, ...pSEORoutes];
 }
