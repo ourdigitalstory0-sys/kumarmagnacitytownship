@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { Resend } from "resend";
+import { sendWhatsAppBrochure } from "@/lib/whatsapp";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
@@ -37,16 +38,14 @@ export async function GET(request: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
+    const leadData = { ...data, timestamp: new Date().toISOString() };
 
     // 1. Save to Local Ledger
     if (fs.existsSync(LEDGER_PATH)) {
       try {
         const fileData = fs.readFileSync(LEDGER_PATH, "utf8");
         const allLeads = JSON.parse(fileData);
-        allLeads.push({
-          ...data,
-          timestamp: new Date().toISOString()
-        });
+        allLeads.push(leadData);
         fs.writeFileSync(LEDGER_PATH, JSON.stringify(allLeads, null, 2));
       } catch (err) {
         console.error("Failed to append to ledger:", err);
@@ -90,7 +89,29 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ success: true, method: resend ? 'resend' : 'ledger_only' });
+    // 4. CRM Webhook Integration (Enterprise Scaling)
+    const webhookUrl = process.env.CRM_WEBHOOK_URL;
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(leadData)
+        });
+      } catch (webhookError) {
+        console.error("CRM Webhook Dispatch Failed:", webhookError);
+        // Do not fail the request if webhook fails
+      }
+    }
+
+    // 5. WhatsApp Automated Brochure Delivery
+    // Fire-and-forget: we don't await this to ensure the API responds instantly to the frontend
+    sendWhatsAppBrochure(data.phone, data.name).catch(console.error);
+
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Lead captured securely via Sovereign Hub.' 
+    });
   } catch (error: any) {
     console.error("Lead API Error:", error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

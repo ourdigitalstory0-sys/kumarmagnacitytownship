@@ -4,9 +4,10 @@ import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
 import EnquiryModal from "@/components/EnquiryModal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
-import MetaPixel from "@/components/MetaPixel";
 import GoogleConsent from "@/components/GoogleConsent";
 import StructuredData from "@/components/StructuredData";
+import ExitIntentModal from "@/components/ExitIntentModal";
+import MetaPixel from "@/components/MetaPixel";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { Suspense } from "react";
 
@@ -120,6 +121,7 @@ export default function RootLayout({
         <ModalProvider>
           {children}
           <EnquiryModal />
+          <ExitIntentModal />
           <WhatsAppWidget />
           <Suspense fallback={null}>
             <MetaPixel />
