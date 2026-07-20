@@ -4,13 +4,13 @@
   --font-heading: var(--font-playfair);
   --font-sans: var(--font-outfit);
   
-  --color-primary: #0A4D3C;
-  --color-primary-hover: #083D2F;
-  --color-accent: #C9A227;
-  --color-accent-hover: #B08D20;
+  --color-primary: #121212;
+  --color-primary-hover: #1A1A1A;
+  --color-accent: #D4AF37;
+  --color-accent-hover: #F3E5AB;
   --color-dark: #050505;
-  --color-light: #F8F9FA;
-  --color-light-soft: #F1F3F5;
+  --color-light: #1A1A1A;
+  --color-light-soft: #242424;
 }
 
 @layer base {
@@ -20,8 +20,8 @@
   
   body {
     @apply font-sans;
-    background-color: var(--color-light);
-    color: var(--color-dark);
+    background-color: var(--color-dark);
+    color: #F8F9FA;
   }
 }
 
