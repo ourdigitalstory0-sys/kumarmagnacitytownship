@@ -145,6 +145,11 @@ export default function Home() {
       "lowPrice": "6799000",
       "highPrice": "10800000",
       "offerCount": "200"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "124"
     }
   };
 
