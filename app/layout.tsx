@@ -7,6 +7,7 @@ import WhatsAppWidget from "@/components/WhatsAppWidget";
 import GoogleConsent from "@/components/GoogleConsent";
 import StructuredData from "@/components/StructuredData";
 import ExitIntentModal from "@/components/ExitIntentModal";
+import ScarcityToasts from "@/components/ScarcityToasts";
 import MetaPixel from "@/components/MetaPixel";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { Suspense } from "react";
@@ -122,6 +123,7 @@ export default function RootLayout({
           {children}
           <EnquiryModal />
           <ExitIntentModal />
+          <ScarcityToasts />
           <WhatsAppWidget />
           <Suspense fallback={null}>
             <MetaPixel />

@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/kumar-magnacity-floor-plan-2bhk-3bhk",
     "/kumar-magnacity-specifications-apartments",
     "/kumar-magnacity-location-advantages-hadapsar-manjari",
+    "/roi-calculator",
   ];
 
   const sitemapEntries: MetadataRoute.Sitemap = [];
