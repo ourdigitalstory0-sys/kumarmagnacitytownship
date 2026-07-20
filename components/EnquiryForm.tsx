@@ -64,22 +64,12 @@ export default function EnquiryForm({
       return;
     }
 
-    // 3. DIRECT BROWSER-TO-FORMSUBMIT AJAX (Server-side fetch is blocked by FormSubmit)
+    // 3. Next.js API Route integration
     try {
-      const response = await fetch("https://formsubmit.co/ajax/propsmartrealty@gmail.com", {
+      const response = await fetch("/api/leads", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          Name: name,
-          Phone: phone,
-          Email: email || "N/A",
-          "Visit Timing": timing,
-          "Investment Goal": intent,
-          "Plot ID": modalData?.plotId || "General",
-          "Source Page": sourceUrl || window.location.href,
           "Form ID": formId,
           Timestamp: timestamp,
           _subject: `🚨 NEW LEAD: ${name} | ${phone} | Kumar Magnacity`,

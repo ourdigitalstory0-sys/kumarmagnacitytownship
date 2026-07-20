@@ -59,14 +59,11 @@ export default function AdvancedEnquiryForm({
     const isMarathi = typeof window !== 'undefined' ? window.location.pathname.includes("/mr") : false;
     const timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
-    // Direct Browser-to-FormSubmit AJAX (the ONLY way FormSubmit works — server-side is blocked)
+    // Next.js API Route integration
     try {
-      const response = await fetch("https://formsubmit.co/ajax/propsmartrealty@gmail.com", {
+      const response = await fetch("/api/leads", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           Name: data.name,
           Phone: data.phone,
@@ -78,14 +75,10 @@ export default function AdvancedEnquiryForm({
           "Form ID": data.form_id || formId,
           Timestamp: timestamp,
           _subject: `🚨 NEW LEAD: ${data.name} | ${data.phone} | Plot: ${plotId || "N/A"}`,
-          _captcha: "false",
-          _template: "table",
         }),
       });
 
-      const result = await response.json().catch(() => ({ success: "false" }));
-
-      if (response.ok && result.success !== "false") {
+      if (response.ok) {
         setStatus("success");
         trackLead({
           lead_type: data.intent,

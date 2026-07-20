@@ -57,11 +57,10 @@ export default function NRIEnquiryForm({
     }
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/propsmartrealty@gmail.com", {
+      const response = await fetch("/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
         },
         body: JSON.stringify({
           Name: name,
