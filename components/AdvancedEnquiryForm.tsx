@@ -9,6 +9,7 @@ import { Send, CheckCircle2, Loader2, ArrowRight, Download, ShieldCheck, Gem } f
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useDataLayer } from "@/hooks/useDataLayer";
+import { submitLead } from "@/lib/submitLead";
 import { sendGAEvent } from "@next/third-parties/google";
 
 interface AdvancedEnquiryFormProps {
@@ -60,26 +61,22 @@ export default function AdvancedEnquiryForm({
     const isMarathi = typeof window !== 'undefined' ? window.location.pathname.includes("/mr") : false;
     const timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
-    // Next.js API Route integration
+    // 3. Dual-delivery API integration (Client direct + Vercel backend)
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          phone: data.phone,
-          email: data.email || "N/A",
-          timing: data.timing,
-          intent: data.intent,
-          plot_id: plotId || "Not Specified",
-          source_url: data.source_url || window.location.href,
-          form_id: data.form_id || formId,
-          timestamp: timestamp,
-          _subject: `🚨 NEW LEAD: ${data.name} | ${data.phone} | Plot: ${plotId || "N/A"}`,
-        }),
+      const isSuccess = await submitLead({
+        name: data.name,
+        phone: data.phone,
+        email: data.email || "N/A",
+        timing: data.timing,
+        intent: data.intent,
+        plot_id: plotId || "Not Specified",
+        source_url: data.source_url || window.location.href,
+        form_id: data.form_id || formId,
+        timestamp: timestamp,
+        _subject: `🚨 NEW LEAD: ${data.name} | ${data.phone} | Plot: ${plotId || "N/A"}`,
       });
 
-      if (response.ok) {
+      if (isSuccess) {
         setStatus("success");
         try {
           trackLead({

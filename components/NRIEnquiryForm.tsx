@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Send, CheckCircle2, AlertCircle, Loader2, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDataLayer } from "@/hooks/useDataLayer";
+import { submitLead } from "@/lib/submitLead";
 
 interface NRIEnquiryFormProps {
   formId?: string;
@@ -57,41 +58,35 @@ export default function NRIEnquiryForm({
     }
 
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          phone: fullPhone,
-          email: email,
-          timezone: timezone,
-          intent: "NRI Investment",
-          source_url: sourceUrl || window.location.href,
-          form_id: formId,
-          timestamp: timestamp,
-          _subject: `🌍 NRI LEAD: ${name} | ${fullPhone}`,
-        }),
+      const isSuccess = await submitLead({
+        name: name,
+        phone: fullPhone,
+        email: email,
+        timezone: timezone,
+        intent: "NRI Investment",
+        source_url: sourceUrl || window.location.href,
+        form_id: formId,
+        timestamp: timestamp,
+        _subject: `🌍 NRI LEAD: ${name} | ${fullPhone}`,
       });
 
-      const result = await response.json().catch(() => ({ success: "false" }));
-
-      if (response.ok && result.success !== "false") {
+      if (isSuccess) {
         setStatus("success");
-        trackLead({
-          lead_type: 'NRI_Enquiry',
-          project: 'Kumar Magnacity',
-          email: email,
-          phone: fullPhone
-        });
+        try {
+          trackLead({
+            lead_type: 'NRI_Enquiry',
+            project: 'Kumar Magnacity',
+            email: email,
+            phone: fullPhone
+          });
+        } catch(e) {}
         setTimeout(() => {
           router.push("/kumar-magnacity-na-bungalow-plots-thank-you");
         }, 3000);
         return;
       }
 
-      throw new Error(result.message || "FormSubmit not activated");
+      throw new Error("Lead submission failed");
     } catch (err: any) {
       console.warn("FormSubmit AJAX failed, using WhatsApp backup:", err.message);
 
@@ -110,12 +105,14 @@ export default function NRIEnquiryForm({
       }
 
       setStatus("success");
-      trackLead({
-        lead_type: 'NRI_Enquiry',
-        project: 'Kumar Magnacity',
-        email: email,
-        phone: fullPhone
-      });
+      try {
+        trackLead({
+          lead_type: 'NRI_Enquiry',
+          project: 'Kumar Magnacity',
+          email: email,
+          phone: fullPhone
+        });
+      } catch(e) {}
       setTimeout(() => {
         router.push("/kumar-magnacity-na-bungalow-plots-thank-you");
       }, 3000);

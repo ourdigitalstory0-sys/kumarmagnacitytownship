@@ -5,6 +5,7 @@ import { useModal } from "@/lib/modal-context";
 import { useRouter } from "next/navigation";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { useDataLayer } from "@/hooks/useDataLayer";
+import { submitLead } from "@/lib/submitLead";
 import { cn } from "@/lib/utils";
 
 interface EnquiryFormProps {
@@ -64,34 +65,30 @@ export default function EnquiryForm({
       return;
     }
 
-    // 3. Next.js API Route integration
+    // 3. Dual-delivery API integration (Client direct + Vercel backend)
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          phone,
-          email,
-          timing,
-          intent,
-          source_url: sourceUrl || window.location.href,
-          form_id: formId,
-          timestamp,
-          _subject: `🚨 NEW LEAD: ${name} | ${phone} | Kumar Magnacity`,
-        }),
+      const isSuccess = await submitLead({
+        name,
+        phone,
+        email,
+        timing,
+        intent,
+        source_url: sourceUrl || window.location.href,
+        form_id: formId,
+        timestamp,
+        _subject: `🚨 NEW LEAD: ${name} | ${phone} | Kumar Magnacity`,
       });
 
-      const result = await response.json().catch(() => ({ success: "false" }));
-
-      if (response.ok && result.success !== "false") {
+      if (isSuccess) {
         setStatus("success");
-        trackLead({
-          lead_type: intent,
-          project: 'Kumar Magnacity',
-          email: email,
-          phone: phone
-        });
+        try {
+          trackLead({
+            lead_type: intent,
+            project: 'Kumar Magnacity',
+            email: email,
+            phone: phone
+          });
+        } catch(e) {}
         setTimeout(() => {
           router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
         }, 2000);
@@ -123,12 +120,14 @@ export default function EnquiryForm({
 
       // Always show success — lead captured via WhatsApp
       setStatus("success");
-      trackLead({
-        lead_type: intent,
-        project: 'Kumar Magnacity',
-        email: email,
-        phone: phone
-      });
+      try {
+        trackLead({
+          lead_type: intent,
+          project: 'Kumar Magnacity',
+          email: email,
+          phone: phone
+        });
+      } catch(e) {}
       setTimeout(() => {
         router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
       }, 2000);
