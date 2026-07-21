@@ -81,15 +81,18 @@ export default function AdvancedEnquiryForm({
 
       if (response.ok) {
         setStatus("success");
-        trackLead({
-          lead_type: data.intent,
-          project: 'Kumar Magnacity',
-          email: data.email,
-          phone: data.phone
-        });
-        
-        // Push precise Google Ads Conversion Event
-        sendGAEvent({ event: 'conversion', send_to: 'AW-1123456789/AbCd-EfGhiJkLmNo' });
+        try {
+          trackLead({
+            lead_type: data.intent,
+            project: 'Kumar Magnacity',
+            email: data.email,
+            phone: data.phone
+          });
+          // Push precise Google Ads Conversion Event
+          sendGAEvent({ event: 'conversion', send_to: 'AW-1123456789/AbCd-EfGhiJkLmNo' });
+        } catch (e) {
+          console.warn("Analytics blocked", e);
+        }
         
         setTimeout(() => {
           router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
@@ -125,15 +128,19 @@ export default function AdvancedEnquiryForm({
 
       // Always show success to user regardless — lead was captured via WhatsApp
       setStatus("success");
-      trackLead({
-        lead_type: data.intent,
-        project: 'Kumar Magnacity',
-        email: data.email,
-        phone: data.phone
-      });
-      
-      // Push precise Google Ads Conversion Event
-      sendGAEvent({ event: 'conversion', send_to: 'AW-1123456789/AbCd-EfGhiJkLmNo' });
+      try {
+        trackLead({
+          lead_type: data.intent,
+          project: 'Kumar Magnacity',
+          email: data.email,
+          phone: data.phone
+        });
+        
+        // Push precise Google Ads Conversion Event
+        sendGAEvent({ event: 'conversion', send_to: 'AW-1123456789/AbCd-EfGhiJkLmNo' });
+      } catch (e) {
+        console.warn("Analytics blocked", e);
+      }
       
       setTimeout(() => {
         router.push(isMarathi ? "/mr/kumar-magnacity-na-bungalow-plots-thank-you" : "/kumar-magnacity-na-bungalow-plots-thank-you");
