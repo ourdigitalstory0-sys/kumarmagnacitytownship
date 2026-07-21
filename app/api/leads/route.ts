@@ -10,7 +10,7 @@ import { google } from "googleapis";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
-const SALES_EMAIL = 'enquiry.kumarmagnacity@gmail.com';
+const SALES_EMAIL = 'propsmartrealty@gmail.com';
 
 export const runtime = "nodejs";
 
