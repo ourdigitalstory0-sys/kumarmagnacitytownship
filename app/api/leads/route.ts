@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Dispatch Sales Notification via Google App Script (GAS)
-    const gasUrl = process.env.GOOGLE_APP_SCRIPT_URL;
+    const gasUrl = process.env.GOOGLE_APP_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbzQF_zr_Sv_arp6GMfwQbM5IinDCNIrLmnvMMnNuiKtPXAa0ZF4Q3iY_pEx5egL69PU/exec";
     if (gasUrl) {
       try {
         await fetch(gasUrl, {
