@@ -75,43 +75,28 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 2. Dispatch Email via Resend
-    if (resend) {
-      const emailSubject = data._subject || `🚨 NEW LEAD: ${data.name} | ${data.phone}`;
-      const htmlContent = `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eaeaec; border-radius: 8px; overflow: hidden;">
-          <div style="background-color: #0A0A0A; padding: 24px; text-align: center;">
-            <h2 style="color: #C9A227; margin: 0; letter-spacing: 2px; text-transform: uppercase;">Kumar Magnacity</h2>
-            <p style="color: #ffffff; margin-top: 8px; font-size: 14px;">New Priority Lead Generated</p>
-          </div>
-          <div style="padding: 32px; background-color: #ffffff;">
-            <table style="width: 100%; border-collapse: collapse;">
-              ${Object.entries(data)
-                .filter(([key]) => !key.startsWith('_'))
-                .map(([key, value]) => `
-                <tr style="border-bottom: 1px solid #f0f0f0;">
-                  <td style="padding: 12px 0; color: #666; font-size: 12px; text-transform: uppercase; font-weight: bold; width: 40%;">${key}</td>
-                  <td style="padding: 12px 0; color: #111; font-size: 14px; font-weight: 500;">${value || 'N/A'}</td>
-                </tr>
-              `).join('')}
-            </table>
-          </div>
-        </div>
-      `;
-
-      const { error: salesError } = await resend.emails.send({
-        from: 'Kumar Magnacity Leads <onboarding@resend.dev>',
-        to: SALES_EMAIL,
-        subject: emailSubject,
-        html: htmlContent,
-      });
-
-      if (salesError) {
-        console.error('Resend Sales Notification Error:', salesError);
+    // 2. Dispatch Sales Notification via Google App Script (GAS)
+    const gasUrl = process.env.GOOGLE_APP_SCRIPT_URL;
+    if (gasUrl) {
+      try {
+        await fetch(gasUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...leadData,
+            _subject: data._subject || `🚨 NEW LEAD: ${data.name} | ${data.phone}`
+          })
+        });
+      } catch (gasError) {
+        console.error("GAS Sales Dispatch Error:", gasError);
       }
+    } else {
+      console.warn("GOOGLE_APP_SCRIPT_URL is not set. Sales email not sent.");
+    }
+
 
       // 3. Automated Welcome Email to Buyer (Instant Autoresponder)
-      if (data.email) {
+      if (resend && data.email) {
         const buyerHtmlContent = `
           <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; background-color: #FAFAFA;">
             <div style="background-color: #111111; padding: 40px; text-align: center; border-radius: 12px 12px 0 0;">
@@ -153,7 +138,6 @@ export async function POST(req: NextRequest) {
           ]
         }).catch(e => console.error("Buyer Email Dispatch Failed:", e));
       }
-    }
 
     // 4. CRM Webhook Integration (Enterprise Scaling)
     const webhookUrl = process.env.CRM_WEBHOOK_URL;
